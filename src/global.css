@@ -1,0 +1,91 @@
+/* global.css */
+:root {
+  /* Colors */
+  --primary: #047857;
+  --primary-hover: #065F46;
+  --primary-light: #ECFDF5;
+  
+  --bg-main: #f3f4f6;
+  --bg-card: #ffffff;
+  --border-color: #d1d5db;
+  --border-focus: #047857;
+  
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --text-on-primary: #ffffff;
+  
+  --color-danger: #ef4444;
+  --color-danger-light: #fee2e2;
+  --color-success: #10b981;
+
+  /* Dribbble Theme Colors */
+  --primary-blue: #1e6091;
+  --primary-blue-light: rgba(30, 96, 145, 0.2);
+  --secondary-blue: #38b6ff;
+  --accent-orange: #ff914d;
+  --text-dark: #0f172a;
+  --text-gray: #64748b;
+  --text-gray-light: #94a3b8;
+  --bg-light: #f8fafc;
+  --border-light: #e2e8f0;
+
+  /* Typography */
+  --font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 32px;
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing (Base unit is 10px) */
+  --spacing-base: 10px;
+  
+  --margin-xs: 5px;
+  --margin-default: var(--spacing-base); /* 10px */
+  --margin-md: calc(var(--spacing-base) * 2); /* 20px */
+  --margin-lg: calc(var(--spacing-base) * 3); /* 30px */
+
+  --padding-xs: 5px;
+  --padding-default: var(--spacing-base); /* 10px */
+  --padding-md: calc(var(--spacing-base) * 1.5); /* 15px */
+  --padding-lg: calc(var(--spacing-base) * 2.5); /* 25px */
+  --padding-xl: calc(var(--spacing-base) * 4); /* 40px */
+
+  /* Borders & Radius */
+  --border-width: 1px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+}
+
+/* Base resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input, button {
+  font-family: inherit;
+  font-size: inherit;
+}

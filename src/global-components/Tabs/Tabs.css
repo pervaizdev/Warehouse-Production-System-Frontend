@@ -1,0 +1,46 @@
+/* Tabs.css */
+
+.global-tab-group-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--margin-xs);
+  padding: var(--padding-xs);
+  background-color: var(--bg-main);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width) solid var(--border-color);
+  width: fit-content;
+}
+
+.global-tab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--margin-xs);
+  padding: var(--padding-xs) var(--padding-default);
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.global-tab-pill:hover {
+  color: var(--text-primary);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.global-tab-pill.active {
+  background-color: var(--bg-card);
+  color: var(--primary);
+  /* Use a flat border instead of box shadow for the active state to adhere to strict flat design */
+  border: var(--border-width) solid var(--border-color);
+  padding: calc(var(--padding-xs) - var(--border-width)) calc(var(--padding-default) - var(--border-width));
+}
+
+.global-tab-icon {
+  display: inline-flex;
+  align-items: center;
+}

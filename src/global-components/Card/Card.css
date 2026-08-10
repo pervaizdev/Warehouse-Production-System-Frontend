@@ -1,0 +1,62 @@
+/* Card.css */
+
+.dome-card-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--margin-md);
+}
+
+@media (min-width: 640px) {
+  .dome-card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+.dome-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+  transition: transform var(--transition-fast);
+}
+
+.dome-card-link:hover {
+  transform: translateY(-2px);
+}
+
+.dome-card {
+  background-color: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--padding-lg);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.dome-card-link:hover .dome-card {
+  border-color: var(--primary);
+  background-color: var(--bg-main);
+}
+
+.dome-card-icon {
+  font-size: var(--font-size-xl);
+  color: var(--primary);
+  margin-bottom: var(--margin-default);
+  display: flex;
+}
+
+.dome-card-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--margin-xs);
+}
+
+.dome-card-desc {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}

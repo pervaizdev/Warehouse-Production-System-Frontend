@@ -1,0 +1,76 @@
+/* Input.css */
+
+.dome-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-xs);
+  width: 100%;
+}
+
+.dome-form-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+}
+
+.dome-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.dome-form-input {
+  width: 100%;
+  padding: var(--padding-default);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+  transition: border-color var(--transition-fast);
+  outline: none;
+}
+
+.dome-form-input--with-right {
+  padding-right: calc(var(--padding-xl) + var(--padding-default)); /* Make room for right element */
+}
+
+.dome-form-input:focus {
+  border-color: var(--border-focus);
+}
+
+.dome-form-input:disabled {
+  background-color: var(--bg-main);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.dome-form-input--error {
+  border-color: var(--color-danger);
+}
+.dome-form-input--error:focus {
+  border-color: var(--color-danger);
+}
+
+.dome-input-right-element {
+  position: absolute;
+  right: var(--padding-xs);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.dome-form-error {
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  margin-top: 2px;
+}
+
+.dome-form-help {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: 2px;
+}
