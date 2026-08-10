@@ -12,13 +12,13 @@ const BarChart = ({ data, dataKey = 'value', xAxisKey = 'name' }) => {
             dataKey={xAxisKey} 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: 'var(--text-gray)', fontSize: 12 }} 
+              tick={{ fill: 'var(--text-secondary)', fontSize: 12 }}
             dy={10}
           />
           <YAxis 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: 'var(--text-gray)', fontSize: 12 }}
+            tick={{ fill: 'var(--text-secondary)', fontSize: 12 }}
           />
           <Tooltip 
             cursor={{ fill: 'transparent' }}
@@ -30,7 +30,7 @@ const BarChart = ({ data, dataKey = 'value', xAxisKey = 'name' }) => {
                 key={`cell-${index}`} 
                 fill={
                   entry.color || 
-                  (index % 2 === 0 ? 'var(--primary-blue-light)' : 'var(--primary-blue)')
+                    (index % 2 === 0 ? 'var(--primary-light)' : 'var(--primary)')
                 } 
               />
             ))}

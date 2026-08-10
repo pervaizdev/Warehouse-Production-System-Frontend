@@ -1,8 +1,8 @@
 .dribbble-sidebar {
   width: 80px;
   min-width: 80px;
-  background-color: var(--bg-card, #ffffff);
-  border-right: 1px solid var(--border-light, #dbdbdb);
+  background-color: var(--bg-card);
+  border-right: var(--border-width) solid var(--border-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: var(--text-dark, #1e293b);
+  background-color: var(--text-primary);
   position: relative;
   display: flex;
   align-items: center;
@@ -32,7 +32,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: var(--accent-orange, #ff914d);
+  background-color: var(--primary);
   position: absolute;
   top: 8px;
   right: 8px;
@@ -60,18 +60,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-gray-light, #94a3b8);
+  color: var(--text-muted);
   transition: all 0.2s ease;
   position: relative;
   text-decoration: none;
 }
 
 .nav-icon-link:hover {
-  color: var(--text-gray, #64748b);
+  color: var(--text-secondary);
 }
 
 .nav-icon-link.active {
-  color: var(--accent-orange, #ff914d); 
+  color: var(--primary);
 }
 
 /* The vertical orange indicator line on the left edge */
@@ -83,14 +83,20 @@
   transform: translateY(-50%);
   width: 4px;
   height: 24px;
-  background-color: var(--accent-orange, #ff914d);
+  background-color: var(--primary);
   border-radius: 0 4px 4px 0;
 }
 
 .nav-icon-link.action-danger {
-  color: var(--color-danger, #ff3131);
+  color: var(--color-danger);
 }
 
 .nav-icon-link.action-danger:hover {
-  color: #d11a2a;
+  color: var(--primary-hover);
+}
+
+.sidebar-logout {
+  border: 0;
+  background: transparent;
+  font: inherit;
 }
