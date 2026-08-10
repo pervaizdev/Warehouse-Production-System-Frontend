@@ -8,5 +8,8 @@ export const API_ENDPOINTS = {
 
   MACHINE_EFFICIENCY: {
     MACHINE_EFFICIENCY: '/machine-efficiency/machine-efficiency',
+    FILTER_OPTIONS: '/machine-efficiency/filter-options',
+    MACHINE_DRILLDOWN: (machineId) => `/machine-efficiency/machine/${machineId}`,
+    ORDER_DRILLDOWN: (orderNum) => `/machine-efficiency/order/${orderNum}`,
   },
 };
