@@ -1,0 +1,96 @@
+.dribbble-sidebar {
+  width: 80px;
+  min-width: 80px;
+  background-color: var(--bg-card, #ffffff);
+  border-right: 1px solid var(--border-light, #dbdbdb);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 24px 0;
+}
+
+.sidebar-logo-container {
+  margin-bottom: 40px;
+}
+
+.logo-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--text-dark, #1e293b);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-accent {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--accent-orange, #ff914d);
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  align-items: center;
+}
+
+.top-nav {
+  flex: 1;
+}
+
+.bottom-nav {
+  margin-top: auto;
+}
+
+.nav-icon-link {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-gray-light, #94a3b8);
+  transition: all 0.2s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-icon-link:hover {
+  color: var(--text-gray, #64748b);
+}
+
+.nav-icon-link.active {
+  color: var(--accent-orange, #ff914d); 
+}
+
+/* The vertical orange indicator line on the left edge */
+.nav-icon-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 24px;
+  background-color: var(--accent-orange, #ff914d);
+  border-radius: 0 4px 4px 0;
+}
+
+.nav-icon-link.action-danger {
+  color: var(--color-danger, #ff3131);
+}
+
+.nav-icon-link.action-danger:hover {
+  color: #d11a2a;
+}

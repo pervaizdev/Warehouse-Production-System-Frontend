@@ -1,0 +1,72 @@
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { 
+  IconLayoutDashboard, 
+  IconChartPie, 
+  IconBox, 
+  IconClipboardList, 
+  IconUsers, 
+  IconTruckDelivery, 
+  IconBuildingWarehouse,
+  IconSettings,
+  IconLogout
+} from '@tabler/icons-react';
+import './Sidebar.css';
+
+const Sidebar = () => {
+  const topMenuItems = [
+    { title: 'Dashboard', icon: <IconLayoutDashboard stroke={1.5} />, path: '/dashboard' },
+    { title: 'Analytics', icon: <IconChartPie stroke={1.5} />, path: '/analytics' },
+    { title: 'Inventory', icon: <IconBox stroke={1.5} />, path: '/inventory' },
+    { title: 'Orders', icon: <IconClipboardList stroke={1.5} />, path: '/orders' },
+    { title: 'Customers', icon: <IconUsers stroke={1.5} />, path: '/customers' },
+    { title: 'Delivery', icon: <IconTruckDelivery stroke={1.5} />, path: '/delivery' },
+    { title: 'Storage', icon: <IconBuildingWarehouse stroke={1.5} />, path: '/storage' },
+  ];
+
+  const bottomMenuItems = [
+    { title: 'Settings', icon: <IconSettings stroke={1.5} />, path: '/settings', isAction: false },
+    { title: 'Logout', icon: <IconLogout stroke={1.5} />, path: '/logout', isAction: true },
+  ];
+
+  return (
+    <aside className="dribbble-sidebar">
+      <div className="sidebar-logo-container">
+        <div className="sidebar-logo">
+          {/* Placeholder for the dark circle logo with orange accent */}
+          <div className="logo-circle">
+            <div className="logo-accent"></div>
+          </div>
+        </div>
+      </div>
+      
+      <nav className="sidebar-nav top-nav">
+        {topMenuItems.map((item, index) => (
+          <NavLink 
+            key={index}
+            to={item.path} 
+            className={({ isActive }) => `nav-icon-link ${isActive ? 'active' : ''}`}
+            title={item.title}
+          >
+            {item.icon}
+          </NavLink>
+        ))}
+      </nav>
+
+      <nav className="sidebar-nav bottom-nav">
+        {bottomMenuItems.map((item, index) => (
+          <NavLink 
+            key={index}
+            to={item.path} 
+            className={({ isActive }) => `nav-icon-link ${item.isAction ? 'action-danger' : ''} ${isActive && !item.isAction ? 'active' : ''}`}
+            title={item.title}
+          >
+            {item.icon}
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
+  );
+};
+
+export default Sidebar;

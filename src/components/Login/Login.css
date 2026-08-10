@@ -1,0 +1,286 @@
+/* Login.css */
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--padding-lg);
+  background-color: var(--border-focus);
+  background-image: url('/warehouse_sketch_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: soft-light;
+}
+
+.login-card-layout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 960px;
+  min-height: 560px;
+  background-color: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+}
+
+/* Visual Panel (Left side) */
+.login-visual-panel {
+  position: relative;
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--padding-xl);
+  background-color: var(--primary-light);
+  border-right: var(--border-width) solid var(--border-color);
+  overflow: hidden;
+}
+
+.visual-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(4, 120, 87, 0.9) 0%, rgba(6, 95, 70, 0.4) 10%);
+  z-index: 1;
+}
+
+.visual-content {
+  position: relative;
+  z-index: 2;
+  color: var(--text-on-primary);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.visual-title {
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 1px;
+}
+
+.visual-subtitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-top: var(--margin-xs);
+  opacity: 0.9;
+}
+
+.badge-container {
+  display: flex;
+  gap: var(--spacing-base);
+  margin-top: var(--margin-md);
+}
+
+.wps-badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--padding-xs) var(--padding-default);
+  background-color: rgba(255, 255, 255, 0.2);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-on-primary);
+}
+
+.warehouse-visual-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Form Panel (Right side) */
+.login-form-panel {
+  flex: 0.9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--padding-xl);
+  background-color: var(--bg-card);
+}
+
+.login-form-header {
+  margin-bottom: var(--margin-lg);
+}
+
+.form-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.form-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-top: var(--margin-xs);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-md);
+}
+
+.login-error-alert {
+  padding: var(--padding-default);
+  background-color: var(--color-danger-light);
+  border: var(--border-width) solid var(--color-danger);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.login-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-xs);
+}
+
+.login-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+}
+
+.password-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+.password-toggle-btn:hover {
+  text-decoration: underline;
+  color: var(--primary-hover);
+}
+
+.login-input {
+  width: 100%;
+  padding: var(--padding-default);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+  transition: border-color var(--transition-fast);
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+}
+
+.login-input:disabled {
+  background-color: var(--bg-main);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.forgot-password-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: -5px;
+  /* fine tune spacing */
+}
+
+.forgot-password-link {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.forgot-password-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.login-submit-btn {
+  width: 100%;
+  padding: var(--padding-default);
+  background-color: var(--primary);
+  color: var(--text-on-primary);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.login-submit-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.login-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-spinner-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-base);
+}
+
+.login-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--text-on-primary);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.login-footer {
+  margin-top: var(--margin-lg);
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .login-container {
+    padding: var(--padding-default);
+  }
+
+  .login-card-layout {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .login-visual-panel {
+    display: none;
+    /* Hide visual panel on mobile screens */
+  }
+
+  .login-form-panel {
+    padding: var(--padding-lg);
+  }
+}

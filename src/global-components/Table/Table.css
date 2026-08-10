@@ -1,0 +1,163 @@
+/* Table.css */
+
+.dome-table-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  width: 100%;
+}
+
+.dome-table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.dome-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: var(--font-size-sm);
+}
+
+.dome-table th {
+  background-color: var(--bg-main);
+  padding: var(--padding-default);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-secondary);
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.dome-table td {
+  padding: var(--padding-default);
+  border-bottom: var(--border-width) solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.dome-table tr:last-child td {
+  border-bottom: none;
+}
+
+.dome-table tr:hover td {
+  background-color: var(--primary-light);
+}
+
+.dome-table-actions-header {
+  text-align: right;
+  width: 150px;
+}
+
+.dome-table-actions {
+  display: flex;
+  gap: var(--margin-xs);
+  justify-content: flex-end;
+}
+
+.dome-table-action-btn {
+  padding: 4px 8px;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  border: var(--border-width) solid transparent;
+  transition: opacity var(--transition-fast);
+}
+
+.dome-table-action-btn:hover {
+  opacity: 0.8;
+}
+
+/* Action button variants based on global rules */
+.dome-table-action-btn--info {
+  background-color: #3b82f6; /* info blue */
+  color: white;
+}
+
+.dome-table-action-btn--list {
+  background-color: var(--text-secondary);
+  color: white;
+}
+
+.dome-table-action-btn--check {
+  background-color: var(--color-success);
+  color: white;
+}
+
+.dome-table-action-btn--delete {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+/* Email classes specified in global rules */
+.dome-table-email-cell {
+  max-width: 200px;
+}
+
+.dome-table-email-short {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.dome-table-email-full {
+  display: none;
+}
+
+.dome-table-empty {
+  text-align: center;
+  padding: var(--padding-xl) !important;
+  color: var(--text-muted) !important;
+}
+
+/* Pagination */
+.dome-table-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding-default);
+  background-color: var(--bg-card);
+  border-top: var(--border-width) solid var(--border-color);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--margin-default);
+}
+
+.pagination-select {
+  padding: 4px 8px;
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: var(--font-size-xs);
+}
+
+.pagination-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--margin-xs);
+}
+
+.pagination-buttons button {
+  padding: 4px 10px;
+  border: var(--border-width) solid var(--border-color);
+  background-color: var(--bg-card);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+}
+
+.pagination-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-buttons button:hover:not(:disabled) {
+  background-color: var(--bg-main);
+}
