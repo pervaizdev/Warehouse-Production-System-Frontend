@@ -1,5 +1,5 @@
-import React from 'react';
-import { IconArrowUpRight, IconArrowDownRight, IconDots, IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruckDelivery } from '@tabler/icons-react';
+import { useState } from 'react';
+import { IconArrowUpRight, IconArrowDownRight, IconDots, IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruckDelivery, IconInbox, IconRefresh } from '@tabler/icons-react';
 import BarChart from '../../global-components/Charts/BarChart';
 import PieChart from '../../global-components/Charts/PieChart';
 import './DashboardPlaceholder.css';
@@ -36,17 +36,34 @@ const pieData = [
   { name: 'Reserved', value: 20, color: 'var(--border-color)' }
 ];
 
-const DataState = ({ loading, hasData, children }) => {
+const DataState = ({ loading, hasData, children, onAction }) => {
   if (loading) return <div className="dashboard-state" role="status">Loading data...</div>;
-  if (!hasData) return <div className="dashboard-state dashboard-state-empty">No data available for this period.</div>;
+  if (!hasData) return (
+    <div className="dashboard-state dashboard-state-empty">
+      <IconInbox size={30} aria-hidden="true" />
+      <strong>No data available</strong>
+      <span>Try changing the selected date range.</span>
+      <button type="button" onClick={onAction}><IconRefresh size={15} /> Refresh view</button>
+    </div>
+  );
   return children;
 };
 
 const DashboardPlaceholder = () => {
   const isLoading = false;
+  const [selectedRange, setSelectedRange] = useState('Last 7 days');
 
   return (
     <div className="dashboard-grid">
+      <div className="dashboard-toolbar">
+        <label className="dashboard-date-selector" htmlFor="dashboard-date-range">
+          <select id="dashboard-date-range" value={selectedRange} onChange={(event) => setSelectedRange(event.target.value)}>
+            <option>Last 7 days</option>
+            <option>Last 30 days</option>
+            <option>This year</option>
+          </select>
+        </label>
+      </div>
       {/* Row 1: 4 Stat Cards */}
       <div className="stats-row">
         <StatCard title="Total Inventory" value="24,562" trend="+12.5%" isPositive icon={IconBox} />
@@ -66,7 +83,7 @@ const DashboardPlaceholder = () => {
             </select>
           </div>
           <div className="chart-placeholder" aria-busy={isLoading}>
-            <DataState loading={isLoading} hasData={barData.length > 0}>
+            <DataState loading={isLoading} hasData={barData.length > 0} onAction={() => undefined}>
               <BarChart data={barData} xAxisKey="name" dataKey="value" height={220} />
             </DataState>
           </div>
@@ -77,7 +94,7 @@ const DashboardPlaceholder = () => {
             <IconDots size={16} aria-label="Storage usage options" />
           </div>
           <div className="chart-placeholder pie-placeholder" aria-busy={isLoading}>
-            <DataState loading={isLoading} hasData={pieData.length > 0}>
+            <DataState loading={isLoading} hasData={pieData.length > 0} onAction={() => undefined}>
               <PieChart data={pieData} height={200} />
             </DataState>
           </div>

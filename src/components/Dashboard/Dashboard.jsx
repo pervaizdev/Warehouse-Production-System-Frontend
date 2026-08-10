@@ -6,7 +6,7 @@ import './Dashboard.css';
 
 const Dashboard = ({ user, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   // Mock data representing warehouse production inventory
   const [inventory] = useState([
     { id: 'SKU-7821', name: 'Industrial Hydraulic Press', qty: 12, bin: 'A-12', status: 'In Stock' },
@@ -17,7 +17,7 @@ const Dashboard = ({ user, onLogout }) => {
     { id: 'SKU-8840', name: 'Fiber-Optic Sensor Wire', qty: 15, bin: 'E-03', status: 'Low Stock' },
   ]);
 
-  const filteredInventory = inventory.filter(item => 
+  const filteredInventory = inventory.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.bin.toLowerCase().includes(searchTerm.toLowerCase())
@@ -28,13 +28,14 @@ const Dashboard = ({ user, onLogout }) => {
     { key: 'name', header: 'Item Name', render: (row) => <span className="item-name">{row.name}</span> },
     { key: 'qty', header: 'Quantity', render: (row) => `${row.qty} units` },
     { key: 'bin', header: 'Bin Location', render: (row) => <span className="bin-badge">{row.bin}</span> },
-    { key: 'status', header: 'Status', render: (row) => {
+    {
+      key: 'status', header: 'Status', render: (row) => {
         let badgeVariant = 'info';
         if (row.status === 'In Stock') badgeVariant = 'success';
         if (row.status === 'Low Stock') badgeVariant = 'warning';
         if (row.status === 'Out of Stock') badgeVariant = 'danger';
         return <Badge variant={badgeVariant}>{row.status}</Badge>;
-      } 
+      }
     },
   ];
 
@@ -45,7 +46,6 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="header-logo-section">
           <span className="header-logo">WPS</span>
           <span className="header-divider">|</span>
-          <span className="header-title">Management Console</span>
         </div>
         <div className="header-user-section">
           <div className="user-info">
@@ -100,7 +100,7 @@ const Dashboard = ({ user, onLogout }) => {
           </div>
 
           <div className="table-responsive">
-            <Table 
+            <Table
               data={filteredInventory}
               columns={columns}
               showPagination={false}

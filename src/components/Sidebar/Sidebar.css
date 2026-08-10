@@ -64,10 +64,14 @@
   transition: all 0.2s ease;
   position: relative;
   text-decoration: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
 }
 
 .nav-icon-link:hover {
   color: var(--text-secondary);
+  background: var(--bg-main);
 }
 
 .nav-icon-link.active {
@@ -96,7 +100,5 @@
 }
 
 .sidebar-logout {
-  border: 0;
-  background: transparent;
   font: inherit;
 }

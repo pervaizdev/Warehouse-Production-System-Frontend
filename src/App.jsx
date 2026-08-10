@@ -3,11 +3,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Login from './components/Login/Login';
 import DashboardPlaceholder from './components/Dashboard/DashboardPlaceholder';
+import NotFound from './components/NotFound/NotFound';
 import './App.css'
 
 // Simple placeholder for other routes
-const SimplePlaceholder = () => (
-  <></>
+const SimplePlaceholder = ({ title }) => (
+  <section className="module-placeholder">
+    <h2>{title}</h2>
+    <p>This module is ready for its connected data view.</p>
+  </section>
 );
 
 function App() {
@@ -31,6 +35,7 @@ function App() {
           <Route path="delivery" element={<SimplePlaceholder title="Delivery" />} />
           <Route path="storage" element={<SimplePlaceholder title="Storage" />} />
           <Route path="settings" element={<SimplePlaceholder title="Settings" />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

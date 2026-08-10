@@ -1,0 +1,5 @@
+.not-found { display: grid; justify-items: center; gap: var(--margin-default); min-height: 360px; padding: var(--padding-xl); color: var(--text-muted); text-align: center; align-content: center; }
+.not-found h2 { color: var(--text-primary); font-size: var(--font-size-xl); }
+.not-found p { color: var(--text-secondary); }
+.not-found-link { padding: var(--padding-default) var(--padding-md); color: var(--text-on-primary); background: var(--primary); border-radius: var(--border-radius-sm); text-decoration: none; }
+.not-found-link:hover { background: var(--primary-hover); }

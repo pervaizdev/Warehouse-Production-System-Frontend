@@ -182,3 +182,13 @@
     border-right-color: var(--border);
   }
 }
+.module-placeholder {
+  min-height: 240px;
+  padding: var(--padding-xl);
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-md);
+}
+
+.module-placeholder h2 { margin-bottom: var(--margin-xs); color: var(--text-primary); }
+.module-placeholder p { color: var(--text-secondary); }

@@ -1,0 +1,3 @@
+.global-tooltip { position: relative; display: inline-flex; }
+.global-tooltip-content { position: absolute; bottom: calc(100% + var(--margin-xs)); left: 50%; z-index: 20; width: max-content; max-width: 220px; padding: var(--padding-xs) var(--padding-default); color: var(--text-on-primary); background: var(--text-primary); border-radius: var(--border-radius-sm); opacity: 0; pointer-events: none; transform: translate(-50%, 4px); transition: opacity var(--transition-fast), transform var(--transition-fast); font-size: var(--font-size-xs); }
+.global-tooltip:hover .global-tooltip-content, .global-tooltip:focus-within .global-tooltip-content { opacity: 1; transform: translate(-50%, 0); }
