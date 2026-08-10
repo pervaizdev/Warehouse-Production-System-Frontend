@@ -1,16 +1,19 @@
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext.jsx';
 import Button from '../../global-components/Button/Button';
 import Input from '../../global-components/Input/Input';
 import './Login.css';
 
-const Login = ({ onLoginSuccess }) => {
+const Login = () => {
+  const { login } = useAuth();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -28,16 +31,16 @@ const Login = ({ onLoginSuccess }) => {
 
     setIsLoading(true);
 
-    // Simulate API call for login
-    setTimeout(() => {
+    try {
+      // Real authentication logic
+      await login({ email, password });
+    } catch (err) {
+      // Extract backend error message if available
+      const message = err.response?.data?.message || 'Invalid email or password. Please try again.';
+      setError(message);
+    } finally {
       setIsLoading(false);
-      // Demo authentication logic
-      if (email === 'test@test.com' && password === 'test') {
-        onLoginSuccess({ email, role: 'Warehouse Manager' });
-      } else {
-        setError('Invalid email or password. Please try again.');
-      }
-    }, 1200);
+    }
   };
 
   return (

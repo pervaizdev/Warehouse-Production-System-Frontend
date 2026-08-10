@@ -1,26 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { authApi } from './apis/auth/auth';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import Login from './components/Login/Login';
-import DashboardPlaceholder from './components/Dashboard/DashboardPlaceholder';
+import Login from './pages/login/Login';
+import DashboardPlaceholder from './pages/dashboard/DashboardPlaceholder';
+import MachineEfficiency from './pages/Machine Efficiency/machineefficiency.jsx';
 import './App.css'
+
+import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 
 // Simple placeholder for other routes
 const SimplePlaceholder = () => (
   <></>
 );
 
-function App() {
-  const [user, setUser] = useState(null);
+function AppContent() {
+  const { user } = useAuth();
 
   if (!user) {
-    return <Login onLoginSuccess={setUser} />;
+    return <Login />;
   }
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout user={user} onLogout={() => setUser(null)} />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/dashboard" replace />} />
 
           <Route path="dashboard" element={<DashboardPlaceholder />} />
@@ -30,11 +34,20 @@ function App() {
           <Route path="customers" element={<SimplePlaceholder title="Customers" />} />
           <Route path="delivery" element={<SimplePlaceholder title="Delivery" />} />
           <Route path="storage" element={<SimplePlaceholder title="Storage" />} />
+          <Route path="machine-efficiency" element={<MachineEfficiency />} />
           <Route path="settings" element={<SimplePlaceholder title="Settings" />} />
         </Route>
       </Routes>
     </BrowserRouter>
   )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
 }
 
 export default App;

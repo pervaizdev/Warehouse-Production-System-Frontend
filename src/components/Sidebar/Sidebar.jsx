@@ -9,7 +9,8 @@ import {
   IconTruckDelivery, 
   IconBuildingWarehouse,
   IconSettings,
-  IconLogout
+  IconLogout,
+  IconCpu
 } from '@tabler/icons-react';
 import './Sidebar.css';
 
@@ -22,6 +23,7 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
     { title: 'Customers', icon: <IconUsers stroke={1.5} />, path: '/customers' },
     { title: 'Delivery', icon: <IconTruckDelivery stroke={1.5} />, path: '/delivery' },
     { title: 'Storage', icon: <IconBuildingWarehouse stroke={1.5} />, path: '/storage' },
+    { title: 'Machine Efficiency', icon: <IconCpu stroke={1.5} />, path: '/machine-efficiency' },
   ];
 
   const bottomMenuItems = [
