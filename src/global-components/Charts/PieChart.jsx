@@ -4,7 +4,7 @@ import './PieChart.css';
 
 const PieChart = ({ data, innerRadius = 0, outerRadius = 80 }) => {
   // Palette driven by global.css variables
-  const COLORS = ['var(--primary-blue)', 'var(--secondary-blue)', 'var(--border-light)', 'var(--accent-orange)'];
+  const COLORS = ['var(--primary)', 'var(--primary-hover)', 'var(--border-color)', 'var(--color-success)'];
 
   return (
     <div className="pie-chart-container">
@@ -26,7 +26,7 @@ const PieChart = ({ data, innerRadius = 0, outerRadius = 80 }) => {
           </Pie>
           <Tooltip 
             wrapperClassName="custom-pie-tooltip-wrapper"
-            itemStyle={{ color: '#0f172a' }}
+            itemStyle={{ color: 'var(--text-primary)' }}
           />
         </RechartsPieChart>
       </ResponsiveContainer>

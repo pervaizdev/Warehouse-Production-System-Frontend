@@ -44,7 +44,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(4, 120, 87, 0.9) 0%, rgba(6, 95, 70, 0.4) 10%);
+  background: var(--primary);
+  opacity: 0.85;
   z-index: 1;
 }
 
@@ -81,8 +82,8 @@
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   padding: var(--padding-xs) var(--padding-default);
-  background-color: rgba(255, 255, 255, 0.2);
-  border: var(--border-width) solid rgba(255, 255, 255, 0.4);
+  background-color: var(--primary-light);
+  border: var(--border-width) solid var(--primary);
   border-radius: var(--border-radius-sm);
   color: var(--text-on-primary);
 }
@@ -245,7 +246,7 @@
 .login-spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--primary-light);
   border-radius: 50%;
   border-top-color: var(--text-on-primary);
   animation: spin 0.8s linear infinite;

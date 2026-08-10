@@ -13,7 +13,7 @@ import {
 } from '@tabler/icons-react';
 import './Sidebar.css';
 
-const Sidebar = () => {
+const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
   const topMenuItems = [
     { title: 'Dashboard', icon: <IconLayoutDashboard stroke={1.5} />, path: '/dashboard' },
     { title: 'Analytics', icon: <IconChartPie stroke={1.5} />, path: '/analytics' },
@@ -30,7 +30,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="dribbble-sidebar">
+    <aside className={`dribbble-sidebar ${isOpen ? 'sidebar-open' : ''}`}>
       <div className="sidebar-logo-container">
         <div className="sidebar-logo">
           {/* Placeholder for the dark circle logo with orange accent */}
@@ -47,6 +47,8 @@ const Sidebar = () => {
             to={item.path} 
             className={({ isActive }) => `nav-icon-link ${isActive ? 'active' : ''}`}
             title={item.title}
+            aria-label={item.title}
+            onClick={onNavigate}
           >
             {item.icon}
           </NavLink>
@@ -55,14 +57,15 @@ const Sidebar = () => {
 
       <nav className="sidebar-nav bottom-nav">
         {bottomMenuItems.map((item, index) => (
-          <NavLink 
-            key={index}
-            to={item.path} 
-            className={({ isActive }) => `nav-icon-link ${item.isAction ? 'action-danger' : ''} ${isActive && !item.isAction ? 'active' : ''}`}
-            title={item.title}
-          >
-            {item.icon}
-          </NavLink>
+          item.isAction ? (
+            <button key={index} type="button" className="nav-icon-link action-danger sidebar-logout" onClick={onLogout} title={item.title} aria-label={item.title}>
+              {item.icon}
+            </button>
+          ) : (
+            <NavLink key={index} to={item.path} className={({ isActive }) => `nav-icon-link ${isActive ? 'active' : ''}`} title={item.title} aria-label={item.title} onClick={onNavigate}>
+              {item.icon}
+            </NavLink>
+          )
         ))}
       </nav>
     </aside>

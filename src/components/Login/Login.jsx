@@ -32,7 +32,7 @@ const Login = ({ onLoginSuccess }) => {
     setTimeout(() => {
       setIsLoading(false);
       // Demo authentication logic
-      if (email === 'test@.com' && password === 'test') {
+      if (email === 'test@test.com' && password === 'test') {
         onLoginSuccess({ email, role: 'Warehouse Manager' });
       } else {
         setError('Invalid email or password. Please try again.');

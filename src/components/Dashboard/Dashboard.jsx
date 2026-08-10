@@ -8,7 +8,7 @@ const Dashboard = ({ user, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState('');
   
   // Mock data representing warehouse production inventory
-  const [inventory, setInventory] = useState([
+  const [inventory] = useState([
     { id: 'SKU-7821', name: 'Industrial Hydraulic Press', qty: 12, bin: 'A-12', status: 'In Stock' },
     { id: 'SKU-0943', name: 'Lithium Battery Pack 48V', qty: 45, bin: 'B-04', status: 'Low Stock' },
     { id: 'SKU-1102', name: 'Micro-Controller Unit (MCU)', qty: 350, bin: 'C-01', status: 'In Stock' },

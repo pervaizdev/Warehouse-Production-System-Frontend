@@ -276,9 +276,9 @@
 }
 
 .status-tag.low-stock {
-  background-color: #fffbeb;
-  border-color: #d97706;
-  color: #d97706;
+  background-color: var(--color-warning-light);
+  border-color: var(--color-warning);
+  color: var(--color-warning);
 }
 
 .status-tag.out-of-stock {
