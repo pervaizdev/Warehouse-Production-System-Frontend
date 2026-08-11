@@ -12,4 +12,14 @@ export const API_ENDPOINTS = {
     MACHINE_DRILLDOWN: (machineId) => `/machine-efficiency/machine/${machineId}`,
     ORDER_DRILLDOWN: (orderNum) => `/machine-efficiency/order/${orderNum}`,
   },
+
+  PRODUCTION_TREND: {
+    SUMMARY: '/production-trend/summary',
+    MONTHLY: '/production-trend/monthly',
+    YEARLY: '/production-trend/yearly',
+    PRODUCT_SHARE: '/production-trend/product-share',
+    YEAR_COMPARISON: '/production-trend/year-comparison',
+    TABLE: '/production-trend/table',
+    FILTERS: '/production-trend/filters',
+  },
 };

@@ -70,17 +70,8 @@
   gap: 6px;
 }
 
-.kpi-card.highlight {
-  border-top: 4px solid var(--primary);
-}
 
-.kpi-card.highlight-green {
-  border-top: 4px solid var(--color-success);
-}
 
-.kpi-card.highlight-blue {
-  border-top: 4px solid var(--primary-hover);
-}
 
 .kpi-title {
   font-size: 14px;
