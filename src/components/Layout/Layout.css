@@ -14,13 +14,17 @@
 .dribbble-top-header {
   height: 88px;
   flex-shrink: 0;
-  background-color: var(--bg-main);
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: var(--border-width) solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  position: static;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
 .header-left {
@@ -38,12 +42,7 @@
   cursor: pointer;
 }
 
-.header-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-}
+
 
 .date-selector {
   display: inline-flex;
@@ -95,6 +94,10 @@
   color: var(--text-primary);
 }
 
+.icon-btn:active {
+  transform: scale(0.93);
+}
+
 .notification-dot {
   position: absolute;
   top: 10px;
@@ -116,8 +119,12 @@
   border: var(--border-width) solid var(--border-color);
   cursor: pointer;
   margin-left: 12px;
-  cursor: pointer;
   text-align: left;
+  transition: all 0.2s ease;
+}
+
+.header-profile-block:active {
+  transform: scale(0.97);
 }
 
 .profile-avatar {
@@ -166,15 +173,17 @@
   position: absolute;
   top: calc(100% + var(--margin-xs));
   right: 0;
-  z-index: 5;
+  z-index: 55;
   min-width: 220px;
   padding: var(--padding-default);
   color: var(--text-secondary);
-  background: var(--bg-card);
-  border: var(--border-width) solid var(--border-color);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: var(--border-width) solid var(--primary);
   border-radius: var(--border-radius-md);
-  box-shadow: 0 8px 20px var(--border-color);
   font-size: var(--font-size-sm);
+  animation: fadeInUp 0.2s ease forwards;
 }
 
 .profile-popover button {

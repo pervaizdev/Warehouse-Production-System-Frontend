@@ -54,7 +54,7 @@ const DashboardCharts = ({ data }) => {
         <h3 className="chart-title">Top 10 Machine Utilization %</h3>
         <div className="chart-container">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={utilData} margin={{ top: 20, right: 30, left: 20, bottom: 50 }}>
+            <BarChart data={utilData} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="machineCode" tick={{ fontSize: 11, angle: -45, textAnchor: 'end' }} interval={0} />
               <YAxis type="number" domain={[0, 100]} />
@@ -70,7 +70,7 @@ const DashboardCharts = ({ data }) => {
         <h3 className="chart-title">Top 10 Production Efficiency %</h3>
         <div className="chart-container">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={effData} margin={{ top: 20, right: 30, left: 20, bottom: 50 }}>
+            <BarChart data={effData} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="machineCode" tick={{ fontSize: 11, angle: -45, textAnchor: 'end' }} interval={0} />
               <YAxis type="number" domain={[0, 120]} />
@@ -86,12 +86,12 @@ const DashboardCharts = ({ data }) => {
         <h3 className="chart-title">Top 15 Machines by Hours</h3>
         <div className="chart-container">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={topOutputData} margin={{ top: 20, right: 30, left: 20, bottom: 50 }}>
+            <BarChart data={topOutputData} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="machineCode" tick={{ fontSize: 11, angle: -45, textAnchor: 'end' }} interval={0} />
               <YAxis />
               <RechartsTooltip content={<CustomTooltip />} />
-              <Legend />
+              <Legend verticalAlign="top" height={36} />
               <Bar dataKey="availableHrs" name="Available" fill="var(--text-muted)" radius={[4, 4, 0, 0]} />
               <Bar dataKey="consumedHrs" name="Consumed" fill="var(--color-warning)" radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -104,12 +104,12 @@ const DashboardCharts = ({ data }) => {
         <h3 className="chart-title">Top 15 Machines Production Output</h3>
         <div className="chart-container">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={topOutputData} margin={{ top: 20, right: 30, left: 20, bottom: 50 }}>
+            <LineChart data={topOutputData} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
               <XAxis dataKey="machineCode" tick={{ fontSize: 11, angle: -45, textAnchor: 'end' }} interval={0} />
               <YAxis />
               <RechartsTooltip content={<CustomTooltip />} />
-              <Legend />
+              <Legend verticalAlign="top" height={36} />
               <Line type="monotone" dataKey="plannedOutputQty" name="Planned" stroke="var(--text-muted)" strokeWidth={2} dot={{ r: 4 }} activeDot={{ r: 6 }} />
               <Line type="monotone" dataKey="outputQty" name="Actual" stroke="var(--primary)" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
             </LineChart>
@@ -117,27 +117,20 @@ const DashboardCharts = ({ data }) => {
         </div>
       </div>
 
-      {/* Chart 5: Performance Matrix (Scatter) */}
+      {/* Chart 5: Performance Matrix (Bar) */}
       <div className="chart-card scatter-card">
         <h3 className="chart-title">Machine Performance Matrix</h3>
         <div className="chart-container">
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" dataKey="utilization" name="Utilization" unit="%" domain={[0, 100]} />
-              <YAxis type="number" dataKey="efficiency" name="Efficiency" unit="%" domain={[0, 120]} />
-              <ZAxis type="number" dataKey="outputQty" range={[60, 400]} name="Output Qty" />
-              <RechartsTooltip cursor={{ strokeDasharray: '3 3' }} content={<CustomTooltip />} />
-              <Scatter name="Machines" data={chartData}>
-                {chartData.map((entry, index) => {
-                  let fill = 'var(--primary)';
-                  if (entry.utilization < 70 && entry.efficiency < 80) fill = 'var(--color-danger)'; // Low/Low
-                  else if (entry.utilization >= 80 && entry.efficiency >= 90) fill = 'var(--color-success)'; // High/High
-                  else if (entry.utilization >= 80 && entry.efficiency < 80) fill = 'var(--color-warning)'; // High/Low
-                  return <Cell key={`cell-${index}`} fill={fill} fillOpacity={0.7} />;
-                })}
-              </Scatter>
-            </ScatterChart>
+            <BarChart data={topOutputData} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="machineCode" tick={{ fontSize: 11, angle: -45, textAnchor: 'end' }} interval={0} />
+              <YAxis />
+              <RechartsTooltip content={<CustomTooltip />} />
+              <Legend verticalAlign="top" height={36} />
+              <Bar dataKey="utilization" name="Utilization %" fill="var(--primary)" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="efficiency" name="Efficiency %" fill="var(--color-success)" radius={[4, 4, 0, 0]} />
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </div>

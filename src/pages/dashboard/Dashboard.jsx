@@ -9,6 +9,8 @@ import './Dashboard.css';
 
 const Dashboard = ({ user, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [inventoryPage, setInventoryPage] = useState(1);
+  const [inventoryPageSize, setInventoryPageSize] = useState(10);
 
   // Mock data representing warehouse production inventory
   const [inventory] = useState([
@@ -24,6 +26,11 @@ const Dashboard = ({ user, onLogout }) => {
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.bin.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const paginatedInventory = filteredInventory.slice(
+    (inventoryPage - 1) * inventoryPageSize,
+    inventoryPage * inventoryPageSize,
   );
 
   const columns = [
@@ -106,16 +113,26 @@ const Dashboard = ({ user, onLogout }) => {
                 id="search"
                 placeholder="Search SKU, item name, or bin location..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setInventoryPage(1);
+                }}
               />
             </div>
           </div>
 
           <div className="table-responsive">
             <Table
-              data={filteredInventory}
+              data={paginatedInventory}
               columns={columns}
-              showPagination={false}
+              totalEntries={filteredInventory.length}
+              currentPage={inventoryPage}
+              pageSize={inventoryPageSize}
+              onPageChange={setInventoryPage}
+              onItemsPerPageChange={(size) => {
+                setInventoryPageSize(size);
+                setInventoryPage(1);
+              }}
               showActions={true}
               onActionClick={(action, row) => console.log('Action:', action, 'Row:', row)}
             />

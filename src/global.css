@@ -4,17 +4,17 @@
   --primary: #047857;
   --primary-hover: #065F46;
   --primary-light: #ECFDF5;
-  
-  --bg-main: #f3f4f6;
+
+  --bg-main: #ffffff;
   --bg-card: #ffffff;
   --border-color: #d1d5db;
   --border-focus: #047857;
-  
+
   --text-primary: #111827;
   --text-secondary: #4b5563;
   --text-muted: #9ca3af;
   --text-on-primary: #ffffff;
-  
+
   --color-danger: #ef4444;
   --color-danger-light: #fee2e2;
   --color-success: #10b981;
@@ -30,7 +30,7 @@
   --font-size-lg: 18px;
   --font-size-xl: 24px;
   --font-size-xxl: 32px;
-  
+
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -38,24 +38,31 @@
 
   /* Spacing (Base unit is 10px) */
   --spacing-base: 10px;
-  
+
   --margin-xs: 5px;
-  --margin-default: var(--spacing-base); /* 10px */
-  --margin-md: calc(var(--spacing-base) * 2); /* 20px */
-  --margin-lg: calc(var(--spacing-base) * 3); /* 30px */
+  --margin-default: var(--spacing-base);
+  /* 10px */
+  --margin-md: calc(var(--spacing-base) * 2);
+  /* 20px */
+  --margin-lg: calc(var(--spacing-base) * 3);
+  /* 30px */
 
   --padding-xs: 5px;
-  --padding-default: var(--spacing-base); /* 10px */
-  --padding-md: calc(var(--spacing-base) * 1.5); /* 15px */
-  --padding-lg: calc(var(--spacing-base) * 2.5); /* 25px */
-  --padding-xl: calc(var(--spacing-base) * 4); /* 40px */
+  --padding-default: var(--spacing-base);
+  /* 10px */
+  --padding-md: calc(var(--spacing-base) * 1.5);
+  /* 15px */
+  --padding-lg: calc(var(--spacing-base) * 2.5);
+  /* 25px */
+  --padding-xl: calc(var(--spacing-base) * 4);
+  /* 40px */
 
   /* Borders & Radius */
   --border-width: 1px;
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
-  
+
   /* Transitions */
   --transition-fast: 0.15s ease;
   --transition-base: 0.2s ease;
@@ -81,7 +88,8 @@ body {
   min-height: 100vh;
 }
 
-input, button {
+input,
+button {
   font-family: inherit;
   font-size: inherit;
 }
@@ -90,3 +98,29 @@ input, button {
   outline: 2px solid var(--border-focus);
   outline-offset: 2px;
 }
+
+/* Typography Utilities */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+/* Cascading animation delay classes */
+.delay-100 { animation-delay: 100ms; opacity: 0; }
+.delay-200 { animation-delay: 200ms; opacity: 0; }
+.delay-300 { animation-delay: 300ms; opacity: 0; }

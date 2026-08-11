@@ -2,23 +2,9 @@ import { useState } from 'react';
 import { IconArrowUpRight, IconArrowDownRight, IconDots, IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruckDelivery, IconInbox, IconRefresh } from '@tabler/icons-react';
 import BarChart from '../../global-components/Charts/BarChart';
 import PieChart from '../../global-components/Charts/PieChart';
-import Loading from '../../global-components/Loading/Loading';
+import Spinner from '../../global-components/Spinner/Spinner';
+import StatCard from '../../global-components/StatCard/StatCard';
 import './DashboardPlaceholder.css';
-
-const StatCard = ({ title, value, trend, isPositive, icon: Icon }) => (
-  <div className="stat-card">
-    <div className="stat-header">
-      <span className="stat-title">{title}</span>
-      <Icon className="stat-icon" size={19} aria-hidden="true" />
-    </div>
-    <div className="stat-value">{value}</div>
-    <div className={`stat-trend ${isPositive ? 'positive' : 'negative'}`}>
-      {isPositive ? <IconArrowUpRight size={16} /> : <IconArrowDownRight size={16} />}
-      {trend}
-      <span>vs last period</span>
-    </div>
-  </div>
-);
 
 // Dummy Data
 const barData = [
@@ -38,7 +24,12 @@ const pieData = [
 ];
 
 const DataState = ({ loading, hasData, children }) => {
-  if (loading) return <Loading text="Loading data..." size={80} />;
+  if (loading) return (
+    <div className="dashboard-state dashboard-state-empty">
+      <Spinner size="md" />
+      <span>Loading data...</span>
+    </div>
+  );
   if (!hasData) return <div className="dashboard-state dashboard-state-empty">No data available for this period.</div>;
   return children;
 };
@@ -49,15 +40,7 @@ const DashboardPlaceholder = () => {
 
   return (
     <div className="dashboard-grid">
-      <div className="dashboard-toolbar">
-        <label className="dashboard-date-selector" htmlFor="dashboard-date-range">
-          <select id="dashboard-date-range" value={selectedRange} onChange={(event) => setSelectedRange(event.target.value)}>
-            <option>Last 7 days</option>
-            <option>Last 30 days</option>
-            <option>This year</option>
-          </select>
-        </label>
-      </div>
+
       {/* Row 1: 4 Stat Cards */}
       <div className="stats-row">
         <StatCard title="Total Inventory" value="24,562" trend="+12.5%" isPositive icon={IconBox} />
@@ -104,20 +87,20 @@ const DashboardPlaceholder = () => {
           </div>
           <div className="table-placeholder" aria-busy={isLoading}>
             <DataState loading={isLoading} hasData={true}>
-            <div className="table-header-mockup">
-              <span>Order ID</span>
-              <span>Status</span>
-              <span>Date</span>
-              <span>Amount</span>
-            </div>
-            {[1, 2, 3, 4].map(i => (
-              <div key={i} className="table-row-mockup">
-                <span className="mock-id">#ORD-{8492 + i}</span>
-                <span className="mock-badge">Completed</span>
-                <span>Oct {10 + i}, 2022</span>
-                <span>${(450.00 * i).toFixed(2)}</span>
+              <div className="table-header-mockup">
+                <span>Order ID</span>
+                <span>Status</span>
+                <span>Date</span>
+                <span>Amount</span>
               </div>
-            ))}
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="table-row-mockup">
+                  <span className="mock-id">#ORD-{8492 + i}</span>
+                  <span className="mock-badge">Completed</span>
+                  <span>Oct {10 + i}, 2022</span>
+                  <span>${(450.00 * i).toFixed(2)}</span>
+                </div>
+              ))}
             </DataState>
           </div>
         </div>

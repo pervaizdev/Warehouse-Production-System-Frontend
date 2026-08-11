@@ -36,12 +36,7 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
   return (
     <aside className={`dribbble-sidebar ${isOpen ? 'sidebar-open' : ''}`}>
       <div className="sidebar-logo-container">
-        <div className="sidebar-logo">
-          {/* Placeholder for the dark circle logo with orange accent */}
-          <div className="logo-circle">
-            <div className="logo-accent"></div>
-          </div>
-        </div>
+        <img className="sidebar-logo-image" src="/wps-splash.png" alt="WPS" />
       </div>
       
       <nav className="sidebar-nav top-nav">

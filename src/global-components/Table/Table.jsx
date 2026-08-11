@@ -1,3 +1,5 @@
+import { IconInfoCircle, IconListDetails, IconCheck, IconTrash } from '@tabler/icons-react';
+import Pagination from '../Pagination/Pagination';
 import './Table.css';
 
 const Table = ({
@@ -48,28 +50,28 @@ const Table = ({
                         onClick={() => handleAction('info', rowItem)}
                         title="Info"
                       >
-                        Info
+                        <IconInfoCircle size={16} stroke={2} />
                       </button>
                       <button 
                         className="dome-table-action-btn dome-table-action-btn--list"
                         onClick={() => handleAction('list', rowItem)}
                         title="List"
                       >
-                        List
+                        <IconListDetails size={16} stroke={2} />
                       </button>
                       <button 
                         className="dome-table-action-btn dome-table-action-btn--check"
                         onClick={() => handleAction('check', rowItem)}
                         title="Check"
                       >
-                        Check
+                        <IconCheck size={16} stroke={2} />
                       </button>
                       <button 
                         className="dome-table-action-btn dome-table-action-btn--delete"
                         onClick={() => handleAction('delete', rowItem)}
                         title="Delete"
                       >
-                        Del
+                        <IconTrash size={16} stroke={2} />
                       </button>
                     </td>
                   )}
@@ -87,38 +89,14 @@ const Table = ({
       </div>
 
       {showPagination && (
-        <div className="dome-table-pagination">
-          <div className="pagination-info">
-            Showing {(currentPage - 1) * pageSize + (data.length > 0 ? 1 : 0)} to {Math.min(currentPage * pageSize, totalEntries)} of {totalEntries} entries
-          </div>
-          <div className="pagination-controls">
-            <select 
-              value={pageSize} 
-              onChange={(e) => onItemsPerPageChange && onItemsPerPageChange(Number(e.target.value))}
-              className="pagination-select"
-            >
-              <option value={5}>5 per page</option>
-              <option value={10}>10 per page</option>
-              <option value={20}>20 per page</option>
-              <option value={50}>50 per page</option>
-            </select>
-            <div className="pagination-buttons">
-              <button 
-                disabled={currentPage <= 1} 
-                onClick={() => onPageChange && onPageChange(currentPage - 1)}
-              >
-                Prev
-              </button>
-              <span className="pagination-current">{currentPage} / {totalPages}</span>
-              <button 
-                disabled={currentPage >= totalPages} 
-                onClick={() => onPageChange && onPageChange(currentPage + 1)}
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          totalItems={totalEntries}
+          pageSize={pageSize}
+          onPageChange={onPageChange}
+          onPageSizeChange={onItemsPerPageChange}
+        />
       )}
     </div>
   );

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { machineEfficiencyApi } from '../../apis/auth/machine-efficiency';
+import GlobalPopup from '../../global-components/GlobalPopup/GlobalPopup';
 import './MachineEfficiency.css';
-import { IconX, IconChevronRight } from '@tabler/icons-react';
+import { IconChevronRight } from '@tabler/icons-react';
 
 const DrilldownModal = ({ machine, onClose }) => {
   const [level, setLevel] = useState(1); // 1 = Machine, 2 = Order
@@ -51,10 +52,9 @@ const DrilldownModal = ({ machine, onClose }) => {
   };
 
   return (
-    <div className="drilldown-modal-overlay" onClick={onClose}>
-      <div className="drilldown-modal" onClick={e => e.stopPropagation()}>
+    <GlobalPopup onClose={onClose} title="Machine details">
         <div className="modal-header">
-          <div className="breadcrumb">
+          <div className="drilldown-breadcrumb">
             <span className={level === 1 ? 'active' : ''} onClick={handleBack} style={{cursor: level === 2 ? 'pointer' : 'default'}}>
               {machine.machineCode} - {machine.machine}
             </span>
@@ -65,7 +65,6 @@ const DrilldownModal = ({ machine, onClose }) => {
               </>
             )}
           </div>
-          <button className="close-btn" onClick={onClose}><IconX size={20} /></button>
         </div>
 
         <div className="modal-content">
@@ -154,8 +153,7 @@ const DrilldownModal = ({ machine, onClose }) => {
             </div>
           )}
         </div>
-      </div>
-    </div>
+    </GlobalPopup>
   );
 };
 

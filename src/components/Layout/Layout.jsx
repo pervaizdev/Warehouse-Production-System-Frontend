@@ -18,6 +18,8 @@ const Layout = () => {
   const moduleTitles = {
     "/dashboard": "Dashboard",
     "/analytics": "Analytics",
+    "/production-trend": "Production Trend",
+    "/machine-efficiency": "Machine Efficiency",
     "/inventory": "Inventory",
     "/orders": "Orders",
     "/customers": "Customers",
@@ -65,24 +67,11 @@ const Layout = () => {
               <IconMenu2 size={22} />
             </button>
             <div>
-              <h1 className="header-title">{pageTitle}</h1>
               <Breadcrumb items={[{ label: pageTitle, current: true }]} />
             </div>
           </div>
 
           <div className="header-right">
-            <label className="date-selector" htmlFor="date-range">
-              <select
-                id="date-range"
-                value={selectedRange}
-                onChange={(event) => setSelectedRange(event.target.value)}
-              >
-                <option>Oct 14, 2022 - Nov 14, 2022</option>
-                <option>Last 7 days</option>
-                <option>Last 30 days</option>
-              </select>
-              <IconChevronDown size={16} aria-hidden="true" />
-            </label>
             <div className="header-action-wrap">
               <button
                 type="button"
@@ -117,8 +106,8 @@ const Layout = () => {
                 <div className="profile-info">
                   <span className="profile-name">{fullName}</span>
                   <span className="profile-role">{roleName}</span>
-                </div>               
-              </button>         
+                </div>
+              </button>
             </div>
           </div>
         </header>
