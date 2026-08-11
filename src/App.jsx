@@ -5,6 +5,7 @@ import Layout from './components/Layout/Layout';
 import Login from './pages/login/Login';
 import DashboardPlaceholder from './pages/dashboard/DashboardPlaceholder';
 import MachineEfficiency from './pages/Machine Efficiency/machineefficiency.jsx';
+import ProductionTrend from './pages/ProductionTrend/ProductionTrend.jsx';
 import './App.css'
 
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
@@ -29,6 +30,7 @@ function AppContent() {
 
           <Route path="dashboard" element={<DashboardPlaceholder />} />
           <Route path="analytics" element={<SimplePlaceholder title="Analytics" />} />
+          <Route path="production-trend" element={<ProductionTrend />} />
           <Route path="inventory" element={<SimplePlaceholder title="Inventory" />} />
           <Route path="orders" element={<SimplePlaceholder title="Orders" />} />
           <Route path="customers" element={<SimplePlaceholder title="Customers" />} />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { machineEfficiencyApi } from '../../apis/auth/machine-efficiency';
-import DashboardFilters from './DashboardFilters';
-import DashboardCharts from './DashboardCharts';
-import DrilldownModal from './DrilldownModal';
+import DashboardFilters from '../../components/MachineEfficiency/DashboardFilters';
+import DashboardCharts from '../../components/MachineEfficiency/DashboardCharts';
+import DrilldownModal from '../../components/MachineEfficiency/DrilldownModal';
 import Pagination from '../../components/Pagination/Pagination';
-import './MachineEfficiency.css';
+import '../../components/MachineEfficiency/MachineEfficiency.css';
 
 const MachineEfficiency = () => {
   const [data, setData] = useState([]);
@@ -137,7 +137,8 @@ const MachineEfficiency = () => {
                   <th className="text-right">Avail Hr</th>
                   <th className="text-right">Used Hr</th>
                   <th className="text-right">Util %</th>
-                  <th className="text-right">Output</th>
+                  <th className="text-right">Planned Output</th>
+                  <th className="text-right">Actual Output</th>
                   <th className="text-right">Qty/Hr</th>
                   <th className="text-right">Efficiency</th>
                 </tr>
@@ -145,7 +146,7 @@ const MachineEfficiency = () => {
               <tbody>
                 {data.length === 0 ? (
                   <tr>
-                    <td colSpan="7" className="empty-state">No machine efficiency data available.</td>
+                    <td colSpan="8" className="empty-state">No machine efficiency data available.</td>
                   </tr>
                 ) : (
                   data.map((row, index) => (
@@ -160,6 +161,7 @@ const MachineEfficiency = () => {
                           {row.utilization}%
                         </span>
                       </td>
+                      <td className="text-right">{row.plannedOutputQty}</td>
                       <td className="text-right">{row.outputQty}</td>
                       <td className="text-right">{row.qtyPerHour}</td>
                       <td className="text-right">

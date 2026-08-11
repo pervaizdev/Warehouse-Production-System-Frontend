@@ -10,7 +10,8 @@ import {
   IconBuildingWarehouse,
   IconSettings,
   IconLogout,
-  IconCpu
+  IconCpu,
+  IconTrendingUp
 } from '@tabler/icons-react';
 import './Sidebar.css';
 
@@ -18,12 +19,13 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
   const topMenuItems = [
     { title: 'Dashboard', icon: <IconLayoutDashboard stroke={1.5} />, path: '/dashboard' },
     { title: 'Analytics', icon: <IconChartPie stroke={1.5} />, path: '/analytics' },
+    { title: 'Production Trend', icon: <IconTrendingUp stroke={1.5} />, path: '/production-trend' },
+    { title: 'Machine Efficiency', icon: <IconCpu stroke={1.5} />, path: '/machine-efficiency' },
     { title: 'Inventory', icon: <IconBox stroke={1.5} />, path: '/inventory' },
     { title: 'Orders', icon: <IconClipboardList stroke={1.5} />, path: '/orders' },
     { title: 'Customers', icon: <IconUsers stroke={1.5} />, path: '/customers' },
     { title: 'Delivery', icon: <IconTruckDelivery stroke={1.5} />, path: '/delivery' },
     { title: 'Storage', icon: <IconBuildingWarehouse stroke={1.5} />, path: '/storage' },
-    { title: 'Machine Efficiency', icon: <IconCpu stroke={1.5} />, path: '/machine-efficiency' },
   ];
 
   const bottomMenuItems = [
