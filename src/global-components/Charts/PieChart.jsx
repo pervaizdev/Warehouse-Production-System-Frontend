@@ -1,5 +1,5 @@
 import React from 'react';
-import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import './PieChart.css';
 
 const PieChart = ({ data, innerRadius = 0, outerRadius = 80 }) => {
@@ -28,6 +28,7 @@ const PieChart = ({ data, innerRadius = 0, outerRadius = 80 }) => {
             wrapperClassName="custom-pie-tooltip-wrapper"
             itemStyle={{ color: 'var(--text-primary)' }}
           />
+          <Legend verticalAlign="bottom" height={28} />
         </RechartsPieChart>
       </ResponsiveContainer>
     </div>

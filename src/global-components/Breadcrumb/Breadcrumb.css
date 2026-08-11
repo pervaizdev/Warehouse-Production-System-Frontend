@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 .breadcrumb {
   width: fit-content;
   margin-top: var(--margin-xs);
@@ -6,21 +7,30 @@
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius-md);
 }
+=======
+.global-breadcrumb { margin-top: var(--margin-xs); }
+>>>>>>> Stashed changes
 
-.breadcrumb-list {
+.global-breadcrumb-list {
   display: flex;
   align-items: center;
+<<<<<<< Updated upstream
   gap: var(--margin-default);
+=======
+  gap: 8px;
+>>>>>>> Stashed changes
   padding: 0;
   margin: 0;
   color: var(--text-primary);
   list-style: none;
   font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
 }
 
-.breadcrumb-item {
+.global-breadcrumb-item {
   display: inline-flex;
   align-items: center;
+<<<<<<< Updated upstream
   gap: var(--margin-xs);
   white-space: nowrap;
 }
@@ -41,4 +51,27 @@
 @media (max-width: 600px) {
   .breadcrumb { max-width: 100%; overflow-x: auto; }
   .breadcrumb-list { gap: var(--margin-xs); }
+=======
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.global-breadcrumb-home-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--primary);
+  background: var(--primary-light);
+  border-radius: var(--border-radius-sm);
+}
+
+.global-breadcrumb-home { color: var(--text-secondary); }
+.global-breadcrumb-separator { color: var(--border-color); flex-shrink: 0; }
+.global-breadcrumb-current { color: var(--primary); font-weight: var(--font-weight-semibold); }
+
+@media (max-width: 480px) {
+  .global-breadcrumb-list { font-size: 11px; }
+>>>>>>> Stashed changes
 }

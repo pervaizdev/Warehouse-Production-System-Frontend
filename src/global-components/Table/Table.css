@@ -15,6 +15,8 @@
   width: 100%;
 }
 
+.dome-table-wrapper { overflow-x: auto; }
+
 .dome-table {
   min-width: 680px;
   width: 100%;
@@ -24,6 +26,9 @@
 }
 
 .dome-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: var(--bg-main);
   padding: var(--padding-default);
   font-weight: var(--font-weight-semibold);

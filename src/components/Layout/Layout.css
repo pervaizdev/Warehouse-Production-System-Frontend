@@ -150,13 +150,19 @@
 
 .dribbble-content {
   flex: 1;
-  padding: 40px;
+  padding: 32px 40px 48px;
   overflow-y: auto;
 }
 
+<<<<<<< Updated upstream
 .sidebar-backdrop { display: none; }
 
 .header-action-wrap { position: relative; }
+=======
+.header-action-wrap {
+  position: relative;
+}
+>>>>>>> Stashed changes
 
 .header-popover {
   position: absolute;
@@ -173,6 +179,111 @@
   font-size: var(--font-size-sm);
 }
 
+.popover-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.popover-heading button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.notification-item {
+  display: flex;
+  gap: 9px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--bg-main);
+}
+
+.notification-item:last-child {
+  border-bottom: 0;
+}
+
+.notification-item strong,
+.notification-item small {
+  display: block;
+}
+
+.notification-item strong {
+  color: var(--text-primary);
+  font-size: 12px;
+}
+
+.notification-item small {
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.notification-dot-inline {
+  width: 7px;
+  height: 7px;
+  margin-top: 4px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.notification-dot-inline--warning {
+  background: var(--color-warning);
+}
+
+.profile-popover {
+  padding: 8px;
+}
+
+.profile-popover-summary {
+  display: flex;
+  flex-direction: column;
+  padding: 9px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.profile-popover-summary strong {
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+.profile-popover-summary span {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.profile-popover button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 9px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profile-popover button:hover {
+  background: var(--bg-main);
+  color: var(--text-primary);
+}
+
+.profile-popover .profile-logout {
+  color: var(--color-danger);
+}
+
 .profile-popover button {
   width: 100%;
   padding: var(--padding-xs);
@@ -183,7 +294,9 @@
   cursor: pointer;
 }
 
-.profile-popover button:hover { background: var(--color-danger-light); }
+.profile-popover button:hover {
+  background: var(--color-danger-light);
+}
 
 .profile-menu-item { width: 100%; padding: var(--padding-xs); color: var(--color-danger); background: transparent; border: 0; text-align: left; cursor: pointer; }
 .profile-menu-item:hover { background: var(--color-danger-light); }
@@ -210,6 +323,10 @@
 .view-notifications-button:hover { background: var(--bg-main); }
 
 @media (max-width: 768px) {
+  body:has(.sidebar-open) {
+    overflow: hidden;
+  }
+
   .dribbble-sidebar {
     position: fixed;
     left: 0;
@@ -218,6 +335,7 @@
     transition: transform var(--transition-base);
   }
 
+<<<<<<< Updated upstream
   .dribbble-sidebar.sidebar-open { transform: translateX(0); }
   .sidebar-backdrop { position: fixed; inset: 0; z-index: 15; display: block; background: var(--text-primary); opacity: 0.45; border: 0; }
   .mobile-menu-button { display: inline-flex; }
@@ -237,3 +355,52 @@
   .profile-info { max-width: 140px; }
   .profile-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
+=======
+  .dribbble-sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  .mobile-menu-button {
+    display: inline-flex;
+  }
+
+  .dribbble-top-header {
+    height: auto;
+    min-height: 88px;
+    padding: var(--padding-default);
+  }
+
+  .header-left {
+    gap: var(--margin-default);
+  }
+
+  .header-right {
+    gap: var(--margin-xs);
+  }
+
+  .date-selector {
+    display: none;
+  }
+
+  .profile-info {
+    display: none;
+  }
+
+  .header-profile-block {
+    padding: var(--padding-xs);
+    margin-left: 0;
+  }
+
+  .profile-chevron {
+    display: none;
+  }
+
+  .dribbble-content {
+    padding: var(--padding-default);
+  }
+
+  .header-title {
+    font-size: 20px;
+  }
+}
+>>>>>>> Stashed changes

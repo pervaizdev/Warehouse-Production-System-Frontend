@@ -13,6 +13,18 @@ import {
 } from '@tabler/icons-react';
 import './Sidebar.css';
 
+const WpsLogo = () => (
+  <svg viewBox="0 0 100 100" className="app-logo-image" style={{ width: '40px', height: '40px' }} xmlns="http://www.w3.org/2000/svg">
+    <path d="M 5 40 L 50 25 L 95 40 L 95 45 L 50 30 L 5 45 Z" fill="var(--text-primary)" />
+    <rect x="83" y="48" width="8" height="42" fill="var(--text-primary)" />
+    <rect x="20" y="48" width="12" height="42" fill="var(--primary)" />
+    <rect x="35" y="60" width="22" height="30" fill="var(--primary)" />
+    <rect x="35" y="45" width="14" height="12" fill="var(--primary)" />
+    <rect x="60" y="70" width="12" height="20" fill="var(--primary)" />
+    <rect x="60" y="55" width="10" height="12" fill="var(--primary)" />
+  </svg>
+);
+
 const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
   const topMenuItems = [
     { title: 'Dashboard', icon: <IconLayoutDashboard stroke={1.5} />, path: '/dashboard' },
@@ -33,10 +45,7 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
     <aside className={`dribbble-sidebar ${isOpen ? 'sidebar-open' : ''}`}>
       <div className="sidebar-logo-container">
         <div className="sidebar-logo">
-          {/* Placeholder for the dark circle logo with orange accent */}
-          <div className="logo-circle">
-            <div className="logo-accent"></div>
-          </div>
+          <WpsLogo />
         </div>
       </div>
       

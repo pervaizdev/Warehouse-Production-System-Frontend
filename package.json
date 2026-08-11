@@ -11,6 +11,11 @@
   },
   "dependencies": {
     "@tabler/icons-react": "^3.46.0",
+<<<<<<< Updated upstream
+=======
+    "axios": "^1.19.0",
+    "lottie-react": "^2.4.1",
+>>>>>>> Stashed changes
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.2",

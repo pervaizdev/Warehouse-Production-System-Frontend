@@ -1,0 +1,16 @@
+.module-placeholder-page { display: flex; flex-direction: column; gap: 24px; max-width: 1280px; margin: 0 auto; }
+.module-placeholder-hero { display: flex; justify-content: space-between; gap: 24px; align-items: flex-end; padding: 28px; background: linear-gradient(135deg, #ffffff, #f0fdf8); border: 1px solid var(--border-color); border-radius: 16px; }
+.module-eyebrow, .placeholder-card-label { color: var(--primary); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.module-placeholder-hero h2 { margin: 6px 0 8px; color: var(--text-primary); font-size: 28px; font-weight: 700; }
+.module-placeholder-hero p { max-width: 640px; color: var(--text-secondary); font-size: 14px; }
+.module-hero-actions { display: flex; gap: 10px; flex-shrink: 0; }
+.module-placeholder-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; }
+.module-placeholder-card { display: flex; flex-direction: column; gap: 10px; min-height: 190px; padding: 22px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; }
+.module-placeholder-card--wide { flex-direction: row; align-items: flex-start; gap: 16px; }
+.placeholder-icon { display: grid; place-items: center; width: 42px; height: 42px; flex-shrink: 0; color: var(--primary); background: var(--primary-light); border-radius: 12px; }
+.module-placeholder-card h3, .module-placeholder-card strong { color: var(--text-primary); font-size: 16px; }
+.module-placeholder-card p { color: var(--text-secondary); font-size: 13px; line-height: 1.6; }
+.placeholder-status { margin-top: auto; color: var(--text-muted); font-size: 12px; }
+.placeholder-status span { display: inline-block; width: 7px; height: 7px; margin-right: 6px; background: var(--color-warning); border-radius: 50%; }
+.placeholder-link { display: inline-flex; align-items: center; gap: 5px; margin-top: auto; color: var(--primary); font-size: 13px; font-weight: 600; }
+@media (max-width: 800px) { .module-placeholder-hero { align-items: flex-start; flex-direction: column; } .module-placeholder-grid { grid-template-columns: 1fr; } }

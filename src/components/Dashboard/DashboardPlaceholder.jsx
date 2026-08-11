@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { IconArrowUpRight, IconArrowDownRight, IconDots, IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruckDelivery, IconInbox, IconRefresh } from '@tabler/icons-react';
 import BarChart from '../../global-components/Charts/BarChart';
 import PieChart from '../../global-components/Charts/PieChart';
+import Loading from '../../global-components/Loading/Loading';
 import './DashboardPlaceholder.css';
 
 const StatCard = ({ title, value, trend, isPositive, icon: Icon }) => (
@@ -36,6 +37,7 @@ const pieData = [
   { name: 'Reserved', value: 20, color: 'var(--border-color)' }
 ];
 
+<<<<<<< Updated upstream:src/components/Dashboard/DashboardPlaceholder.jsx
 const DataState = ({ loading, hasData, children, onAction }) => {
   if (loading) return <div className="dashboard-state" role="status">Loading data...</div>;
   if (!hasData) return (
@@ -46,6 +48,11 @@ const DataState = ({ loading, hasData, children, onAction }) => {
       <button type="button" onClick={onAction}><IconRefresh size={15} /> Refresh view</button>
     </div>
   );
+=======
+const DataState = ({ loading, hasData, children }) => {
+  if (loading) return <Loading text="Loading data..." size={80} />;
+  if (!hasData) return <div className="dashboard-state dashboard-state-empty">No data available for this period.</div>;
+>>>>>>> Stashed changes:src/pages/dashboard/DashboardPlaceholder.jsx
   return children;
 };
 

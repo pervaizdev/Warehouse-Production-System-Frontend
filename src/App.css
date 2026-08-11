@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 .counter {
   font-size: 16px;
   padding: 5px 10px;
@@ -192,3 +193,6 @@
 
 .module-placeholder h2 { margin-bottom: var(--margin-xs); color: var(--text-primary); }
 .module-placeholder p { color: var(--text-secondary); }
+=======
+/* App-level styles are intentionally kept empty; shared tokens live in global.css. */
+>>>>>>> Stashed changes

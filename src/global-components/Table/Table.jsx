@@ -11,6 +11,7 @@ const Table = ({
   pageSize = 10,
   onPageChange,
   onItemsPerPageChange,
+  actionLabels = { info: 'Info', list: 'List', check: 'Check', delete: 'Delete' },
 }) => {
   const totalPages = Math.ceil(totalEntries / pageSize) || 1;
 
@@ -48,28 +49,28 @@ const Table = ({
                         onClick={() => handleAction('info', rowItem)}
                         title="Info"
                       >
-                        Info
+                        {actionLabels.info}
                       </button>
                       <button 
                         className="dome-table-action-btn dome-table-action-btn--list"
                         onClick={() => handleAction('list', rowItem)}
                         title="List"
                       >
-                        List
+                        {actionLabels.list}
                       </button>
                       <button 
                         className="dome-table-action-btn dome-table-action-btn--check"
                         onClick={() => handleAction('check', rowItem)}
                         title="Check"
                       >
-                        Check
+                        {actionLabels.check}
                       </button>
                       <button 
                         className="dome-table-action-btn dome-table-action-btn--delete"
                         onClick={() => handleAction('delete', rowItem)}
                         title="Delete"
                       >
-                        Del
+                        {actionLabels.delete}
                       </button>
                     </td>
                   )}

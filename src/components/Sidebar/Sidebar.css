@@ -13,6 +13,8 @@
   padding: 24px 0;
 }
 
+.sidebar-backdrop { display: none; }
+
 .sidebar-logo-container {
   margin-bottom: 40px;
 }
@@ -101,4 +103,15 @@
 
 .sidebar-logout {
   font: inherit;
+}
+
+@media (max-width: 768px) {
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 19;
+    border: 0;
+    background: rgba(15, 23, 42, .38);
+  }
 }

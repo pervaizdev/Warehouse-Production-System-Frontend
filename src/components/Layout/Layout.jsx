@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { IconBell, IconChevronDown, IconMenu2, IconChecks, IconHome, IconCoin, IconClock } from '@tabler/icons-react';
@@ -7,14 +8,29 @@ import Modal from '../../global-components/Modal/Modal';
 import Toast from '../../global-components/Toast/Toast';
 import Dropdown from '../../global-components/Dropdown/Dropdown';
 import './Layout.css';
+=======
+import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.jsx";
+import { IconBell, IconChevronDown, IconCheck, IconMenu2, IconSettings, IconLogout } from "@tabler/icons-react";
+import Sidebar from "../Sidebar/Sidebar";
+import Breadcrumb from "../../global-components/Breadcrumb/Breadcrumb";
+import "./Layout.css";
+>>>>>>> Stashed changes
 
 const Layout = ({ user, onLogout }) => {
   const { pathname } = useLocation();
+<<<<<<< Updated upstream
+=======
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+>>>>>>> Stashed changes
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [toast, setToast] = useState(null);
   const [notificationsRead, setNotificationsRead] = useState(false);
   const moduleTitles = {
+<<<<<<< Updated upstream
     '/dashboard': 'Dashboard',
     '/analytics': 'Analytics',
     '/inventory': 'Inventory',
@@ -23,6 +39,17 @@ const Layout = ({ user, onLogout }) => {
     '/delivery': 'Delivery',
     '/storage': 'Storage',
     '/settings': 'Settings',
+=======
+    "/dashboard": "Dashboard",
+    "/analytics": "Analytics",
+    "/inventory": "Inventory",
+    "/orders": "Orders",
+    "/customers": "Customers",
+    "/delivery": "Delivery",
+    "/storage": "Storage",
+    "/settings": "Settings",
+    "/machine-efficiency": "Machine Efficiency",
+>>>>>>> Stashed changes
   };
 
   const pageTitle = moduleTitles[pathname] || 'Dashboard';
@@ -45,11 +72,18 @@ const Layout = ({ user, onLogout }) => {
               <IconMenu2 size={22} />
             </button>
             <div>
+<<<<<<< Updated upstream
+=======
+              {pathname !== "/machine-efficiency" && (
+                <h1 className="header-title">{pageTitle}</h1>
+              )}
+>>>>>>> Stashed changes
               <Breadcrumb items={[{ label: pageTitle, current: true }]} />
             </div>
           </div>
 
           <div className="header-right">
+<<<<<<< Updated upstream
             <Dropdown trigger={<button type="button" className="icon-btn" aria-label="Show notifications">
               <IconBell size={19} />
               {!notificationsRead && <span className="notification-dot" aria-label="3 unread notifications"></span>}
@@ -88,6 +122,56 @@ const Layout = ({ user, onLogout }) => {
             </button>}>
               <button type="button" className="profile-menu-item" onClick={() => setShowLogoutModal(true)}>Sign out</button>
             </Dropdown>
+=======
+
+            <div className="header-action-wrap">
+              <button
+                type="button"
+                className="icon-btn"
+                aria-label="Show notifications"
+                aria-expanded={showNotifications}
+                onClick={() => setShowNotifications(!showNotifications)}
+              >
+                <IconBell size={19} />
+                <span
+                  className="notification-dot"
+                  aria-label="3 unread notifications"
+                ></span>
+              </button>
+              {showNotifications && (
+                <div className="header-popover notification-popover" role="status">
+                  <div className="popover-heading"><strong>Notifications</strong><button type="button"><IconCheck size={14} /> Mark read</button></div>
+                  <div className="notification-item"><span className="notification-dot-inline" /><div><strong>Production sync completed</strong><small>Just now · Machine Efficiency</small></div></div>
+                  <div className="notification-item"><span className="notification-dot-inline notification-dot-inline--warning" /><div><strong>Review low-utilization machines</strong><small>18 minutes ago · Operations</small></div></div>
+                </div>
+              )}
+            </div>
+            <div className="header-action-wrap">
+              <button
+                type="button"
+                className="header-profile-block"
+                aria-label="Open account menu"
+                aria-expanded={showProfileMenu}
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+              >
+                <span className="profile-avatar" aria-hidden="true">
+                  {initials}
+                </span>
+                <div className="profile-info">
+                  <span className="profile-name">{fullName}</span>
+                  <span className="profile-role">{roleName}</span>
+                </div>
+                <IconChevronDown size={16} className="profile-chevron" />
+              </button>
+              {showProfileMenu && (
+                <div className="header-popover profile-popover">
+                  <div className="profile-popover-summary"><strong>{fullName}</strong><span>{roleName}</span></div>
+                  <button type="button"><IconSettings size={16} /> Account settings</button>
+                  <button type="button" className="profile-logout" onClick={logout}><IconLogout size={16} /> Log out</button>
+                </div>
+              )}
+            </div>
+>>>>>>> Stashed changes
           </div>
         </header>
         <main className="dribbble-content">

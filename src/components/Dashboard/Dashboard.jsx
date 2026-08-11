@@ -2,7 +2,10 @@ import { useState } from 'react';
 import Table from '../../global-components/Table/Table';
 import Badge from '../../global-components/Badge/Badge';
 import Input from '../../global-components/Input/Input';
+import DashboardStatCard from '../../global-components/DashboardStatCard/DashboardStatCard';
+import { IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruck } from '@tabler/icons-react';
 import './Dashboard.css';
+
 
 const Dashboard = ({ user, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -68,21 +71,30 @@ const Dashboard = ({ user, onLogout }) => {
 
         {/* Stats Grid */}
         <section className="stats-grid">
-          <div className="stat-card">
-            <span className="stat-label">Active AGVs (Forklifts)</span>
-            <div className="stat-value">6 / 6</div>
-            <div className="stat-sub">All automated guided vehicles operational</div>
-          </div>
-          <div className="stat-card">
-            <span className="stat-label">Warehouse capacity</span>
-            <div className="stat-value">78.4%</div>
-            <div className="stat-sub">12,450 cubic meters remaining</div>
-          </div>
-          <div className="stat-card">
-            <span className="stat-label">Pending Shipments</span>
-            <div className="stat-value">14</div>
-            <div className="stat-sub">Ready in outbound bay C</div>
-          </div>
+          <DashboardStatCard 
+            label="Total Inventory"
+            value="24,562"
+            icon={<IconBox size={20} />}
+            trend={{ value: '+12.5%', direction: 'up', label: 'vs last period' }}
+          />
+          <DashboardStatCard 
+            label="Pending Orders"
+            value="1,245"
+            icon={<IconShoppingCart size={20} />}
+            trend={{ value: '-2.4%', direction: 'down', label: 'vs last period' }}
+          />
+          <DashboardStatCard 
+            label="Storage Capacity"
+            value="86%"
+            icon={<IconBuildingWarehouse size={20} />}
+            trend={{ value: '+4.1%', direction: 'up', label: 'vs last period' }}
+          />
+          <DashboardStatCard 
+            label="Delivery Success"
+            value="98.2%"
+            icon={<IconTruck size={20} />}
+            trend={{ value: '+0.8%', direction: 'up', label: 'vs last period' }}
+          />
         </section>
 
         {/* Inventory Control Table */}
