@@ -2,11 +2,14 @@ import { useState } from 'react';
 import Table from '../../global-components/Table/Table';
 import Badge from '../../global-components/Badge/Badge';
 import Input from '../../global-components/Input/Input';
+import DashboardStatCard from '../../global-components/DashboardStatCard/DashboardStatCard';
+import { IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruck } from '@tabler/icons-react';
 import './Dashboard.css';
+
 
 const Dashboard = ({ user, onLogout }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   // Mock data representing warehouse production inventory
   const [inventory] = useState([
     { id: 'SKU-7821', name: 'Industrial Hydraulic Press', qty: 12, bin: 'A-12', status: 'In Stock' },
@@ -17,7 +20,7 @@ const Dashboard = ({ user, onLogout }) => {
     { id: 'SKU-8840', name: 'Fiber-Optic Sensor Wire', qty: 15, bin: 'E-03', status: 'Low Stock' },
   ]);
 
-  const filteredInventory = inventory.filter(item => 
+  const filteredInventory = inventory.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.bin.toLowerCase().includes(searchTerm.toLowerCase())
@@ -28,13 +31,14 @@ const Dashboard = ({ user, onLogout }) => {
     { key: 'name', header: 'Item Name', render: (row) => <span className="item-name">{row.name}</span> },
     { key: 'qty', header: 'Quantity', render: (row) => `${row.qty} units` },
     { key: 'bin', header: 'Bin Location', render: (row) => <span className="bin-badge">{row.bin}</span> },
-    { key: 'status', header: 'Status', render: (row) => {
+    {
+      key: 'status', header: 'Status', render: (row) => {
         let badgeVariant = 'info';
         if (row.status === 'In Stock') badgeVariant = 'success';
         if (row.status === 'Low Stock') badgeVariant = 'warning';
         if (row.status === 'Out of Stock') badgeVariant = 'danger';
         return <Badge variant={badgeVariant}>{row.status}</Badge>;
-      } 
+      }
     },
   ];
 
@@ -45,7 +49,6 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="header-logo-section">
           <span className="header-logo">WPS</span>
           <span className="header-divider">|</span>
-          <span className="header-title">Management Console</span>
         </div>
         <div className="header-user-section">
           <div className="user-info">
@@ -68,21 +71,30 @@ const Dashboard = ({ user, onLogout }) => {
 
         {/* Stats Grid */}
         <section className="stats-grid">
-          <div className="stat-card">
-            <span className="stat-label">Active AGVs (Forklifts)</span>
-            <div className="stat-value">6 / 6</div>
-            <div className="stat-sub">All automated guided vehicles operational</div>
-          </div>
-          <div className="stat-card">
-            <span className="stat-label">Warehouse capacity</span>
-            <div className="stat-value">78.4%</div>
-            <div className="stat-sub">12,450 cubic meters remaining</div>
-          </div>
-          <div className="stat-card">
-            <span className="stat-label">Pending Shipments</span>
-            <div className="stat-value">14</div>
-            <div className="stat-sub">Ready in outbound bay C</div>
-          </div>
+          <DashboardStatCard 
+            label="Total Inventory"
+            value="24,562"
+            icon={<IconBox size={20} />}
+            trend={{ value: '+12.5%', direction: 'up', label: 'vs last period' }}
+          />
+          <DashboardStatCard 
+            label="Pending Orders"
+            value="1,245"
+            icon={<IconShoppingCart size={20} />}
+            trend={{ value: '-2.4%', direction: 'down', label: 'vs last period' }}
+          />
+          <DashboardStatCard 
+            label="Storage Capacity"
+            value="86%"
+            icon={<IconBuildingWarehouse size={20} />}
+            trend={{ value: '+4.1%', direction: 'up', label: 'vs last period' }}
+          />
+          <DashboardStatCard 
+            label="Delivery Success"
+            value="98.2%"
+            icon={<IconTruck size={20} />}
+            trend={{ value: '+0.8%', direction: 'up', label: 'vs last period' }}
+          />
         </section>
 
         {/* Inventory Control Table */}
@@ -100,7 +112,7 @@ const Dashboard = ({ user, onLogout }) => {
           </div>
 
           <div className="table-responsive">
-            <Table 
+            <Table
               data={filteredInventory}
               columns={columns}
               showPagination={false}
