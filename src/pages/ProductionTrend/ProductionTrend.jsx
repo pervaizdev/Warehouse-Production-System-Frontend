@@ -3,6 +3,8 @@ import { productionTrendApi } from '../../apis/auth/production-trend';
 import ProductionTrendFilters from '../../components/ProductionTrend/ProductionTrendFilters';
 import ProductionTrendCharts from '../../components/ProductionTrend/ProductionTrendCharts';
 import ProductionTrendTable from '../../components/ProductionTrend/ProductionTrendTable';
+import { IconBox, IconClipboardList, IconCube, IconAlertTriangle, IconChartBar } from '@tabler/icons-react';
+import StatCard from '../../global-components/StatCard/StatCard';
 import '../../components/ProductionTrend/ProductionTrend.css';
 
 const ProductionTrend = () => {
@@ -19,14 +21,14 @@ const ProductionTrend = () => {
   const [comparisonData, setComparisonData] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [filterOptions, setFilterOptions] = useState({});
-  
+
   const [filters, setFilters] = useState({});
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  
+
   const [loading, setLoading] = useState(true);
   const [tableLoading, setTableLoading] = useState(true);
 
@@ -106,16 +108,8 @@ const ProductionTrend = () => {
 
   return (
     <div className="production-trend-container">
-      
-      {/* Header */}
-      <div className="production-trend-header">
-        <div>
-          <h1>Product-wise Production Trend Dashboard</h1>
-          <div className="production-trend-subtitle">
-            Historical production output based on SAP B1 Goods Receipts from Production (OIGN / IGN1)
-          </div>
-        </div>
-      </div>
+
+
 
       {/* Filters */}
       <ProductionTrendFilters
@@ -126,59 +120,70 @@ const ProductionTrend = () => {
       />
 
       {/* KPI Cards */}
-      <div className="pt-kpi-grid">
-        <div className="pt-kpi-card accent-blue">
-          <div className="pt-kpi-title">Total Production</div>
-          <div className="pt-kpi-value">{formatNumber(summary.totalProduction)}</div>
-          <div className="pt-kpi-subtext">Total Quantity Received</div>
-        </div>
-
-        <div className="pt-kpi-card accent-purple">
-          <div className="pt-kpi-title">Production Orders</div>
-          <div className="pt-kpi-value">{summary.totalOrders}</div>
-          <div className="pt-kpi-subtext">Unique Work Orders</div>
-        </div>
-
-        <div className="pt-kpi-card accent-emerald">
-          <div className="pt-kpi-title">Products Produced</div>
-          <div className="pt-kpi-value">{summary.totalProducts}</div>
-          <div className="pt-kpi-subtext">Distinct Finished Items</div>
-        </div>
-
-        <div className="pt-kpi-card accent-amber">
-          <div className="pt-kpi-title">Rejected Quantity</div>
-          <div className="pt-kpi-value">{formatNumber(summary.totalRejected)}</div>
-          <div className="pt-kpi-subtext">Total Scrapped Items</div>
-        </div>
-
-        <div className="pt-kpi-card accent-rose">
-          <div className="pt-kpi-title">Period Growth %</div>
-          <div className="pt-kpi-value">
+      <div className="stat-card-grid fade-in-up delay-100">
+        <StatCard
+          title="Total Production"
+          value={formatNumber(summary.totalProduction)}
+          subtext="Total Quantity Received"
+          color="blue"
+          icon={IconBox}
+        />
+        <StatCard
+          title="Production Orders"
+          value={summary.totalOrders}
+          subtext="Unique Work Orders"
+          color="purple"
+          icon={IconClipboardList}
+        />
+        <StatCard
+          title="Products Produced"
+          value={summary.totalProducts}
+          subtext="Distinct Finished Items"
+          color="emerald"
+          icon={IconCube}
+        />
+        <StatCard
+          title="Rejected Quantity"
+          value={formatNumber(summary.totalRejected)}
+          subtext="Total Scrapped Items"
+          color="rose"
+          icon={IconAlertTriangle}
+        />
+        <StatCard
+          title="Period Growth %"
+          value={
             <span className={`growth-badge ${parseFloat(summary.growthPercent) >= 0 ? 'positive' : 'negative'}`}>
               {parseFloat(summary.growthPercent) >= 0 ? `+${summary.growthPercent}%` : `${summary.growthPercent}%`}
             </span>
-          </div>
-          <div className="pt-kpi-subtext">vs Previous Period</div>
-        </div>
+          }
+          subtext="vs Previous Period"
+          color="amber"
+          icon={IconChartBar}
+        />
       </div>
 
       {/* Charts */}
-      <ProductionTrendCharts
-        productShare={productShare}
-        monthlyData={monthlyData}
-        comparisonData={comparisonData}
-      />
+      <div className="fade-in-up delay-200">
+        <ProductionTrendCharts
+          productShare={productShare}
+          monthlyData={monthlyData}
+          comparisonData={comparisonData}
+          loading={loading}
+        />
+      </div>
 
       {/* Detailed Table */}
-      <ProductionTrendTable
-        data={tableData}
-        loading={tableLoading}
-        pagination={{ page, pageSize, totalPages, totalItems }}
-        search={search}
-        onSearchChange={setSearch}
-        onPageChange={setPage}
-        onPageSizeChange={setPageSize}
-      />
+      <div className="fade-in-up delay-300">
+        <ProductionTrendTable
+          data={tableData}
+          loading={tableLoading}
+          pagination={{ page, pageSize, totalPages, totalItems }}
+          search={search}
+          onSearchChange={setSearch}
+          onPageChange={setPage}
+          onPageSizeChange={setPageSize}
+        />
+      </div>
 
     </div>
   );

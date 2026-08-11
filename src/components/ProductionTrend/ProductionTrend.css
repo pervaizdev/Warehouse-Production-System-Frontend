@@ -33,7 +33,6 @@
   border-radius: 12px;
   padding: 20px;
   border: 1px solid var(--border-color, #e2e8f0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .pt-filters-grid {
@@ -109,7 +108,6 @@
   border-radius: 12px;
   padding: 20px;
   border: 1px solid var(--border-color, #e2e8f0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -190,10 +188,15 @@
   border-radius: 12px;
   padding: 20px;
   border: 1px solid var(--border-color, #e2e8f0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 16px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.pt-chart-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary, #06588D);
 }
 
 .pt-chart-card.col-6 {
@@ -258,7 +261,6 @@
   border-radius: 12px;
   padding: 20px;
   border: 1px solid var(--border-color, #e2e8f0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -316,6 +318,7 @@
   border-bottom: 1px solid var(--border-color, #f1f5f9);
   color: var(--text-primary, #0f172a);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .pt-table tbody tr:hover {

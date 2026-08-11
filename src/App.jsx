@@ -6,9 +6,11 @@ import Login from './pages/login/Login';
 import DashboardPlaceholder from './pages/dashboard/DashboardPlaceholder';
 import MachineEfficiency from './pages/Machine Efficiency/machineefficiency.jsx';
 import ProductionTrend from './pages/ProductionTrend/ProductionTrend.jsx';
+import NotFound from './pages/NotFound/NotFound.jsx';
 import './App.css'
 
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
+import { LoadingProvider } from './context/LoadingContext.jsx';
 
 // Simple placeholder for other routes
 const SimplePlaceholder = () => (
@@ -38,6 +40,7 @@ function AppContent() {
           <Route path="storage" element={<SimplePlaceholder title="Storage" />} />
           <Route path="machine-efficiency" element={<MachineEfficiency />} />
           <Route path="settings" element={<SimplePlaceholder title="Settings" />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -46,9 +49,11 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <LoadingProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </LoadingProvider>
   );
 }
 

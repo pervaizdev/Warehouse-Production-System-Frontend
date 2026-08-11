@@ -1,0 +1,67 @@
+.global-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-lg);
+  background: rgba(17, 24, 39, 0.42);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: globalPopupFadeIn var(--transition-fast) forwards;
+}
+
+.global-popup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, calc(var(--spacing-base) * 110));
+  max-height: calc(100vh - var(--padding-xl));
+  overflow: hidden;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 calc(var(--spacing-base) * 2) calc(var(--spacing-base) * 5) rgba(17, 24, 39, 0.18);
+  animation: globalPopupSlideIn var(--transition-base) forwards;
+}
+
+.global-popup-close {
+  position: absolute;
+  top: var(--padding-default);
+  right: var(--padding-default);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--spacing-base) * 3.6);
+  height: calc(var(--spacing-base) * 3.6);
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.global-popup-close:hover {
+  color: var(--color-danger);
+  background: var(--color-danger-light);
+  border-color: var(--color-danger);
+}
+
+@keyframes globalPopupFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes globalPopupSlideIn {
+  from { opacity: 0; transform: translateY(var(--padding-default)) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 560px) {
+  .global-popup-overlay { align-items: flex-end; padding: var(--padding-default); }
+  .global-popup { max-height: calc(100vh - var(--padding-lg)); border-radius: var(--border-radius-lg) var(--border-radius-lg) var(--border-radius-sm) var(--border-radius-sm); }
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Pagination from '../Pagination/Pagination';
+import Table from '../../global-components/Table/Table';
 import './ProductionTrend.css';
 
 const ProductionTrendTable = ({
@@ -22,6 +22,38 @@ const ProductionTrendTable = ({
     return parseFloat(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
 
+  const columns = [
+    { key: 'receiptDate', header: 'Receipt Date', render: (row) => formatDate(row.receiptDate) },
+    { key: 'orderNum', header: 'Order No', render: (row) => <strong>#{row.orderNum}</strong> },
+    { 
+      key: 'orderStatus', 
+      header: 'Status', 
+      render: (row) => (
+        <span className={`pt-status-badge ${row.orderStatus?.toLowerCase()}`}>
+          {row.orderStatus}
+        </span>
+      )
+    },
+    { key: 'productCode', header: 'Product Code', render: (row) => <code>{row.productCode}</code> },
+    { key: 'productDescription', header: 'Product Description' },
+    { key: 'productGroup', header: 'Product Group' },
+    { key: 'warehouse', header: 'Warehouse' },
+    { 
+      key: 'productionQty', 
+      header: 'Production Qty', 
+      render: (row) => <strong>{formatNumber(row.productionQty)}</strong> 
+    },
+    { 
+      key: 'rejectedQty', 
+      header: 'Rejected Qty', 
+      render: (row) => (
+        <span style={{ color: parseFloat(row.rejectedQty) > 0 ? '#f43f5e' : 'inherit' }}>
+          {formatNumber(row.rejectedQty)}
+        </span>
+      )
+    },
+  ];
+
   return (
     <div className="pt-table-card">
       <div className="pt-table-toolbar">
@@ -35,63 +67,22 @@ const ProductionTrendTable = ({
         />
       </div>
 
-      <div className="pt-table-wrapper">
-        <table className="pt-table">
-          <thead>
-            <tr>
-              <th>Receipt Date</th>
-              <th>Order No</th>
-              <th>Status</th>
-              <th>Product Code</th>
-              <th>Product Description</th>
-              <th>Product Group</th>
-              <th>Warehouse</th>
-              <th className="text-right">Production Qty</th>
-              <th className="text-right">Rejected Qty</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan="9" className="pt-empty-state">Loading production receipts...</td>
-              </tr>
-            ) : data.length === 0 ? (
-              <tr>
-                <td colSpan="9" className="pt-empty-state">No production records match the selected filters.</td>
-              </tr>
-            ) : (
-              data.map((row, index) => (
-                <tr key={index}>
-                  <td>{formatDate(row.receiptDate)}</td>
-                  <td><strong>#{row.orderNum}</strong></td>
-                  <td>
-                    <span className={`pt-status-badge ${row.orderStatus?.toLowerCase()}`}>
-                      {row.orderStatus}
-                    </span>
-                  </td>
-                  <td><code>{row.productCode}</code></td>
-                  <td>{row.productDescription}</td>
-                  <td>{row.productGroup}</td>
-                  <td>{row.warehouse}</td>
-                  <td className="text-right"><strong>{formatNumber(row.productionQty)}</strong></td>
-                  <td className="text-right" style={{ color: parseFloat(row.rejectedQty) > 0 ? '#f43f5e' : 'inherit' }}>
-                    {formatNumber(row.rejectedQty)}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+      <div style={{ padding: '0 24px 24px 24px' }}>
+        {loading ? (
+           <div className="pt-empty-state">Loading table data...</div>
+        ) : (
+          <Table 
+            data={data}
+            columns={columns}
+            totalEntries={pagination.totalItems}
+            showActions={false}
+            currentPage={pagination.page}
+            pageSize={pagination.pageSize}
+            onPageChange={onPageChange}
+            onItemsPerPageChange={onPageSizeChange}
+          />
+        )}
       </div>
-
-      <Pagination
-        currentPage={pagination.page}
-        totalPages={pagination.totalPages}
-        totalItems={pagination.totalItems}
-        limit={pagination.pageSize}
-        onPageChange={onPageChange}
-        onLimitChange={onPageSizeChange}
-      />
     </div>
   );
 };

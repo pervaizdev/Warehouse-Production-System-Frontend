@@ -22,6 +22,22 @@ const onRefreshed = (token) => {
   refreshSubscribers = [];
 };
 
+// Global Loading Event Handlers
+let activeRequests = 0;
+const startGlobalLoading = () => {
+  if (activeRequests === 0) {
+    window.dispatchEvent(new Event('show-global-loading'));
+  }
+  activeRequests++;
+};
+
+const stopGlobalLoading = () => {
+  activeRequests = Math.max(0, activeRequests - 1);
+  if (activeRequests === 0) {
+    window.dispatchEvent(new Event('hide-global-loading'));
+  }
+};
+
 // --- REQUEST INTERCEPTOR ---
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -38,16 +54,38 @@ axiosInstance.interceptors.request.use(
         config.headers.Authorization = `Bearer ${token}`;
       }
     }
+    
+    // Do not show global loading for background refresh calls
+    if (config.url !== API_ENDPOINTS.AUTH.REFRESH) {
+      startGlobalLoading();
+    }
+    
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    stopGlobalLoading();
+    return Promise.reject(error);
+  }
 );
 
 // --- RESPONSE INTERCEPTOR ---
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    if (response.config.url !== API_ENDPOINTS.AUTH.REFRESH) {
+      stopGlobalLoading();
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
+
+    // We make sure to stop loading if it's an error and not retrying yet
+    if (originalRequest && originalRequest.url !== API_ENDPOINTS.AUTH.REFRESH && error.response?.status !== 401) {
+      stopGlobalLoading();
+    } else if (originalRequest && originalRequest._retry) {
+      // If we are already retrying and it fails, stop loading
+      stopGlobalLoading();
+    }
 
     // If the error is 401 (Unauthorized) and we haven't already retried this request
     if (error.response?.status === 401 && !originalRequest._retry) {
@@ -81,12 +119,15 @@ axiosInstance.interceptors.response.use(
 
             // Retry the original request immediately
             originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+            // This is a retry, so it will go through the request interceptor again.
+            // We shouldn't double increment, so we let the request interceptor handle it
             return axiosInstance(originalRequest);
           }
         } catch (refreshError) {
           // Refresh failed (e.g. cookie expired or invalid). Log out.
           isRefreshing = false;
           refreshSubscribers = []; // Clear queue
+          stopGlobalLoading();
           localStorage.removeItem('accessToken');
           window.location.href = '/'; 
           return Promise.reject(refreshError);
@@ -101,6 +142,11 @@ axiosInstance.interceptors.response.use(
           });
         });
       }
+    }
+
+    if (error.response?.status === 403 || error.response?.status === 429) {
+      localStorage.removeItem('accessToken');
+      window.location.href = '/';
     }
 
     // For all other errors, just reject
