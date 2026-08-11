@@ -36,11 +36,7 @@
   font-weight: var(--font-weight-normal);
 }
 
-.header-title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-secondary);
-}
+
 
 .header-user-section {
   display: flex;
@@ -126,35 +122,6 @@
   gap: var(--margin-md);
 }
 
-.stat-card {
-  padding: var(--padding-lg);
-  background-color: var(--bg-card);
-  border: var(--border-width) solid var(--border-color);
-  border-radius: var(--border-radius-md);
-  display: flex;
-  flex-direction: column;
-}
-
-.stat-label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.stat-value {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--primary);
-  margin-top: var(--margin-xs);
-  margin-bottom: var(--margin-xs);
-}
-
-.stat-sub {
-  font-size: var(--font-size-xs);
-  color: var(--text-muted);
-}
 
 /* Inventory Management Log Card */
 .inventory-section {
