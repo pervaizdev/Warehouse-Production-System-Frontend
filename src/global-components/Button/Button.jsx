@@ -1,5 +1,3 @@
-import './Button.css';
-
 const Button = ({
   children,
   variant = 'primary',
@@ -14,11 +12,11 @@ const Button = ({
   ...rest
 }) => {
   // Construct class names based on props
-  const baseClass = 'dome-btn';
-  const variantClass = `dome-btn--${variant}`;
-  const sizeClass = size !== 'md' ? `dome-btn--${size}` : '';
-  const loadingClass = isLoading ? 'dome-btn--loading' : '';
-  const iconOnlyClass = iconOnly ? 'dome-btn--icon-only' : '';
+  const baseClass = 'btn';
+  const variantClass = variant ? `btn-${variant}` : '';
+  const sizeClass = size !== 'md' ? `btn-${size}` : '';
+  const loadingClass = isLoading ? 'btn-loading' : '';
+  const iconOnlyClass = iconOnly ? 'btn-icon-only' : '';
 
   const finalClassName = [
     baseClass,
@@ -38,12 +36,12 @@ const Button = ({
       {...rest}
     >
       {isLoading && (
-        <span className="dome-btn-spinner" aria-hidden="true"></span>
+        <span className="btn-spinner" aria-hidden="true"></span>
       )}
       {!isLoading && icon && (
-        <span className="dome-btn-icon" aria-hidden="true">{icon}</span>
+        <span className="btn-icon" aria-hidden="true">{icon}</span>
       )}
-      {!iconOnly && <span className="dome-btn-text">{children}</span>}
+      {!iconOnly && <span className="btn-text">{children}</span>}
     </button>
   );
 };
