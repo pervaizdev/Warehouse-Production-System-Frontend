@@ -216,46 +216,6 @@
 
 .login-submit-btn {
   width: 100%;
-  padding: var(--padding-default);
-  background-color: var(--primary);
-  color: var(--text-on-primary);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  cursor: pointer;
-  transition: background-color var(--transition-fast);
-}
-
-.login-submit-btn:hover:not(:disabled) {
-  background-color: var(--primary-hover);
-}
-
-.login-submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.login-spinner-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-base);
-}
-
-.login-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid var(--primary-light);
-  border-radius: 50%;
-  border-top-color: var(--text-on-primary);
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .login-footer {
