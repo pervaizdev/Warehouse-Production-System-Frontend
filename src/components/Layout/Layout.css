@@ -186,6 +186,79 @@
   animation: fadeInUp 0.2s ease forwards;
 }
 
+.notification-popover {
+  width: min(360px, calc(100vw - 32px));
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+}
+
+.notification-popover-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--margin-default);
+  padding: 16px 18px;
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.notification-popover-header div,
+.notification-item div { display: flex; flex-direction: column; }
+.notification-popover-header strong { color: var(--text-primary); font-size: 15px; }
+.notification-popover-header span:not(.notification-unread-count) { margin-top: 3px; color: var(--text-muted); font-size: 11px; }
+
+.notification-unread-count {
+  padding: 4px 8px;
+  color: var(--primary);
+  background: var(--primary-light);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.notification-item {
+  display: flex;
+  gap: 11px;
+  padding: 14px 18px;
+  border-bottom: var(--border-width) solid var(--border-color);
+}
+
+.notification-item-icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+}
+
+.notification-item-icon--success { color: var(--color-success); background: var(--color-success-light); }
+.notification-item-icon--primary { color: var(--primary); background: var(--primary-light); }
+.notification-item-icon--warning { color: var(--color-warning); background: var(--color-warning-light); }
+.notification-item strong { color: var(--text-primary); font-size: 12px; }
+.notification-item span { margin-top: 3px; color: var(--text-secondary); font-size: 11px; line-height: 1.35; }
+.notification-item small { margin-top: 5px; color: var(--text-muted); font-size: 10px; }
+
+.notification-view-all {
+  width: 100%;
+  padding: 12px 18px;
+  color: var(--primary);
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.notification-view-all:hover { background: var(--primary-light); }
+
 .profile-popover button {
   width: 100%;
   padding: var(--padding-xs);

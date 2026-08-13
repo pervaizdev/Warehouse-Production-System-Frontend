@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.jsx";
-import { IconBell, IconChevronDown, IconMenu2 } from "@tabler/icons-react";
+import { IconBell, IconCircleCheck, IconChevronDown, IconMenu2, IconPackage, IconAlertCircle } from "@tabler/icons-react";
 import Sidebar from "../Sidebar/Sidebar";
 import Breadcrumb from "../../global-components/Breadcrumb/Breadcrumb";
 import "./Layout.css";
@@ -25,6 +25,7 @@ const Layout = () => {
     "/customers": "Customers",
     "/delivery": "Delivery",
     "/storage": "Storage",
+    "/cost-analysis": "Cost Analysis",
     "/settings": "Settings",
   };
 
@@ -87,8 +88,29 @@ const Layout = () => {
                 ></span>
               </button>
               {showNotifications && (
-                <div className="header-popover notification-popover">
-                  You have 3 unread notifications.
+                <div className="header-popover notification-popover" role="dialog" aria-label="Notifications">
+                  <div className="notification-popover-header">
+                    <div>
+                      <strong>Notifications</strong>
+                      <span>Stay up to date with warehouse activity</span>
+                    </div>
+                    <span className="notification-unread-count">3 new</span>
+                  </div>
+                  <div className="notification-list">
+                    <div className="notification-item">
+                      <span className="notification-item-icon notification-item-icon--success"><IconCircleCheck size={17} /></span>
+                      <div><strong>Production order completed</strong><span>Order #1048 was completed successfully.</span><small>Just now</small></div>
+                    </div>
+                    <div className="notification-item">
+                      <span className="notification-item-icon notification-item-icon--primary"><IconPackage size={17} /></span>
+                      <div><strong>Inventory needs attention</strong><span>5 items are below their reorder level.</span><small>12 minutes ago</small></div>
+                    </div>
+                    <div className="notification-item">
+                      <span className="notification-item-icon notification-item-icon--warning"><IconAlertCircle size={17} /></span>
+                      <div><strong>Delivery update</strong><span>A delivery is waiting for confirmation.</span><small>1 hour ago</small></div>
+                    </div>
+                  </div>
+                  {/* <button type="button" className="notification-view-all">View all notifications</button> */}
                 </div>
               )}
             </div>

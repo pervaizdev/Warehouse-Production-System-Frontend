@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { 
-  IconLayoutDashboard, 
-  IconChartPie, 
-  IconBox, 
-  IconClipboardList, 
-  IconUsers, 
-  IconTruckDelivery, 
+import {
+  IconLayoutDashboard,
+  IconChartPie,
+  IconBox,
+  IconClipboardList,
+  IconUsers,
+  IconTruckDelivery,
   IconBuildingWarehouse,
   IconSettings,
   IconLogout,
@@ -31,48 +31,49 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
   ];
 
   const bottomMenuItems = [
-    { title: 'Settings', icon: <IconSettings stroke={1.5} />, path: '/settings', isAction: false },
+    //{ title: 'Settings', icon: <IconSettings stroke={1.5} />, path: '/settings', isAction: false },
     { title: 'Logout', icon: <IconLogout stroke={1.5} />, path: '/logout', isAction: true },
   ];
 
   return (
     <aside className={`dribbble-sidebar ${isOpen ? 'sidebar-open' : ''}`}>
       <div className="sidebar-panel">
-      <div className="sidebar-logo-container">
-        <img className="sidebar-logo-image" src="/wps-splash.png" alt="WPS" />
-      </div>
-      
-      <nav className="sidebar-nav top-nav">
-        {topMenuItems.map((item, index) => (
-          <NavLink 
-            key={index}
-            to={item.path} 
-            className={({ isActive }) => `nav-icon-link ${isActive ? 'active' : ''}`}
-            title={item.title}
-            aria-label={item.title}
-            onClick={onNavigate}
-          >
-            {item.icon}
-            <span className="nav-text">{item.title}</span>
-          </NavLink>
-        ))}
-      </nav>
+        <div className="sidebar-logo-container">
+          <img className="sidebar-logo-image" src="/wps-splash.png" alt="WPS" />
+          <span className="sidebar-logo-name">WPS</span>
+        </div>
 
-      <nav className="sidebar-nav bottom-nav">
-        {bottomMenuItems.map((item, index) => (
-          item.isAction ? (
-            <button key={index} type="button" className="nav-icon-link action-danger sidebar-logout" onClick={onLogout} title={item.title} aria-label={item.title}>
-              {item.icon}
-              <span className="nav-text">{item.title}</span>
-            </button>
-          ) : (
-            <NavLink key={index} to={item.path} className={({ isActive }) => `nav-icon-link ${isActive ? 'active' : ''}`} title={item.title} aria-label={item.title} onClick={onNavigate}>
+        <nav className="sidebar-nav top-nav">
+          {topMenuItems.map((item, index) => (
+            <NavLink
+              key={index}
+              to={item.path}
+              className={({ isActive }) => `nav-icon-link ${isActive ? 'active' : ''}`}
+              title={item.title}
+              aria-label={item.title}
+              onClick={onNavigate}
+            >
               {item.icon}
               <span className="nav-text">{item.title}</span>
             </NavLink>
-          )
-        ))}
-      </nav>
+          ))}
+        </nav>
+
+        <nav className="sidebar-nav bottom-nav">
+          {bottomMenuItems.map((item, index) => (
+            item.isAction ? (
+              <button key={index} type="button" className="nav-icon-link action-danger sidebar-logout" onClick={onLogout} title={item.title} aria-label={item.title}>
+                {item.icon}
+                <span className="nav-text">{item.title}</span>
+              </button>
+            ) : (
+              <NavLink key={index} to={item.path} className={({ isActive }) => `nav-icon-link ${isActive ? 'active' : ''}`} title={item.title} aria-label={item.title} onClick={onNavigate}>
+                {item.icon}
+                <span className="nav-text">{item.title}</span>
+              </NavLink>
+            )
+          ))}
+        </nav>
       </div>
     </aside>
   );
