@@ -13,6 +13,7 @@ const Table = ({
   pageSize = 10,
   onPageChange,
   onItemsPerPageChange,
+  onRowClick,
 }) => {
   const totalPages = Math.ceil(totalEntries / pageSize) || 1;
 
@@ -37,7 +38,14 @@ const Table = ({
           <tbody>
             {data.length > 0 ? (
               data.map((rowItem, rowIndex) => (
-                <tr key={rowIndex}>
+                <tr 
+                  key={rowIndex}
+                  className={onRowClick ? 'dome-table-row--clickable' : ''}
+                  onClick={(e) => {
+                    if (e.target.closest('.dome-table-actions')) return;
+                    if (onRowClick) onRowClick(rowItem, rowIndex);
+                  }}
+                >
                   {columns.map((col, colIndex) => (
                     <td key={colIndex}>
                       {col.render ? col.render(rowItem) : rowItem[col.key]}

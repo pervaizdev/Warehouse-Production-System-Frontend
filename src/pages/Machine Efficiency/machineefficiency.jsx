@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { machineEfficiencyApi } from '../../apis/auth/machine-efficiency';
 import DashboardFilters from '../../components/MachineEfficiency/DashboardFilters';
 import DashboardCharts from '../../components/MachineEfficiency/DashboardCharts';
+import DrilldownModal from '../../components/MachineEfficiency/DrilldownModal';
 import StatCard from '../../global-components/StatCard/StatCard';
 import Table from '../../global-components/Table/Table';
 import EmptyState from '../../global-components/EmptyState/EmptyState';
@@ -20,6 +21,7 @@ const MachineEfficiency = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
+  const [selectedMachine, setSelectedMachine] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -196,12 +198,20 @@ const MachineEfficiency = () => {
                     onPageChange={setPage}
                     onItemsPerPageChange={setLimit}
                     showActions={false}
+                    onRowClick={(row) => setSelectedMachine(row)}
                   />
                 </div>
               </div>
             </>
           )}
         </>
+      )}
+
+      {selectedMachine && (
+        <DrilldownModal
+          machine={selectedMachine}
+          onClose={() => setSelectedMachine(null)}
+        />
       )}
 
     </div>

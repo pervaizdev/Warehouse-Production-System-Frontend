@@ -49,6 +49,14 @@
   background-color: rgba(0, 0, 0, 0.015);
 }
 
+.dome-table tr.dome-table-row--clickable {
+  cursor: pointer;
+}
+
+.dome-table tr.dome-table-row--clickable:hover td {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
 /* Actions Column */
 .dome-table-actions-header {
   text-align: right;
