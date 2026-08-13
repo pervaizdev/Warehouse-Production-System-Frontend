@@ -112,6 +112,7 @@ const Login = () => {
               variant="primary"
               isLoading={isLoading}
               disabled={isLoading}
+              className="login-submit-btn"
             >
               Sign In to Terminal
             </Button>
