@@ -11,7 +11,8 @@ import {
   IconSettings,
   IconLogout,
   IconCpu,
-  IconTrendingUp
+  IconTrendingUp,
+  IconCoin
 } from '@tabler/icons-react';
 import './Sidebar.css';
 
@@ -21,6 +22,7 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
     { title: 'Analytics', icon: <IconChartPie stroke={1.5} />, path: '/analytics' },
     { title: 'Production Trend', icon: <IconTrendingUp stroke={1.5} />, path: '/production-trend' },
     { title: 'Machine Efficiency', icon: <IconCpu stroke={1.5} />, path: '/machine-efficiency' },
+    { title: 'Cost Analysis', icon: <IconCoin stroke={1.5} />, path: '/cost-analysis' },
     { title: 'Inventory', icon: <IconBox stroke={1.5} />, path: '/inventory' },
     { title: 'Orders', icon: <IconClipboardList stroke={1.5} />, path: '/orders' },
     { title: 'Customers', icon: <IconUsers stroke={1.5} />, path: '/customers' },

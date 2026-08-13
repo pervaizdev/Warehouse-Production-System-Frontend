@@ -5,6 +5,7 @@ import Layout from './components/Layout/Layout';
 import Login from './pages/login/Login';
 import DashboardPlaceholder from './pages/dashboard/DashboardPlaceholder';
 import MachineEfficiency from './pages/Machine Efficiency/machineefficiency.jsx';
+import CostAnalysis from './pages/CostAnalysis/CostAnalysis.jsx';
 import ProductionTrend from './pages/ProductionTrend/ProductionTrend.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
 import './App.css'
@@ -39,6 +40,7 @@ function AppContent() {
           <Route path="delivery" element={<SimplePlaceholder title="Delivery" />} />
           <Route path="storage" element={<SimplePlaceholder title="Storage" />} />
           <Route path="machine-efficiency" element={<MachineEfficiency />} />
+          <Route path="cost-analysis" element={<CostAnalysis />} />
           <Route path="settings" element={<SimplePlaceholder title="Settings" />} />
           <Route path="*" element={<NotFound />} />
         </Route>
