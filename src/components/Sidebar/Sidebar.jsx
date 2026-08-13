@@ -35,6 +35,7 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
 
   return (
     <aside className={`dribbble-sidebar ${isOpen ? 'sidebar-open' : ''}`}>
+      <div className="sidebar-panel">
       <div className="sidebar-logo-container">
         <img className="sidebar-logo-image" src="/wps-splash.png" alt="WPS" />
       </div>
@@ -50,6 +51,7 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
             onClick={onNavigate}
           >
             {item.icon}
+            <span className="nav-text">{item.title}</span>
           </NavLink>
         ))}
       </nav>
@@ -59,14 +61,17 @@ const Sidebar = ({ onLogout, isOpen = false, onNavigate }) => {
           item.isAction ? (
             <button key={index} type="button" className="nav-icon-link action-danger sidebar-logout" onClick={onLogout} title={item.title} aria-label={item.title}>
               {item.icon}
+              <span className="nav-text">{item.title}</span>
             </button>
           ) : (
             <NavLink key={index} to={item.path} className={({ isActive }) => `nav-icon-link ${isActive ? 'active' : ''}`} title={item.title} aria-label={item.title} onClick={onNavigate}>
               {item.icon}
+              <span className="nav-text">{item.title}</span>
             </NavLink>
           )
         ))}
       </nav>
+      </div>
     </aside>
   );
 };

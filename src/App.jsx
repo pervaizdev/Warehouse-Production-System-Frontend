@@ -29,6 +29,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="login" element={<Navigate to="/dashboard" replace />} />
 
           <Route path="dashboard" element={<DashboardPlaceholder />} />
           <Route path="analytics" element={<SimplePlaceholder title="Analytics" />} />
