@@ -94,7 +94,7 @@ axiosInstance.interceptors.response.use(
       // We must log out the user.
       if (originalRequest.url === API_ENDPOINTS.AUTH.REFRESH) {
         localStorage.removeItem('accessToken');
-        window.location.href = '/'; // Redirect to login
+        window.location.href = '/login'; // Redirect to login
         return Promise.reject(error);
       }
 
@@ -129,7 +129,7 @@ axiosInstance.interceptors.response.use(
           refreshSubscribers = []; // Clear queue
           stopGlobalLoading();
           localStorage.removeItem('accessToken');
-          window.location.href = '/'; 
+          window.location.href = '/login'; 
           return Promise.reject(refreshError);
         }
       } else {
@@ -146,7 +146,7 @@ axiosInstance.interceptors.response.use(
 
     if (error.response?.status === 403 || error.response?.status === 429) {
       localStorage.removeItem('accessToken');
-      window.location.href = '/';
+      window.location.href = '/login';
     }
 
     // For all other errors, just reject
