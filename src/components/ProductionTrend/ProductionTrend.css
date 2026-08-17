@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  background-color: var(--bg-main, #f8fafc);
   min-height: calc(100vh - 64px);
   color: var(--text-primary, #0f172a);
 }
@@ -69,8 +68,8 @@
 
 .pt-filter-group select:focus,
 .pt-filter-group input:focus {
-  border-color: var(--primary, #3b82f6);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  border-color: var(--primary, #1B47DB);
+  outline: none;
 }
 
 .pt-filter-actions {
@@ -83,17 +82,17 @@
   padding: 8px 16px;
   font-size: 13px;
   font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid var(--border-color, #cbd5e1);
-  background: var(--bg-card, #ffffff);
-  color: var(--text-secondary, #475569);
+  border-radius: 9999px;
+  border: 1px solid var(--border-color, #E2E4E8);
+  background: var(--bg-card, #FFFFFF);
+  color: var(--text-secondary, #798089);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-reset-filters:hover {
-  background: var(--bg-hover, #f1f5f9);
-  color: var(--text-primary, #0f172a);
+  background: #F4F5F8;
+  color: var(--text-primary, #232E32);
 }
 
 /* KPI Summary Cards */
@@ -104,10 +103,10 @@
 }
 
 .pt-kpi-card {
-  background: var(--bg-card, #ffffff);
-  border-radius: 12px;
+  background: var(--bg-card, #FFFFFF);
+  border-radius: var(--border-radius-lg, 16px);
   padding: 20px;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, #E2E4E8);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -116,23 +115,23 @@
 }
 
 .pt-kpi-card.accent-blue {
-  border-top: 4px solid #3b82f6;
+  border-top: 3px solid #1B47DB;
 }
 
 .pt-kpi-card.accent-purple {
-  border-top: 4px solid #8b5cf6;
+  border-top: 3px solid #8B5CF6;
 }
 
 .pt-kpi-card.accent-emerald {
-  border-top: 4px solid #10b981;
+  border-top: 3px solid #10B981;
 }
 
 .pt-kpi-card.accent-amber {
-  border-top: 4px solid #f59e0b;
+  border-top: 3px solid #F59E0B;
 }
 
 .pt-kpi-card.accent-rose {
-  border-top: 4px solid #f43f5e;
+  border-top: 3px solid #B26552;
 }
 
 .pt-kpi-title {
@@ -356,5 +355,28 @@
 .pt-empty-state {
   text-align: center;
   padding: 40px;
-  color: var(--text-muted, #94a3b8);
+  color: var(--text-muted, #94B5E3);
+}
+
+.rejected-qty-text {
+  color: var(--color-danger, #B26552);
+  font-weight: 600;
+}
+
+.pt-table-content {
+  padding: 0 24px 24px 24px;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.full-wh {
+  width: 100%;
+  height: 100%;
+}
+
+.chart-h350 {
+  height: 350px;
 }

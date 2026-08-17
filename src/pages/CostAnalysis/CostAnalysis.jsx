@@ -109,8 +109,8 @@ const CostAnalysis = () => {
       header: 'Yield %',
       render: (row) => {
         const val = row.YieldPercent || 0;
-        const color = val < 90 ? 'red' : (val > 105 ? 'orange' : 'green');
-        return <span style={{ color, fontWeight: 'bold' }}>{val.toFixed(2)}%</span>;
+        const colorClass = val < 90 ? 'yield-red' : (val > 105 ? 'yield-orange' : 'yield-green');
+        return <span className={`yield-badge ${colorClass}`}>{val.toFixed(2)}%</span>;
       }
     },
     {
@@ -128,8 +128,8 @@ const CostAnalysis = () => {
       header: 'Variance',
       render: (row) => {
         const variance = row.TotalVariance || 0;
-        const color = variance > 0 ? 'red' : 'green';
-        return <span style={{ color }}>{variance.toFixed(2)}</span>;
+        const colorClass = variance > 0 ? 'variance-positive' : 'variance-negative';
+        return <span className={`variance-text ${colorClass}`}>{variance.toFixed(2)}</span>;
       }
     }
   ];
@@ -166,8 +166,8 @@ const CostAnalysis = () => {
       header: 'Usage Variance',
       render: (row) => {
         const val = row.UsageVariance || 0;
-        const color = val > 0 ? 'red' : 'green';
-        return <span style={{ color }}>{Number(val).toFixed(2)}</span>;
+        const colorClass = val > 0 ? 'variance-positive' : 'variance-negative';
+        return <span className={`variance-text ${colorClass}`}>{Number(val).toFixed(2)}</span>;
       }
     },
     {
@@ -175,8 +175,8 @@ const CostAnalysis = () => {
       header: 'Price Variance',
       render: (row) => {
         const val = row.PriceVariance || 0;
-        const color = val > 0 ? 'red' : 'green';
-        return <span style={{ color }}>{Number(val).toFixed(2)}</span>;
+        const colorClass = val > 0 ? 'variance-positive' : 'variance-negative';
+        return <span className={`variance-text ${colorClass}`}>{Number(val).toFixed(2)}</span>;
       }
     },
     {
@@ -184,8 +184,8 @@ const CostAnalysis = () => {
       header: 'Total Variance',
       render: (row) => {
         const val = row.TotalVariance || 0;
-        const color = val > 0 ? 'red' : 'green';
-        return <span style={{ color, fontWeight: 'bold' }}>{Number(val).toFixed(2)}</span>;
+        const colorClass = val > 0 ? 'variance-positive' : 'variance-negative';
+        return <span className={`variance-text variance-bold ${colorClass}`}>{Number(val).toFixed(2)}</span>;
       }
     }
   ];
@@ -232,16 +232,14 @@ const CostAnalysis = () => {
             />
           </div>
 
-
-
           {/* Charts Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '24px' }}>
+          <div className="cost-charts-row">
             {/* Monthly Trend Chart */}
             <div className="pt-chart-card fade-in-up delay-200">
               <div className="pt-chart-header">
-                <h3 className="pt-chart-title"><IconChartLine size={20} style={{ marginRight: 8, verticalAlign: 'middle' }} /> Monthly Cost Trend</h3>
+                <h3 className="pt-chart-title"><IconChartLine size={20} className="title-icon" /> Monthly Cost Trend</h3>
               </div>
-              <div className="pt-chart-container" style={{ height: 350, padding: 16 }}>
+              <div className="pt-chart-container chart-container-padded">
                 {trendData.length === 0 ? (
                   <EmptyState message="No trend data available" icon={IconChartLine} />
                 ) : (
@@ -252,8 +250,8 @@ const CostAnalysis = () => {
                     }))}
                     xAxisKey="period"
                     series={[
-                      { key: 'ActualCost', name: 'Actual Cost', color: '#8884d8' },
-                      { key: 'PlannedCost', name: 'Planned Cost', color: '#10b981' },
+                      { key: 'ActualCost', name: 'Actual Cost', color: '#1B47DB' },
+                      { key: 'PlannedCost', name: 'Planned Cost', color: '#10B981' },
                     ]}
                   />
                 )}
@@ -263,9 +261,9 @@ const CostAnalysis = () => {
             {/* Cost Contribution Donut */}
             <div className="pt-chart-card fade-in-up delay-200">
               <div className="pt-chart-header">
-                <h3 className="pt-chart-title"><IconCurrencyDollar size={20} style={{ marginRight: 8, verticalAlign: 'middle' }} /> Cost Contribution (Actual)</h3>
+                <h3 className="pt-chart-title"><IconCurrencyDollar size={20} className="title-icon" /> Cost Contribution (Actual)</h3>
               </div>
-              <div className="pt-chart-container" style={{ height: 350, padding: 16 }}>
+              <div className="pt-chart-container chart-container-padded">
                 {costContributionData.length === 0 ? (
                   <EmptyState message="No contribution data available" icon={IconChartLine} />
                 ) : (
@@ -281,7 +279,7 @@ const CostAnalysis = () => {
 
           {/* Orders Table */}
           <div className="efficiency-table-wrapper fade-in-up delay-300">
-            <h3 style={{ marginBottom: 16 }}>Recent Production Orders</h3>
+            <h3 className="section-title">Recent Production Orders</h3>
             <Table
               data={paginatedOrders}
               columns={columns}
@@ -303,7 +301,7 @@ const CostAnalysis = () => {
           title={`Cost Details - Order #${selectedOrder.DocNum} (${selectedOrder.FGItemCode})`}
           onClose={() => setIsModalVisible(false)}
         >
-          <div className="modal-content" style={{ padding: '20px', minWidth: '800px', overflowX: 'auto' }}>
+          <div className="modal-content modal-table-scroll">
             {materialsLoading ? (
               <GlobalLoading text="Loading materials..." />
             ) : materials.length === 0 ? (

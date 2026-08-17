@@ -7,6 +7,19 @@ const CustomLegend = (props) => {
   
   // Calculate total to show percentages
   const total = payload.reduce((sum, entry) => sum + (entry.payload.value || 0), 0);
+  const getLegendColorClass = (color) => {
+    const colorClasses = {
+      'var(--primary)': 'legend-dot-primary',
+      'var(--primary-blue)': 'legend-dot-primary',
+      'var(--primary-hover)': 'legend-dot-primary-hover',
+      'var(--border-color)': 'legend-dot-border',
+      'var(--secondary-color)': 'legend-dot-secondary',
+      'var(--color-success)': 'legend-dot-success',
+      'var(--color-danger)': 'legend-dot-danger',
+    };
+
+    return colorClasses[color] || 'legend-dot-default';
+  };
 
   return (
     <ul className="custom-pie-legend">
@@ -16,8 +29,7 @@ const CustomLegend = (props) => {
           <li key={`item-${index}`} className="custom-pie-legend-item">
             <div className="legend-label-group">
               <span 
-                className="legend-dot" 
-                style={{ backgroundColor: entry.color }}
+                className={`legend-dot ${getLegendColorClass(entry.color)}`}
               />
               <span className="legend-label">{entry.value}</span>
             </div>
@@ -38,14 +50,12 @@ const PieChart = ({
 }) => {
   // A broader palette for pie charts matching the requested UI design
   const COLORS = [
-    '#4285F4', // Blue
-    '#2ECA7F', // Green
-    '#F5A623', // Orange/Yellow
-    '#9013FE', // Purple
-    '#E91E63', // Pink
-    '#00BCD4', // Cyan
-    '#FF5722', // Deep Orange
-    '#607D8B'  // Blue Grey
+    'var(--primary-blue)',
+    'var(--secondary-color)',
+    'var(--color-warning)',
+    'var(--dashboard-primary-soft)',
+    'var(--color-success)',
+    'var(--color-danger)'
   ];
 
   return (
@@ -61,7 +71,8 @@ const PieChart = ({
             paddingAngle={paddingAngle}
             dataKey="value"
             nameKey="name"
-            stroke="none"
+            stroke="var(--dashboard-surface)"
+            strokeWidth={2}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color || COLORS[index % COLORS.length]} />
@@ -69,7 +80,6 @@ const PieChart = ({
           </Pie>
           <Tooltip 
             wrapperClassName="custom-pie-tooltip-wrapper"
-            itemStyle={{ color: 'var(--text-primary)' }}
           />
           {showLegend && (
             <Legend 
@@ -77,7 +87,6 @@ const PieChart = ({
               layout="vertical" 
               verticalAlign="middle" 
               align="right"
-              wrapperStyle={{ right: '5%' }}
             />
           )}
         </RechartsPieChart>

@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import { IconArrowUpRight, IconArrowDownRight, IconDots, IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruckDelivery, IconInbox, IconRefresh } from '@tabler/icons-react';
+import { IconDots, IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruckDelivery } from '@tabler/icons-react';
 import BarChart from '../../global-components/Charts/BarChart';
 import PieChart from '../../global-components/Charts/PieChart';
 import Spinner from '../../global-components/Spinner/Spinner';
 import StatCard from '../../global-components/StatCard/StatCard';
 import './DashboardPlaceholder.css';
 
-// Dummy Data
 const barData = [
   { name: 'Mon', value: 30 },
   { name: 'Tue', value: 45, color: 'var(--primary)' },
@@ -36,28 +34,24 @@ const DataState = ({ loading, hasData, children }) => {
 
 const DashboardPlaceholder = () => {
   const isLoading = false;
-  const [selectedRange, setSelectedRange] = useState('Last 7 days');
 
   return (
     <div className="dashboard-grid">
-
-      {/* Row 1: 4 Stat Cards */}
-      <div className="stats-row">
+      <section className="stats-row" aria-label="Key performance indicators">
         <StatCard title="Total Inventory" value="24,562" trend="+12.5%" isPositive icon={IconBox} />
         <StatCard title="Pending Orders" value="1,245" trend="-2.4%" isPositive={false} icon={IconShoppingCart} />
         <StatCard title="Storage Capacity" value="86%" trend="+4.1%" isPositive icon={IconBuildingWarehouse} />
         <StatCard title="Delivery Success" value="98.2%" trend="+0.8%" isPositive icon={IconTruckDelivery} />
-      </div>
+      </section>
 
-      {/* Row 2: Charts */}
-      <div className="charts-row">
+      <section className="charts-row" aria-label="Operations charts">
         <div className="chart-card main-chart">
           <div className="chart-header">
-            <h3>Inventory Flow</h3>
-            <select className="chart-select" aria-label="Select inventory flow period">
-              <option>This Week</option>
-              <option>This Month</option>
-            </select>
+            <div>
+              <span className="card-kicker">Movement</span>
+              <h2>Inventory Flow</h2>
+            </div>
+            <span className="chart-period">This Week</span>
           </div>
           <div className="chart-placeholder" aria-busy={isLoading}>
             <DataState loading={isLoading} hasData={barData.length > 0} onAction={() => undefined}>
@@ -67,8 +61,11 @@ const DashboardPlaceholder = () => {
         </div>
         <div className="chart-card pie-chart">
           <div className="chart-header">
-            <h3>Storage Usage</h3>
-            <IconDots size={16} aria-label="Storage usage options" />
+            <div>
+              <span className="card-kicker">Capacity</span>
+              <h2>Storage Usage</h2>
+            </div>
+            <IconDots size={20} aria-hidden="true" className="chart-menu-icon" />
           </div>
           <div className="chart-placeholder pie-placeholder" aria-busy={isLoading}>
             <DataState loading={isLoading} hasData={pieData.length > 0} onAction={() => undefined}>
@@ -76,14 +73,14 @@ const DashboardPlaceholder = () => {
             </DataState>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Row 3: Table */}
-      <div className="table-row">
+      <section className="table-row" aria-labelledby="deliveries-title">
         <div className="table-card">
           <div className="chart-header">
-            <h3>Recent Deliveries</h3>
-            <button type="button" className="view-all-btn">View All</button>
+            <div>
+              <h2 id="deliveries-title">Recent Deliveries</h2>
+            </div>
           </div>
           <div className="table-placeholder" aria-busy={isLoading}>
             <DataState loading={isLoading} hasData={true}>
@@ -104,7 +101,7 @@ const DashboardPlaceholder = () => {
             </DataState>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

@@ -1,0 +1,245 @@
+/* MenuBar.css - Zentra Style Top Menu */
+
+.top-menu-bar-container {
+  width: 100%;
+  position: relative;
+  z-index: 100;
+  background-color: transparent;
+  padding: 12px 24px 0;
+}
+
+.top-menu-bar {
+  width: min(1600px, 100%);
+  min-height: 64px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background-color: var(--dashboard-surface, #fff);
+  border: 1px solid var(--dashboard-border, #e2e4e8);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(35, 46, 50, 0.06);
+}
+
+/* Brand Section (Icon + Name) */
+.menu-bar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  padding-left: 2px;
+}
+
+/* Navigation Items (Center Pill Bar) */
+.menu-bar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.menu-bar-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-bar-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--dashboard-text, #232e32);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.menu-bar-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Active Item - Zentra Dark Charcoal Capsule Pill */
+.menu-bar-item.active {
+  background-color: var(--dashboard-text, #232e32);
+  color: #FFFFFF;
+}
+
+/* Actions Section (Right Side) */
+.menu-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding-right: 4px;
+}
+
+.menu-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #E2E4E8;
+  background: #FFFFFF;
+  color: var(--dashboard-text, #232e32);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.menu-action-btn:hover {
+  background-color: #F4F5F8;
+}
+
+.menu-notification-wrap,
+.menu-profile-wrap {
+  position: relative;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  background-color: #FF4D4D;
+  border-radius: 50%;
+  border: 1px solid #FFFFFF;
+}
+
+/* Profile Avatar Gradient */
+.menu-profile-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.profile-avatar-gradient {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF914D 0%, #1B47DB 50%, #9013FE 100%);
+  padding: 2px;
+}
+
+.profile-avatar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #F4F5F8;
+  color: #1A1A1A;
+  font-weight: 600;
+  font-size: 14px;
+  border: 2px solid #FFFFFF;
+}
+
+/* Popovers */
+.header-popover {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: var(--bg-card, #FFFFFF);
+  border: 1px solid var(--border-color, #E2E4E8);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 320px;
+  z-index: 1000;
+  animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-popover {
+  width: 220px;
+}
+
+.profile-popover-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--border-color, #E2E4E8);
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-popover-header strong {
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+.profile-popover-header span {
+  color: var(--text-secondary);
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.profile-popover-actions {
+  padding: 8px;
+}
+
+.logout-action {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: var(--color-danger);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.logout-action:hover {
+  background: var(--color-danger-light);
+}
+
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .menu-bar-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+
+  .top-menu-bar-container { padding-right: 12px; padding-left: 12px; }
+  .menu-bar-item { padding-right: 10px; padding-left: 10px; }
+}
+
+@media (max-width: 640px) {
+  .top-menu-bar { min-height: 58px; padding: 7px 10px; border-radius: 14px; }
+  .top-menu-bar-container { padding-top: 8px; }
+  .menu-bar-brand { gap: 8px; }
+  .brand-logo-name { font-size: 17px; }
+  .menu-bar-nav { display: none; }
+  .menu-bar-actions { gap: 4px; }
+  .menu-action-btn { width: 34px; height: 34px; }
+  .profile-avatar-gradient { width: 36px; height: 36px; }
+}

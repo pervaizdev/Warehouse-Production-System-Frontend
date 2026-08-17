@@ -4,6 +4,7 @@ import Badge from '../../global-components/Badge/Badge';
 import Input from '../../global-components/Input/Input';
 import DashboardStatCard from '../../global-components/DashboardStatCard/DashboardStatCard';
 import { IconBox, IconShoppingCart, IconBuildingWarehouse, IconTruck } from '@tabler/icons-react';
+import BrandLogo from '../../global-components/BrandLogo/BrandLogo';
 import './Dashboard.css';
 
 
@@ -54,7 +55,7 @@ const Dashboard = ({ user, onLogout }) => {
       {/* Top Navigation Bar */}
       <header className="dashboard-header">
         <div className="header-logo-section">
-          <span className="header-logo">WPS</span>
+          <BrandLogo size="sm" />
           <span className="header-divider">|</span>
         </div>
         <div className="header-user-section">

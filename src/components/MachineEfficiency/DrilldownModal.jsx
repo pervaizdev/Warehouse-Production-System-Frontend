@@ -55,7 +55,7 @@ const DrilldownModal = ({ machine, onClose }) => {
     <GlobalPopup onClose={onClose} title="Machine details">
         <div className="modal-header">
           <div className="drilldown-breadcrumb">
-            <span className={level === 1 ? 'active' : ''} onClick={handleBack} style={{cursor: level === 2 ? 'pointer' : 'default'}}>
+            <span className={`${level === 1 ? 'active' : ''} ${level === 2 ? 'clickable-breadcrumb' : ''}`} onClick={handleBack}>
               {machine.machineCode} - {machine.machine}
             </span>
             {level === 2 && (

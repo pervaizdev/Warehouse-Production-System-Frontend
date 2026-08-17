@@ -11,7 +11,7 @@ const StatCard = ({
   subtext = "vs last period",
   color = "primary" // options: primary, blue, emerald, amber, rose, purple
 }) => (
-  <div className={`stat-card accent-${color}`}>
+  <div className="stat-card">
     <div className="stat-header">
       <span className="stat-title">{title}</span>
       {Icon && (
