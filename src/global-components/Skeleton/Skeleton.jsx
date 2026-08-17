@@ -2,12 +2,13 @@ import React from 'react';
 import './Skeleton.css';
 
 const Skeleton = ({ className = '', type = 'text', width, height }) => {
-  const style = {};
-  if (width) style.width = width;
-  if (height) style.height = height;
+  const sizeClasses = [
+    width === '100%' ? 'skeleton-width-full' : '',
+    height === '100%' ? 'skeleton-height-full' : '',
+  ].filter(Boolean).join(' ');
 
   return (
-    <div className={`skeleton ${type} ${className}`} style={style}>
+    <div className={`skeleton ${type} ${sizeClasses} ${className}`.trim()}>
       <div className="gms-skeleton-shimmer"></div>
     </div>
   );

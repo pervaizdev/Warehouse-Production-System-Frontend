@@ -47,7 +47,7 @@ const ProductionTrendTable = ({
       key: 'rejectedQty', 
       header: 'Rejected Qty', 
       render: (row) => (
-        <span style={{ color: parseFloat(row.rejectedQty) > 0 ? '#f43f5e' : 'inherit' }}>
+        <span className={parseFloat(row.rejectedQty) > 0 ? 'rejected-qty-text' : ''}>
           {formatNumber(row.rejectedQty)}
         </span>
       )
@@ -67,7 +67,7 @@ const ProductionTrendTable = ({
         />
       </div>
 
-      <div style={{ padding: '0 24px 24px 24px' }}>
+      <div className="pt-table-content">
         {loading ? (
            <div className="pt-empty-state">Loading table data...</div>
         ) : (

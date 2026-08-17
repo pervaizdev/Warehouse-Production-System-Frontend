@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext.jsx';
 import Button from '../../global-components/Button/Button';
 import Input from '../../global-components/Input/Input';
+import BrandLogo from '../../global-components/BrandLogo/BrandLogo';
 import './Login.css';
 
 const Login = () => {
   const { login } = useAuth();
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +18,6 @@ const Login = () => {
     e.preventDefault();
     setError('');
 
-    // Basic validation
     if (!email || !password) {
       setError('Please fill in all fields.');
       return;
@@ -32,40 +32,32 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      // Real authentication logic
       await login({ email, password });
     } catch (err) {
-      // Extract backend error message if available
-      const message = err.response?.data?.message || 'Invalid email or password. Please try again.';
-      setError(message);
+      if (!err.response || err.response.status === 404 || err.response.status >= 500) {
+        setError('The server is currently unavailable.');
+      } else {
+        const message = err.response?.data?.message || 'Invalid email or password. Please try again.';
+        setError(message);
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card-layout">
-        {/* Left Side: Warehouse Theme Visual Panel */}
-        <div className="login-visual-panel">
-          <div className="visual-overlay"></div>
-          <div className="visual-content">
-            <h1 className="visual-title">WPS</h1>
-            <p className="visual-subtitle">Warehouse Production System</p>
-
-          </div>
-          <img
-            src="/warehouse_bg.png"
-            alt="Warehouse Production System Background"
-            className="warehouse-visual-image"
-          />
-        </div>
-
-        {/* Right Side: Login Form */}
+    <main className="login-container">
+      <section className="login-card-layout" aria-label="WPS sign in">
         <div className="login-form-panel">
+          <div className="login-form-brand">
+            <BrandLogo size="sm" />
+            <span className="login-secure-label">Secure workspace</span>
+          </div>
+
           <div className="login-form-header">
-            <h2 className="form-title">Sign In</h2>
-            <p className="form-subtitle">Access your production node console</p>
+            <span className="login-eyebrow">Warehouse Production System</span>
+            <h1 className="form-title">Welcome back</h1>
+            <p className="form-subtitle">Sign in to manage your warehouse operations.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="login-form">
@@ -83,6 +75,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
+              autoComplete="email"
               required
             />
 
@@ -90,12 +83,13 @@ const Login = () => {
               id="password"
               type={showPassword ? 'text' : 'password'}
               label="Password"
-              placeholder="••••••••"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
+              autoComplete="current-password"
               required
-              rightElement={
+              rightElement={(
                 <button
                   type="button"
                   className="password-toggle-btn"
@@ -104,7 +98,7 @@ const Login = () => {
                 >
                   {showPassword ? 'Hide' : 'Show'}
                 </button>
-              }
+              )}
             />
 
             <Button
@@ -119,11 +113,27 @@ const Login = () => {
           </form>
 
           <div className="login-footer">
-            <p>© 2026 WPS Logistics Tech Group. Authorized Personnel Only.</p>
+            <p>© 2026 WPS (Warehouse Production System).</p>
           </div>
         </div>
-      </div>
-    </div>
+
+        <aside className="login-visual-panel">
+          <div className="visual-overlay" />
+          <div className="visual-content">
+            <BrandLogo size="lg" variant="inverse" />
+            <div className="visual-message">
+              <span className="visual-kicker">Operations, connected</span>
+              <h2>Keep every<br />movement in sync.</h2>
+              <p>One calm workspace for production, inventory, and delivery teams.</p>
+            </div>
+            <div className="visual-status">
+              <span className="visual-status-dot" />
+              <span>Warehouse network ready</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
   );
 };
 

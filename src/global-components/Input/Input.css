@@ -1,76 +1,12 @@
-/* Input.css */
-
-.dome-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--margin-xs);
-  width: 100%;
-}
-
-.dome-form-label {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-secondary);
-}
-
-.dome-input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.dome-form-input {
-  width: 100%;
-  padding: var(--padding-default);
-  border: var(--border-width) solid var(--border-color);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-sm);
-  font-family: var(--font-family);
-  color: var(--text-primary);
-  background-color: var(--bg-card);
-  transition: border-color var(--transition-fast);
-  outline: none;
-}
-
-.dome-form-input--with-right {
-  padding-right: calc(var(--padding-xl) + var(--padding-default)); /* Make room for right element */
-}
-
-.dome-form-input:focus {
-  border-color: var(--border-focus);
-}
-
-.dome-form-input:disabled {
-  background-color: var(--bg-main);
-  color: var(--text-muted);
-  cursor: not-allowed;
-}
-
-.dome-form-input--error {
-  border-color: var(--color-danger);
-}
-.dome-form-input--error:focus {
-  border-color: var(--color-danger);
-}
-
-.dome-input-right-element {
-  position: absolute;
-  right: var(--padding-xs);
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-}
-
-.dome-form-error {
-  font-size: var(--font-size-xs);
-  color: var(--color-danger);
-  margin-top: 2px;
-}
-
-.dome-form-help {
-  font-size: var(--font-size-xs);
-  color: var(--text-muted);
-  margin-top: 2px;
-}
+.dome-form-group { display: flex; width: 100%; flex-direction: column; gap: 7px; }
+.dome-form-label { color: var(--dashboard-text); font-size: 12px; font-weight: 700; }
+.dome-input-wrapper { position: relative; display: flex; align-items: center; width: 100%; }
+.dome-form-input { width: 100%; min-height: 42px; padding: 0 13px; color: var(--dashboard-text); background: var(--dashboard-surface); border: 1px solid var(--dashboard-border); border-radius: 11px; outline: none; font: inherit; font-size: 13px; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); }
+.dome-form-input::placeholder { color: var(--dashboard-text-muted); }
+.dome-form-input:focus { border-color: var(--dashboard-primary); box-shadow: 0 0 0 3px rgba(27, 71, 219, 0.12); }
+.dome-form-input:disabled { color: var(--dashboard-text-muted); background: var(--dashboard-bg); cursor: not-allowed; }
+.dome-form-input--error { border-color: var(--color-danger); }
+.dome-form-input--with-right { padding-right: 44px; }
+.dome-input-right-element { position: absolute; top: 50%; right: 11px; display: flex; align-items: center; transform: translateY(-50%); }
+.dome-form-error { color: var(--color-danger); font-size: 11px; }
+.dome-form-help { color: var(--dashboard-text-muted); font-size: 11px; }

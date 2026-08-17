@@ -341,8 +341,8 @@ const Inventory = () => {
     { header: 'Item Name', key: 'ItemName', render: (r) => <span title={r.ItemName}>{(r.ItemName || '').substring(0, 25)}</span> },
     { header: 'Warehouse', key: 'Warehouse', render: (r) => <span title={r.WhsName}>{r.Warehouse}</span> },
     { header: 'Type', key: 'TransTypeName' },
-    { header: 'In', key: 'InQty', render: (r) => r.InQty > 0 ? <span className="tabular-nums" style={{ color: '#059669' }}>+{fmt(r.InQty)}</span> : '—' },
-    { header: 'Out', key: 'OutQty', render: (r) => r.OutQty > 0 ? <span className="tabular-nums" style={{ color: '#dc2626' }}>-{fmt(r.OutQty)}</span> : '—' },
+    { header: 'In', key: 'InQty', render: (r) => r.InQty > 0 ? <span className="tabular-nums qty-in-text">+{fmt(r.InQty)}</span> : '—' },
+    { header: 'Out', key: 'OutQty', render: (r) => r.OutQty > 0 ? <span className="tabular-nums qty-out-text">-{fmt(r.OutQty)}</span> : '—' },
     { header: 'Value', key: 'TransValue', render: (r) => <span className="tabular-nums">{fmtCurrency(r.TransValue)}</span> },
     { header: 'Doc #', key: 'DocNumber' },
   ];
@@ -725,8 +725,8 @@ const Inventory = () => {
                         { header: 'Date', key: 'DocDate', render: (r) => r.DocDate ? new Date(r.DocDate).toLocaleDateString() : '—' },
                         { header: 'Type', key: 'TransTypeName' },
                         { header: 'Warehouse', key: 'Warehouse' },
-                        { header: 'In', key: 'InQty', render: (r) => r.InQty > 0 ? <span className="tabular-nums" style={{ color: '#059669' }}>+{fmt(r.InQty)}</span> : '—' },
-                        { header: 'Out', key: 'OutQty', render: (r) => r.OutQty > 0 ? <span className="tabular-nums" style={{ color: '#dc2626' }}>-{fmt(r.OutQty)}</span> : '—' },
+                        { header: 'In', key: 'InQty', render: (r) => r.InQty > 0 ? <span className="tabular-nums qty-in-text">+{fmt(r.InQty)}</span> : '—' },
+                        { header: 'Out', key: 'OutQty', render: (r) => r.OutQty > 0 ? <span className="tabular-nums qty-out-text">-{fmt(r.OutQty)}</span> : '—' },
                         { header: 'Doc #', key: 'DocNumber' },
                       ]}
                       totalEntries={itemDetail.movements.length}

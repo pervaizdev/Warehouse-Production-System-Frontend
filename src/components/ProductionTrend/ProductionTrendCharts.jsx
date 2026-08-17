@@ -18,13 +18,13 @@ const ProductionTrendCharts = ({ productShare, monthlyData, comparisonData, load
         <div className="pt-chart-header">
           <h3 className="pt-chart-title">Product Production Share</h3>
         </div>
-        <div className="pt-chart-container" style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="pt-chart-container flex-center">
           {loading ? (
             <Skeleton type="chart" height="100%" />
           ) : topProducts.length === 0 ? (
             <EmptyState message="No product share data available" icon={IconChartPie} />
           ) : (
-            <div style={{ width: '100%', height: '100%' }}>
+            <div className="full-wh">
               <GlobalPieChart 
                 data={topProducts.map(p => ({ name: p.productCode, value: p.totalQty }))} 
                 innerRadius={65} 
@@ -71,8 +71,8 @@ const ProductionTrendCharts = ({ productShare, monthlyData, comparisonData, load
               xAxisKey="month" 
               showLegend={true}
               series={[
-                { key: 'previousYearQty', name: `Year ${comparisonData?.[0]?.previousYearLabel || 'Prev'}`, color: '#94a3b8' },
-                { key: 'currentYearQty', name: `Year ${comparisonData?.[0]?.currentYearLabel || 'Curr'}`, color: '#10b981' }
+                { key: 'previousYearQty', name: `Year ${comparisonData?.[0]?.previousYearLabel || 'Prev'}`, color: '#94B5E3' },
+                { key: 'currentYearQty', name: `Year ${comparisonData?.[0]?.currentYearLabel || 'Curr'}`, color: '#1B47DB' }
               ]}
             />
           )}
@@ -84,7 +84,7 @@ const ProductionTrendCharts = ({ productShare, monthlyData, comparisonData, load
         <div className="pt-chart-header">
           <h3 className="pt-chart-title">Top Produced Products</h3>
         </div>
-        <div className="pt-chart-container" style={{ height: '350px' }}>
+        <div className="pt-chart-container chart-h350">
           {loading ? (
             <Skeleton type="chart" height="100%" />
           ) : topProducts.length === 0 ? (

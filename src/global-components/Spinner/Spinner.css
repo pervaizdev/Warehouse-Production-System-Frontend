@@ -1,39 +1,5 @@
-/* Spinner.css */
-
-.spinner {
-  width: 24px;
-  height: 24px;
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spinner-animation 0.8s linear infinite;
-  display: inline-block;
-}
-
-.spinner-sm {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spinner-animation 0.8s linear infinite;
-  display: inline-block;
-}
-
-@keyframes spinner-animation {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
-}
+.spinner, .spinner-sm { display: inline-block; border: 2px solid rgba(27, 71, 219, 0.16); border-top-color: var(--dashboard-primary); border-radius: 50%; animation: spinner-animation 0.8s linear infinite; }
+.spinner { width: 24px; height: 24px; }
+.spinner-sm { width: 16px; height: 16px; }
+@keyframes spinner-animation { to { transform: rotate(360deg); } }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }

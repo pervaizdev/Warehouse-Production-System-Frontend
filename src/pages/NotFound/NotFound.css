@@ -5,7 +5,7 @@
   justify-content: center;
   min-height: calc(100vh - 64px); /* Assuming header is 64px */
   width: 100%;
-  background: var(--bg-main, #f8fafc);
+  background: var(--bg-main, #F4F5F8);
   text-align: center;
   overflow: hidden;
   position: relative;
@@ -27,7 +27,7 @@
 .floating-404 {
   font-size: 160px;
   font-weight: 900;
-  color: var(--text-primary, #0f172a);
+  color: var(--text-primary, #232E32);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -37,7 +37,7 @@
 }
 
 .ghost-icon {
-  color: var(--primary, #047857);
+  color: var(--primary, #1B47DB);
   animation: floatGhost 3s ease-in-out infinite;
 }
 
