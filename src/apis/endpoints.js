@@ -37,4 +37,10 @@ export const API_ENDPOINTS = {
     FILTERS: '/inventory/filters',
     ITEM_DETAIL: (itemCode) => `/inventory/items/${encodeURIComponent(itemCode)}`,
   },
+  
+  PRODUCTION_PLANNING: {
+    KPIS: '/production-planning/kpis',
+    SHORTAGES: '/production-planning/shortages',
+    BATCH_EXPIRY: '/production-planning/batch-expiry',
+  }
 };

@@ -9,6 +9,7 @@ import CostAnalysis from './pages/CostAnalysis/CostAnalysis.jsx';
 import ProductionTrend from './pages/ProductionTrend/ProductionTrend.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
 import Inventory from './pages/Inventory/Inventory.jsx';
+import ProductionPlanning from './pages/ProductionPlanning/ProductionPlanning.jsx';
 import './App.css'
 
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
@@ -43,6 +44,7 @@ function AppContent() {
           <Route path="storage" element={<SimplePlaceholder title="Storage" />} />
           <Route path="machine-efficiency" element={<MachineEfficiency />} />
           <Route path="cost-analysis" element={<CostAnalysis />} />
+          <Route path="production-planning" element={<ProductionPlanning />} />
           <Route path="settings" element={<SimplePlaceholder title="Settings" />} />
           <Route path="*" element={<NotFound />} />
         </Route>
