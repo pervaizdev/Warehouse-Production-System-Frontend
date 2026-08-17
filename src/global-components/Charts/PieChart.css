@@ -1,15 +1,352 @@
-.pie-chart-container { width: 100%; height: 100%; min-height: 240px; }
-.custom-pie-tooltip-wrapper .recharts-default-tooltip { background: var(--dashboard-surface) !important; border: 1px solid var(--dashboard-border) !important; border-radius: 11px !important; box-shadow: 0 10px 24px rgba(35, 46, 50, 0.1) !important; }
-.custom-pie-legend { display: flex; width: 100%; max-width: 250px; flex-direction: column; gap: 12px; padding: 0; margin: 0; list-style: none; }
-.custom-pie-legend-item { display: flex; align-items: center; justify-content: space-between; color: var(--dashboard-text); font-size: 12px; }
-.legend-label-group { display: flex; align-items: center; gap: 8px; }
-.legend-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
-.legend-dot-primary { background: var(--primary-blue); }
-.legend-dot-primary-hover { background: var(--primary-hover); }
-.legend-dot-border { background: var(--border-color); }
-.legend-dot-secondary { background: var(--secondary-color); }
-.legend-dot-success { background: var(--color-success); }
-.legend-dot-danger { background: var(--color-danger); }
-.legend-dot-default { background: var(--dashboard-primary); }
-.legend-label { font-weight: 600; }
-.legend-value { color: var(--dashboard-text); font-weight: 700; }
+/* Container & Wrapper */
+.pie-chart-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4, 16px);
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  min-height: 240px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.pie-chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  background-color: var(--bg-card, #ffffff);
+  border: 1px dashed var(--border-color, #e2e4e8);
+  border-radius: var(--border-radius-md, 12px);
+}
+
+.pie-chart-empty-text {
+  font-size: var(--font-size-sm, 13px);
+  color: var(--text-secondary, #798089);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+/* Donut Chart Visual Area */
+.pie-chart-visual-container {
+  position: relative;
+  flex: 1 1 50%;
+  min-width: 0;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-slice-cell {
+  transition: opacity var(--transition-fast, 0.15s ease), transform var(--transition-fast, 0.15s ease);
+  cursor: pointer;
+}
+
+.pie-slice-cell:hover {
+  opacity: 0.95;
+}
+
+/* Center Donut Hole Content */
+.pie-center-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.pie-center-label {
+  font-size: var(--font-size-xs, 10px);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--text-secondary, #798089);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+}
+
+.pie-center-value {
+  font-size: var(--font-size-base, 15px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--text-primary, #232e32);
+  line-height: 1.2;
+  margin: 1px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80px;
+}
+
+.pie-center-subtext {
+  font-size: 10px;
+  color: var(--text-secondary, #798089);
+  font-weight: var(--font-weight-medium, 500);
+}
+
+/* Legend / Metric Cards Area */
+.pie-legend-container {
+  flex: 1 1 50%;
+  max-width: 320px;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.pie-legend-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 2px 4px 2px 0;
+  margin: 0;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color, #e2e4e8) transparent;
+}
+
+.pie-legend-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.pie-legend-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pie-legend-list::-webkit-scrollbar-thumb {
+  background: var(--border-color, #e2e4e8);
+  border-radius: 4px;
+}
+
+.pie-legend-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background-color: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e2e4e8);
+  border-radius: var(--border-radius-sm, 8px);
+  transition: border-color var(--transition-fast, 0.15s ease), background-color var(--transition-fast, 0.15s ease);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.pie-legend-card:hover,
+.pie-legend-card.active {
+  border-color: var(--primary-blue, #1b47db);
+  background-color: var(--primary-light, #ebf1ff);
+}
+
+/* Icon / Badge Indicator */
+.pie-legend-badge-wrapper {
+  flex-shrink: 0;
+}
+
+.pie-legend-badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pie-legend-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* Badge Color Variations */
+.pie-legend-color-0 {
+  background-color: rgba(131, 56, 236, 0.12);
+}
+.pie-legend-color-0 .pie-legend-badge-dot {
+  background-color: #8338EC;
+}
+
+.pie-legend-color-1 {
+  background-color: rgba(255, 0, 122, 0.12);
+}
+.pie-legend-color-1 .pie-legend-badge-dot {
+  background-color: #FF007A;
+}
+
+.pie-legend-color-2 {
+  background-color: rgba(255, 184, 0, 0.14);
+}
+.pie-legend-color-2 .pie-legend-badge-dot {
+  background-color: #FFB800;
+}
+
+.pie-legend-color-3 {
+  background-color: rgba(27, 71, 219, 0.12);
+}
+.pie-legend-color-3 .pie-legend-badge-dot {
+  background-color: var(--primary-blue, #1B47DB);
+}
+
+.pie-legend-color-4 {
+  background-color: rgba(16, 185, 129, 0.12);
+}
+.pie-legend-color-4 .pie-legend-badge-dot {
+  background-color: var(--color-success, #10B981);
+}
+
+.pie-legend-color-5 {
+  background-color: rgba(105, 151, 228, 0.15);
+}
+.pie-legend-color-5 .pie-legend-badge-dot {
+  background-color: var(--secondary-blue, #6997E4);
+}
+
+.pie-legend-color-6 {
+  background-color: rgba(251, 86, 7, 0.12);
+}
+.pie-legend-color-6 .pie-legend-badge-dot {
+  background-color: #FB5607;
+}
+
+.pie-legend-color-7 {
+  background-color: rgba(121, 128, 137, 0.12);
+}
+.pie-legend-color-7 .pie-legend-badge-dot {
+  background-color: var(--text-secondary, #798089);
+}
+
+/* Legend Text & Info */
+.pie-legend-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.pie-legend-title {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--text-primary, #232e32);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pie-legend-subtext {
+  font-size: 10px;
+  color: var(--text-secondary, #798089);
+  margin-top: 1px;
+}
+
+/* Legend Metrics (Value & Percent) */
+.pie-legend-metrics {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+.pie-legend-value {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--text-primary, #232e32);
+  font-variant-numeric: tabular-nums;
+}
+
+.pie-legend-percentage {
+  font-size: 10px;
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--text-secondary, #798089);
+  font-variant-numeric: tabular-nums;
+  margin-top: 1px;
+}
+
+/* Custom Tooltip */
+.custom-pie-tooltip {
+  background-color: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-color, #e2e4e8);
+  border-radius: var(--border-radius-sm, 8px);
+  padding: 6px 10px;
+  pointer-events: none;
+}
+
+.custom-pie-tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.custom-pie-tooltip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary-blue, #1b47db);
+}
+
+.custom-pie-tooltip-title {
+  font-size: var(--font-size-xs, 11px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--text-secondary, #798089);
+}
+
+.custom-pie-tooltip-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.custom-pie-tooltip-value {
+  font-size: var(--font-size-xs, 12px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--text-primary, #232e32);
+}
+
+.custom-pie-tooltip-percentage {
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--primary-blue, #1b47db);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .pie-chart-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-3, 12px);
+  }
+
+  .pie-legend-container {
+    max-width: 100%;
+    height: 180px;
+  }
+
+  .pie-chart-visual-container {
+    width: 100%;
+    min-height: 180px;
+  }
+}
+
