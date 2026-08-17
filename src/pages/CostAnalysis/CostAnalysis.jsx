@@ -87,7 +87,7 @@ const CostAnalysis = () => {
   };
 
   const columns = [
-    { key: 'DocNum', header: 'Doc No', render: (row) => row.DocNum },
+    { key: 'DocNum', header: 'PO No', render: (row) => row.DocNum },
     { key: 'FGItemCode', header: 'Product', render: (row) => row.FGItemCode },
     {
       key: 'Status', header: 'Status', render: (row) => (

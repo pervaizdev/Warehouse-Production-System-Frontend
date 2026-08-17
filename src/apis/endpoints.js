@@ -22,4 +22,19 @@ export const API_ENDPOINTS = {
     TABLE: '/production-trend/table',
     FILTERS: '/production-trend/filters',
   },
+
+  INVENTORY: {
+    SUMMARY: '/inventory/summary',
+    CURRENT: '/inventory/current',
+    WAREHOUSES: '/inventory/warehouses',
+    ITEM_GROUPS: '/inventory/item-groups',
+    MOVEMENTS: '/inventory/movements',
+    EXPIRY: '/inventory/expiry',
+    BATCHES: '/inventory/batches',
+    PURCHASE_PIPELINE: '/inventory/purchase-pipeline',
+    COMMITMENTS: '/inventory/commitments',
+    PRODUCTION_DEMAND: '/inventory/production-demand',
+    FILTERS: '/inventory/filters',
+    ITEM_DETAIL: (itemCode) => `/inventory/items/${encodeURIComponent(itemCode)}`,
+  },
 };
