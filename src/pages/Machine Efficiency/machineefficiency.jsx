@@ -27,7 +27,6 @@ const MachineEfficiency = () => {
   const [error, setError] = useState(null);
   useEffect(() => {
     fetchOptions();
-    fetchEfficiencyData();
   }, []);
 
   useEffect(() => {
@@ -116,11 +115,20 @@ const MachineEfficiency = () => {
   return (
     <div className="machine-efficiency-container">
 
-      <DashboardFilters
-        options={filterOptions}
-        filters={filters}
-        onFilterChange={setFilters}
-      />
+
+      <section className="machine-efficiency-filter-card" aria-label="Machine efficiency filters">
+        <div className="machine-efficiency-section-heading">
+          <div>
+            <h2>Performance filters</h2>
+            <p>Refine the live SAP B1 data by machine, product, status, or warehouse.</p>
+          </div>
+        </div>
+        <DashboardFilters
+          options={filterOptions}
+          filters={filters}
+          onFilterChange={setFilters}
+        />
+      </section>
 
       {loading && data.length === 0 ? (
         <div className="machine-efficiency-loading">Loading SAP B1 Live Data...</div>

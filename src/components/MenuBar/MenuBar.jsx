@@ -16,9 +16,10 @@ const MenuBar = ({ onLogout, onNavigate, user }) => {
   const menuItems = [
     { title: 'Dashboard', path: '/dashboard' },
     //{ title: 'Analytics', path: '/analytics' },
-    { title: 'Cost Analysiss', path: '/cost-analysis' },
+    { title: 'Cost Analysis', path: '/cost-analysis' },
     { title: 'Customers', path: '/customers' },
     { title: 'Inventory', path: '/inventory' },
+    { title: 'Machine Efficiency', path: '/machine-efficiency' },
     //{ title: 'Orders', path: '/orders' },
     { title: 'Production Trend', path: '/production-trend' },
     { title: 'Storage', path: '/storage' },

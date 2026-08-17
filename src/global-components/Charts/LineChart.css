@@ -1,4 +1,55 @@
-.line-chart-container { width: 100%; height: 100%; min-height: 240px; }
-.line-chart-container .recharts-cartesian-grid-horizontal line { stroke: rgba(35, 46, 50, 0.08); }
-.line-chart-container .recharts-default-tooltip, .custom-line-tooltip-wrapper .recharts-default-tooltip { background: var(--dashboard-surface) !important; border: 1px solid var(--dashboard-border) !important; border-radius: 11px !important; box-shadow: 0 10px 24px rgba(35, 46, 50, 0.1) !important; }
-.line-chart-container .recharts-legend-item-text { color: var(--dashboard-text-muted) !important; }
+:root {
+  --line-chart-panel: var(--dashboard-surface, #ffffff);
+  --line-chart-grid: rgba(35, 46, 50, 0.12);
+  --line-chart-muted: var(--dashboard-text-muted, #798089);
+  --line-chart-cursor: rgba(35, 46, 50, 0.28);
+}
+
+.line-chart-container {
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  padding: 12px 10px 6px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 0%, rgba(112, 91, 210, 0.06), transparent 42%),
+    var(--line-chart-panel);
+  border: 1px solid var(--dashboard-border, #e2e4e8);
+  border-radius: 14px;
+}
+
+.line-chart-container .recharts-cartesian-grid-horizontal line {
+  stroke: var(--line-chart-grid);
+}
+
+.line-chart-container .recharts-cartesian-axis-tick-value {
+  letter-spacing: 0.01em;
+}
+
+.line-chart-container .recharts-line-curve,
+.line-chart-container .recharts-area-curve {
+  filter: drop-shadow(0 0 3px rgba(148, 117, 255, 0.25));
+}
+
+.line-chart-container .recharts-default-tooltip,
+.custom-line-tooltip-wrapper .recharts-default-tooltip {
+  padding: 9px 11px !important;
+  color: var(--text-primary, #232e32) !important;
+  background: var(--dashboard-surface, #ffffff) !important;
+  border: 1px solid var(--dashboard-border, #e2e4e8) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 10px 24px rgba(35, 46, 50, 0.12) !important;
+}
+
+.line-chart-container .recharts-tooltip-label,
+.line-chart-container .recharts-tooltip-item {
+  color: var(--text-primary, #232e32) !important;
+}
+
+.line-chart-container .recharts-legend-item-text {
+  color: var(--line-chart-muted) !important;
+}
+
+.line-chart-container .recharts-default-legend {
+  margin-top: 4px !important;
+}

@@ -43,8 +43,15 @@ const BarChart = ({
           {showLegend && <Legend />}
           
           {series ? (
-            series.map((s) => (
-              <Bar key={s.key} dataKey={s.key} name={s.name} fill={s.color || 'var(--dashboard-primary)'} radius={layout === 'vertical' ? [0, 8, 8, 0] : [8, 8, 0, 0]} maxBarSize={layout === 'vertical' ? 20 : 42} />
+            series.map((s, idx) => (
+              <Bar 
+                key={s.key} 
+                dataKey={s.key} 
+                name={s.name} 
+                fill={idx % 2 === 1 ? 'url(#chart-bar-pattern)' : (s.color || 'var(--dashboard-primary)')} 
+                radius={layout === 'vertical' ? [0, 8, 8, 0] : [8, 8, 0, 0]} 
+                maxBarSize={layout === 'vertical' ? 20 : 42} 
+              />
             ))
           ) : (
             <Bar dataKey={dataKey} radius={layout === 'vertical' ? [0, 8, 8, 0] : [8, 8, 0, 0]} maxBarSize={layout === 'vertical' ? 22 : 42}>

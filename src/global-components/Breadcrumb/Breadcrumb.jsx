@@ -1,11 +1,11 @@
 import { IconChevronRight, IconHome } from '@tabler/icons-react';
 import './Breadcrumb.css';
 
-const Breadcrumb = ({ items = [], homeLabel = 'Workspace' }) => {
-  const renderLabel = (item, isCurrent) => {
+const Breadcrumb = ({ items = [], homeLabel = 'Workspace', homeHref = '/dashboard' }) => {
+  const renderLabel = (item) => {
     const label = <span className="breadcrumb-label">{item.label}</span>;
 
-    if (isCurrent || (!item.href && !item.onClick)) {
+    if (!item.href && !item.onClick) {
       return label;
     }
 
@@ -28,10 +28,12 @@ const Breadcrumb = ({ items = [], homeLabel = 'Workspace' }) => {
     <nav className="breadcrumb" aria-label="Breadcrumb">
       <ol className="breadcrumb-list">
         <li className="breadcrumb-item breadcrumb-home">
-          <span className="breadcrumb-home-icon">
-            <IconHome size={15} stroke={2.2} aria-hidden="true" />
-          </span>
-          <span className="breadcrumb-label">{homeLabel}</span>
+          <a className="breadcrumb-home-link" href={homeHref} aria-label={`Go to ${homeLabel}`}>
+            <span className="breadcrumb-home-icon">
+              <IconHome size={15} stroke={2.2} aria-hidden="true" />
+            </span>
+            <span className="breadcrumb-label">{homeLabel}</span>
+          </a>
         </li>
         {items.map((item, index) => {
           const isCurrent = item.current ?? index === items.length - 1;
@@ -43,7 +45,7 @@ const Breadcrumb = ({ items = [], homeLabel = 'Workspace' }) => {
               aria-current={isCurrent ? 'page' : undefined}
             >
               <IconChevronRight className="breadcrumb-separator" size={16} stroke={1.8} aria-hidden="true" />
-              {renderLabel(item, isCurrent)}
+              {renderLabel(item)}
             </li>
           );
         })}
