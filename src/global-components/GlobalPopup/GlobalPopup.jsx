@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { IconX } from '@tabler/icons-react';
 import './GlobalPopup.css';
 
@@ -18,7 +19,7 @@ const GlobalPopup = ({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  return (
+  const content = (
     <div className="global-popup-overlay" onMouseDown={onClose}>
       <section
         className={`global-popup ${className}`.trim()}
@@ -41,6 +42,8 @@ const GlobalPopup = ({
       </section>
     </div>
   );
+
+  return typeof document !== 'undefined' ? createPortal(content, document.body) : null;
 };
 
 export default GlobalPopup;

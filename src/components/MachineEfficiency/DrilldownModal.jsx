@@ -52,14 +52,20 @@ const DrilldownModal = ({ machine, onClose }) => {
   };
 
   return (
-    <GlobalPopup onClose={onClose} title="Machine details">
-        <div className="modal-header">
+    <GlobalPopup
+      onClose={onClose}
+      title={`Machine details: ${machine.machineCode}`}
+      className="machine-efficiency-popup"
+    >
+        <div className="machine-efficiency-modal-header">
+          <div>
+            <span className="machine-efficiency-modal-eyebrow">Machine details</span>
+            <h2>{machine.machineCode} - {machine.machine}</h2>
+          </div>
           <div className="drilldown-breadcrumb">
-            <span className={`${level === 1 ? 'active' : ''} ${level === 2 ? 'clickable-breadcrumb' : ''}`} onClick={handleBack}>
-              {machine.machineCode} - {machine.machine}
-            </span>
             {level === 2 && (
               <>
+                <span className="clickable-breadcrumb" onClick={handleBack}>Machine</span>
                 <IconChevronRight size={16} />
                 <span className="active">Order #{selectedOrder}</span>
               </>
@@ -67,7 +73,7 @@ const DrilldownModal = ({ machine, onClose }) => {
           </div>
         </div>
 
-        <div className="modal-content">
+        <div className="machine-efficiency-modal-content">
           {loading ? (
             <div className="loading-spinner">Loading Details...</div>
           ) : level === 1 ? (
