@@ -2,13 +2,20 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { axiosInstance } from '../../apis/axiosinstance';
 import { API_ENDPOINTS } from '../../apis/endpoints';
 import StatCard from '../../global-components/StatCard/StatCard';
+import Pagination from '../../global-components/Pagination/Pagination';
+import ProductionHistory from './ProductionHistory';
+import ProductionTrend from './ProductionTrend';
+import ProductionRecommendation from './ProductionRecommendation';
 import Table from '../../global-components/Table/Table';
 import {
   IconChecklist,
   IconClock,
   IconAlertTriangle,
   IconReportAnalytics,
-  IconCalendarEvent
+  IconCalendarEvent,
+  IconHistory,
+  IconChartBar,
+  IconBulb
 } from '@tabler/icons-react';
 import './ProductionPlanning.css';
 
@@ -150,7 +157,7 @@ const ProductionPlanning = () => {
     { header: 'Available Stock', key: 'TotalAvailable', render: (r) => <span className="tabular-nums">{fmt(r.TotalAvailable)}</span> },
     { 
       header: 'Shortage', key: 'ShortageQty', render: (r) => 
-        <span className="status-badge critical tabular-nums">{fmt(r.ShortageQty)}</span>
+      <span className="status-badge critical tabular-nums">{fmt(r.ShortageQty)}</span>
     },
   ];
 
@@ -268,7 +275,25 @@ const ProductionPlanning = () => {
           className={`planning-tab ${activeTab === 'expiry' ? 'active' : ''}`}
           onClick={() => setActiveTab('expiry')}
         >
-          <IconClock size={18} /> Batch Expiry (FEFO)
+          <IconClock size={18} /> Batch Expiry
+        </button>
+        <button
+          className={`planning-tab ${activeTab === 'history' ? 'active' : ''}`}
+          onClick={() => setActiveTab('history')}
+        >
+          <IconHistory size={18} /> Production History
+        </button>
+        <button
+          className={`planning-tab ${activeTab === 'trend' ? 'active' : ''}`}
+          onClick={() => setActiveTab('trend')}
+        >
+          <IconChartBar size={18} /> Trend
+        </button>
+        <button
+          className={`planning-tab ${activeTab === 'recommendation' ? 'active' : ''}`}
+          onClick={() => setActiveTab('recommendation')}
+        >
+          <IconBulb size={18} /> Planner
         </button>
       </div>
 
@@ -325,6 +350,10 @@ const ProductionPlanning = () => {
             />
           </div>
         )}
+
+        {activeTab === 'history' && <ProductionHistory />}
+        {activeTab === 'trend' && <ProductionTrend />}
+        {activeTab === 'recommendation' && <ProductionRecommendation />}
       </div>
     </div>
   );
