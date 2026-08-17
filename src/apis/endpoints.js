@@ -42,5 +42,8 @@ export const API_ENDPOINTS = {
     KPIS: '/production-planning/kpis',
     SHORTAGES: '/production-planning/shortages',
     BATCH_EXPIRY: '/production-planning/batch-expiry',
+    HISTORY: '/production-planning/history',
+    TREND: '/production-planning/trend',
+    RECOMMENDATIONS: '/production-planning/recommendations',
   }
 };
