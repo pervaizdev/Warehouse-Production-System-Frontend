@@ -20,7 +20,6 @@ const MenuBar = ({ onLogout, onNavigate, user }) => {
     { title: 'Customers', path: '/customers' },
     { title: 'Inventory', path: '/inventory' },
     { title: 'Machine Efficiency', path: '/machine-efficiency' },
-    //{ title: 'Orders', path: '/orders' },
     { title: 'Production Planning', path: '/production-planning' },
     { title: 'Production Trend', path: '/production-trend' },
     { title: 'Storage', path: '/storage' },
