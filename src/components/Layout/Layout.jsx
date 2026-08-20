@@ -21,6 +21,7 @@ const Layout = () => {
     "/delivery": "Delivery",
     "/storage": "Storage",
     "/cost-analysis": "Cost Analysis",
+    "/production-planning": "Production Planning",
     "/settings": "Settings",
   };
 

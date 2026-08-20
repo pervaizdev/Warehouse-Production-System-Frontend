@@ -7,6 +7,7 @@ import ProductionHistory from './ProductionHistory';
 import ProductionTrend from './ProductionTrend';
 import ProductionRecommendation from './ProductionRecommendation';
 import Table from '../../global-components/Table/Table';
+import Tabs from '../../global-components/Tabs/Tabs';
 import {
   IconChecklist,
   IconClock,
@@ -182,10 +183,6 @@ const ProductionPlanning = () => {
 
   return (
     <div className="production-planning-page fade-in-up">
-      <div className="planning-header">
-        <h1>Production Planning Command Center</h1>
-        <p>Monitor daily execution, delays, and critical risks in real-time.</p>
-      </div>
       
       {/* Filters Bar */}
       <div className="planning-filters">
@@ -259,42 +256,18 @@ const ProductionPlanning = () => {
       )}
 
       <div className="planning-tabs">
-        <button
-          className={`planning-tab ${activeTab === 'orders' ? 'active' : ''}`}
-          onClick={() => setActiveTab('orders')}
-        >
-          <IconCalendarEvent size={18} /> Daily Execution
-        </button>
-        <button
-          className={`planning-tab ${activeTab === 'shortages' ? 'active' : ''}`}
-          onClick={() => setActiveTab('shortages')}
-        >
-          <IconAlertTriangle size={18} /> Material Shortages
-        </button>
-        <button
-          className={`planning-tab ${activeTab === 'expiry' ? 'active' : ''}`}
-          onClick={() => setActiveTab('expiry')}
-        >
-          <IconClock size={18} /> Batch Expiry
-        </button>
-        <button
-          className={`planning-tab ${activeTab === 'history' ? 'active' : ''}`}
-          onClick={() => setActiveTab('history')}
-        >
-          <IconHistory size={18} /> Production History
-        </button>
-        <button
-          className={`planning-tab ${activeTab === 'trend' ? 'active' : ''}`}
-          onClick={() => setActiveTab('trend')}
-        >
-          <IconChartBar size={18} /> Trend
-        </button>
-        <button
-          className={`planning-tab ${activeTab === 'recommendation' ? 'active' : ''}`}
-          onClick={() => setActiveTab('recommendation')}
-        >
-          <IconBulb size={18} /> Planner
-        </button>
+        <Tabs
+          tabs={[
+            { key: 'orders', label: 'Daily Execution', icon: <IconCalendarEvent size={18} /> },
+            { key: 'shortages', label: 'Material Shortages', icon: <IconAlertTriangle size={18} /> },
+            { key: 'expiry', label: 'Batch Expiry', icon: <IconClock size={18} /> },
+            { key: 'history', label: 'Production History', icon: <IconHistory size={18} /> },
+            { key: 'trend', label: 'Trend', icon: <IconChartBar size={18} /> },
+            { key: 'recommendation', label: 'Planner', icon: <IconBulb size={18} /> }
+          ]}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
       </div>
 
       <div className="planning-content fade-in-up delay-100">

@@ -12,21 +12,10 @@ import {
   IconClipboardList,
   IconClock,
 } from "@tabler/icons-react";
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
+import LineChart from "../../global-components/Charts/LineChart";
+import PieChart from "../../global-components/Charts/PieChart";
+import BarChart from "../../global-components/Charts/BarChart";
+import StatCard from "../../global-components/StatCard/StatCard";
 import { axiosInstance } from "../../apis/axiosinstance";
 import { API_ENDPOINTS } from "../../apis/endpoints";
 import Pagination from "../../global-components/Pagination/Pagination";
@@ -65,7 +54,7 @@ export default function Dashboard() {
 
   // Filtered Orders State
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const [orderVolume, setOrderVolume] = useState({ ReleasedCount: 0, ClosedCount: 0, CancelledCount: 0, PlannedCount: 0, DelayedCount: 0 });
+  const [orderVolume, setOrderVolume] = useState({ ReleasedCount: 0, CompletedCount: 0, CancelledCount: 0, PlannedCount: 0, DelayedCount: 0 });
   const [filteredOrdersLoading, setFilteredOrdersLoading] = useState(false);
   const [orderStatusFilter, setOrderStatusFilter] = useState('All');
   const [tableDateFilter, setTableDateFilter] = useState('today');
@@ -148,17 +137,17 @@ export default function Dashboard() {
   const fetchFilteredOrders = useCallback(async () => {
     setFilteredOrdersLoading(true);
     try {
-      const params = { 
-        status: orderStatusFilter, 
+      const params = {
+        status: orderStatusFilter,
         tableDateFilter: tableDateFilter,
         volumeDateFilter: volumeDateFilter
       };
       if (filters.warehouse) params.warehouse = filters.warehouse;
-      
+
       const res = await axiosInstance.get(API_ENDPOINTS.DASHBOARD.OVERVIEW + '/filtered-orders', { params });
       if (res.data?.success) {
         setFilteredOrders(res.data.data.orders || []);
-        setOrderVolume(res.data.data.volume || { ReleasedCount: 0, ClosedCount: 0, CancelledCount: 0, PlannedCount: 0, DelayedCount: 0 });
+        setOrderVolume(res.data.data.volume || { ReleasedCount: 0, CompletedCount: 0, CancelledCount: 0, PlannedCount: 0, DelayedCount: 0 });
       }
     } catch (err) {
       console.error("Error fetching filtered orders:", err);
@@ -241,110 +230,44 @@ export default function Dashboard() {
 
   return (
     <div className="executive-dashboard">
-      <div className="dashboard-header fade-in-up">
-        <h1>Executive Dashboard</h1>
-
-        <div className="dashboard-filters-bar">
-          <select
-            name="warehouse"
-            value={filters.warehouse}
-            onChange={handleFilterChange}
-          >
-            <option value="">All Warehouses</option>
-            {warehouses.map((w) => (
-              <option key={w.WhsCode} value={w.WhsCode}>
-                {w.WhsName} ({w.WhsCode})
-              </option>
-            ))}
-          </select>
-
-          <button className="btn-refresh" onClick={handleRefresh}>
-            <IconRefresh size={18} /> Refresh
-          </button>
-        </div>
-      </div>
 
       {/* Row 1: KPIs */}
-      <div className="dashboard-kpi-grid fade-in-up delay-100">
-        <div className="dashboard-card">
-          <div className="dashboard-card-content">
-            <div className="kpi-stat-container">
-              <div className="kpi-icon-wrapper blue">
-                <IconClipboardList size={28} />
-              </div>
-              <div className="health-stat">
-                <span className="label">Total Orders</span>
-                <span className="value">
-                  {executiveKPIs.totalOrders}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="dashboard-card">
-          <div className="dashboard-card-content">
-            <div className="kpi-stat-container">
-              <div className="kpi-icon-wrapper green">
-                <IconCheck size={28} />
-              </div>
-              <div className="health-stat">
-                <span className="label">In Progress Orders</span>
-                <span className="value">
-                  {executiveKPIs.activeOrders}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="dashboard-card">
-          <div className="dashboard-card-content">
-            <div className="kpi-stat-container">
-              <div className="kpi-icon-wrapper orange">
-                <IconAlertCircle size={28} />
-              </div>
-              <div className="health-stat">
-                <span className="label">Cancelled Orders</span>
-                <span className="value">
-                  {executiveKPIs.cancelledOrders || 0}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="dashboard-card">
-          <div className="dashboard-card-content">
-            <div className="kpi-stat-container">
-              <div className="kpi-icon-wrapper red">
-                <IconAlertTriangle size={28} />
-              </div>
-              <div className="health-stat">
-                <span className="label">Delayed Orders</span>
-                <span className="value">
-                  {executiveKPIs.delayedOrders || 0}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="dashboard-card">
-          <div className="dashboard-card-content">
-            <div className="kpi-stat-container">
-              <div className="kpi-icon-wrapper blue">
-                <IconCheck size={28} />
-              </div>
-              <div className="health-stat">
-                <span className="label">Closed Orders</span>
-                <span className="value">
-                  {executiveKPIs.closedOrders || 0}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="stat-card-grid fade-in-up delay-100">
+        <StatCard
+          title="Total Orders"
+          value={executiveKPIs.totalOrders}
+          color="blue"
+          icon={IconClipboardList}
+          subtext="Total created orders"
+        />
+        <StatCard
+          title="In Progress Orders"
+          value={executiveKPIs.activeOrders}
+          color="emerald"
+          icon={IconCheck}
+          subtext="Orders in production"
+        />
+        <StatCard
+          title="Cancelled Orders"
+          value={executiveKPIs.cancelledOrders || 0}
+          color="amber"
+          icon={IconAlertCircle}
+          subtext="Cancelled production orders"
+        />
+        <StatCard
+          title="Delayed Orders"
+          value={executiveKPIs.delayedOrders || 0}
+          color="rose"
+          icon={IconAlertTriangle}
+          subtext="Orders behind schedule"
+        />
+        <StatCard
+          title="Completed Orders"
+          value={executiveKPIs.CompletedOrders || 0}
+          color="purple"
+          icon={IconCheck}
+          subtext="Completed/Completed orders"
+        />
       </div>
 
       {/* Row 2: Production Trend */}
@@ -359,83 +282,25 @@ export default function Dashboard() {
             </div>
             <div className="dashboard-card-content">
               <div className="chart-container">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    data={productionPerformance}
-                    margin={{ top: 20, right: 30, left: 10, bottom: 20 }}
-                  >
-                    <CartesianGrid
-                      strokeDasharray="3 3"
-                      vertical={false}
-                      stroke="#e2e8f0"
-                    />
-                    <XAxis
-                      dataKey="Month"
-                      tickFormatter={(val) => {
-                        const months = [
-                          "Jan",
-                          "Feb",
-                          "Mar",
-                          "Apr",
-                          "May",
-                          "Jun",
-                          "Jul",
-                          "Aug",
-                          "Sep",
-                          "Oct",
-                          "Nov",
-                          "Dec",
-                        ];
-                        return months[val - 1] || val;
-                      }}
-                      tick={{ fill: "#64748b", fontSize: 12 }}
-                      axisLine={false}
-                      tickLine={false}
-                      dy={10}
-                    />
-                    <YAxis
-                      yAxisId="left"
-                      tick={{ fill: "#64748b", fontSize: 12 }}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <YAxis
-                      yAxisId="right"
-                      orientation="right"
-                      tick={{ fill: "#64748b", fontSize: 12 }}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        borderRadius: "8px",
-                        border: "none",
-                        boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
-                      }}
-                    />
-                    <Legend wrapperStyle={{ paddingTop: "20px" }} />
-                    <Line
-                      yAxisId="left"
-                      type="monotone"
-                      dataKey="PlannedQty"
-                      stroke="#3b82f6"
-                      name="Planned Qty"
-                      strokeWidth={3}
-                      dot={{ r: 4, strokeWidth: 2 }}
-                      activeDot={{ r: 6 }}
-                    />
-                    <Line
-                      yAxisId="right"
-                      type="monotone"
-                      dataKey="OrderCount"
-                      stroke="#10b981"
-                      name="Orders Count"
-                      strokeWidth={3}
-                      dot={{ r: 4, strokeWidth: 2 }}
-                      activeDot={{ r: 6 }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+                  <BarChart
+                    data={productionPerformance?.map((item) => {
+                      const months = [
+                        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                      ];
+                      return {
+                        ...item,
+                        MonthName: months[item.Month - 1] || item.Month
+                      };
+                    })}
+                    xAxisKey="MonthName"
+                    series={[
+                      { key: "PlannedQty", name: "Planned Qty", color: "#3b82f6", yAxisId: "left" },
+                      { key: "OrderCount", name: "Orders Count", color: "#10b981", yAxisId: "right" }
+                    ]}
+                    showLegend={true}
+                    secondaryYAxis={true}
+                  />
               </div>
             </div>
           </div>
@@ -450,7 +315,7 @@ export default function Dashboard() {
             </div>
             <div className="dashboard-card-content no-padding">
               {alerts && alerts.length > 0 ? (
-                <div className="alert-list" style={{ padding: "1rem" }}>
+                <div className="alert-list alert-list-padding">
                   {alerts.map((alert) => (
                     <div key={alert.id} className={`alert-item ${alert.type}`}>
                       <div className={`alert-icon ${alert.type}`}>
@@ -505,7 +370,7 @@ export default function Dashboard() {
                           <td>
                             <strong>{item.ComponentCode}</strong>
                             <div
-                              style={{ fontSize: "0.75rem", color: "#64748b" }}
+                              className="alert-time"
                             >
                               {item.ComponentName}
                             </div>
@@ -527,7 +392,7 @@ export default function Dashboard() {
                       <tr>
                         <td
                           colSpan="4"
-                          style={{ textAlign: "center", padding: "2rem" }}
+                          className="table-empty-cell"
                         >
                           No critical shortages
                         </td>
@@ -549,8 +414,7 @@ export default function Dashboard() {
             </div>
             <div className="dashboard-card-content no-padding">
               <div
-                className="compact-table-wrapper"
-                style={{ maxHeight: "300px", overflowY: "auto" }}
+                className="compact-table-wrapper alert-scroll-container"
               >
                 <table className="compact-table">
                   <thead>
@@ -581,7 +445,7 @@ export default function Dashboard() {
                               <span
                                 className={`status-badge ${order.Status === "R" ? "warning" : "default"}`}
                               >
-                                {order.Status === "R" ? "Released" : "Planned"}
+                                {order.Status === "R" ? "Work In Progress" : "Planned"}
                               </span>
                             </td>
                             <td className="text-right">
@@ -591,33 +455,14 @@ export default function Dashboard() {
                               / {order.PlannedQty?.toLocaleString()}
                             </td>
                             <td className="text-right">
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "flex-end",
-                                  gap: "8px",
-                                }}
-                              >
-                                <span style={{ fontSize: "0.8rem" }}>
+                              <div className="progress-bar-cell-container">
+                                <span className="progress-bar-text">
                                   {progress.toFixed(0)}%
                                 </span>
-                                <div
-                                  style={{
-                                    width: "40px",
-                                    height: "6px",
-                                    background: "#e2e8f0",
-                                    borderRadius: "3px",
-                                    overflow: "hidden",
-                                  }}
-                                >
+                                <div className="progress-bar-track">
                                   <div
-                                    style={{
-                                      height: "100%",
-                                      width: `${Math.min(progress, 100)}%`,
-                                      background:
-                                        progress < 100 ? "#3b82f6" : "#10b981",
-                                    }}
+                                    className={`progress-bar-fill ${progress < 100 ? "incomplete" : "complete"}`}
+                                    style={{ width: `${Math.min(progress, 100)}%` }}
                                   />
                                 </div>
                               </div>
@@ -629,7 +474,7 @@ export default function Dashboard() {
                       <tr>
                         <td
                           colSpan="5"
-                          style={{ textAlign: "center", padding: "2rem" }}
+                          className="table-empty-cell"
                         >
                           No open orders
                         </td>
@@ -647,26 +492,26 @@ export default function Dashboard() {
       <div className="dashboard-row fade-in-up delay-300">
         <div className="dashboard-col-2-3">
           <div className="dashboard-card">
-            <div className="dashboard-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-              <h3 style={{ margin: 0 }}>
+            <div className="dashboard-card-header header-spaced">
+              <h3 className="no-margin">
                 <IconClipboardList size={20} /> Production Orders
               </h3>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <select 
-                  value={orderStatusFilter} 
+              <div className="flex-gap-8">
+                <select
+                  value={orderStatusFilter}
                   onChange={(e) => setOrderStatusFilter(e.target.value)}
-                  style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #e2e8f0', backgroundColor: '#f8fafc' }}
+                  className="select-filter-compact"
                 >
                   <option value="All">All Statuses</option>
                   <option value="R">Work In Progress</option>
-                  <option value="L">Complete</option>
+                  <option value="L">Completed</option>
                   <option value="C">Cancelled</option>
                   <option value="Delayed">Delayed</option>
                 </select>
-                <select 
-                  value={tableDateFilter} 
+                <select
+                  value={tableDateFilter}
                   onChange={(e) => setTableDateFilter(e.target.value)}
-                  style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #e2e8f0', backgroundColor: '#f8fafc' }}
+                  className="select-filter-compact"
                 >
                   <option value="today">Today</option>
                   <option value="weekly">Weekly</option>
@@ -676,7 +521,7 @@ export default function Dashboard() {
               </div>
             </div>
             <div className="dashboard-card-content no-padding">
-              <div className="compact-table-wrapper" style={{ maxHeight: '350px', overflowY: 'auto' }}>
+              <div className="compact-table-wrapper scrollable-table-350">
                 <table className="compact-table">
                   <thead>
                     <tr>
@@ -690,7 +535,7 @@ export default function Dashboard() {
                   <tbody>
                     {filteredOrdersLoading ? (
                       <tr>
-                        <td colSpan="5" style={{ textAlign: "center", padding: "2rem" }}>
+                        <td colSpan="5" className="table-empty-cell">
                           Loading orders...
                         </td>
                       </tr>
@@ -705,20 +550,19 @@ export default function Dashboard() {
                           </td>
                           <td>
                             <span
-                              className={`status-badge ${
-                                order.Status === "L"
+                              className={`status-badge ${order.Status === "L"
                                   ? "success"
                                   : order.Status === "R"
                                     ? "warning"
                                     : order.Status === "C"
                                       ? "critical"
                                       : "default"
-                              }`}
+                                }`}
                             >
                               {order.Status === "L"
-                                ? "Closed"
+                                ? "Completed"
                                 : order.Status === "R"
-                                  ? "Released"
+                                  ? "Work In Progress"
                                   : order.Status === "C"
                                     ? "Cancelled"
                                     : "Planned"}
@@ -730,7 +574,7 @@ export default function Dashboard() {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="5" style={{ textAlign: "center", padding: "2rem" }}>
+                        <td colSpan="5" className="table-empty-cell">
                           No orders found for the selected filters
                         </td>
                       </tr>
@@ -743,100 +587,42 @@ export default function Dashboard() {
         </div>
 
         <div className="dashboard-col-1-3">
-          <div className="dashboard-card" style={{ height: '100%' }}>
-            <div className="dashboard-card-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h3 style={{ margin: 0 }}>
+          <div className="dashboard-card full-height">
+            <div className="dashboard-card-header header-flex-between">
+              <h3 className="no-margin">
                 <IconTrendingUp size={20} /> Order Volume (Created)
               </h3>
-              <select 
-                  value={volumeDateFilter} 
-                  onChange={(e) => setVolumeDateFilter(e.target.value)}
-                  style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #e2e8f0', backgroundColor: '#f8fafc' }}
-                >
-                  <option value="today">Today</option>
-                  <option value="weekly">Weekly</option>
-                  <option value="monthly">Monthly</option>
-                  <option value="yearly">Yearly</option>
-                </select>
+              <select
+                value={volumeDateFilter}
+                onChange={(e) => setVolumeDateFilter(e.target.value)}
+                className="select-filter-compact"
+              >
+                <option value="today">Today</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
             </div>
-            <div className="dashboard-card-content" style={{ display: 'flex', flexDirection: 'column', height: 'calc(100% - 60px)', padding: '1.5rem' }}>
-              
-              {/* Donut Chart */}
-              <div style={{ flex: 1, minHeight: '200px' }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  {(() => {
-                    const total = (orderVolume.ReleasedCount || 0) + 
-                                  (orderVolume.ClosedCount || 0) + 
-                                  (orderVolume.CancelledCount || 0) + 
-                                  (orderVolume.PlannedCount || 0);
-                    
-                    const chartData = total > 0 ? [
-                      { name: 'Released', value: orderVolume.ReleasedCount || 0, fill: '#10b981' },
-                      { name: 'Closed', value: orderVolume.ClosedCount || 0, fill: '#3b82f6' },
-                      { name: 'Cancelled', value: orderVolume.CancelledCount || 0, fill: '#ef4444' },
-                      { name: 'Planned', value: orderVolume.PlannedCount || 0, fill: '#f59e0b' }
-                    ].filter(d => d.value > 0) : [{ name: 'No Data', value: 1, fill: '#e2e8f0' }];
-
-                    return (
-                      <PieChart>
-                        <Pie
-                          data={chartData}
-                          innerRadius={60}
-                          outerRadius={80}
-                          paddingAngle={total > 0 ? 5 : 0}
-                          dataKey="value"
-                          isAnimationActive={total > 0}
-                        >
-                          {chartData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.fill} />
-                          ))}
-                        </Pie>
-                        {total > 0 && <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }} />}
-                      </PieChart>
-                    );
-                  })()}
-                </ResponsiveContainer>
-              </div>
-
-              {/* Legend / Stats List */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '1rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', backgroundColor: '#f8fafc', borderRadius: '6px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
-                    <span style={{ fontSize: '0.9rem', color: '#64748b' }}>Released</span>
-                  </div>
-                  <strong style={{ fontSize: '1.1rem' }}>{orderVolume.ReleasedCount || 0}</strong>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', backgroundColor: '#f8fafc', borderRadius: '6px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#3b82f6' }}></div>
-                    <span style={{ fontSize: '0.9rem', color: '#64748b' }}>Closed</span>
-                  </div>
-                  <strong style={{ fontSize: '1.1rem' }}>{orderVolume.ClosedCount || 0}</strong>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', backgroundColor: '#f8fafc', borderRadius: '6px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#ef4444' }}></div>
-                    <span style={{ fontSize: '0.9rem', color: '#64748b' }}>Cancelled</span>
-                  </div>
-                  <strong style={{ fontSize: '1.1rem' }}>{orderVolume.CancelledCount || 0}</strong>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px', backgroundColor: '#f8fafc', borderRadius: '6px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: '#f59e0b' }}></div>
-                    <span style={{ fontSize: '0.9rem', color: '#64748b' }}>Planned</span>
-                  </div>
-                  <strong style={{ fontSize: '1.1rem' }}>{orderVolume.PlannedCount || 0}</strong>
-                </div>
-              </div>
-
+            <div className="dashboard-card-content donut-card-content">
+              <PieChart
+                data={[
+                  { name: 'Work In Progress', value: orderVolume.ReleasedCount || 0, color: '#10b981' },
+                  { name: 'Completed', value: orderVolume.CompletedCount || 0, color: '#3b82f6' },
+                  { name: 'Cancelled', value: orderVolume.CancelledCount || 0, color: '#ef4444' },
+                  { name: 'Planned', value: orderVolume.PlannedCount || 0, color: '#f59e0b' }
+                ]}
+                dataKey="value"
+                nameKey="name"
+                innerRadius={60}
+                outerRadius={80}
+                showLegend={true}
+                showCenterLabel={true}
+                totalLabel="Total"
+              />
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   );
 }

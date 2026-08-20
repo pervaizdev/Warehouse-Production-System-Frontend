@@ -1,5 +1,5 @@
 .global-loading-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(235, 235, 236, 0.58); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-.global-loading-content { display: flex; align-items: center; gap: 14px; padding: 16px 18px; color: var(--dashboard-text); background: var(--dashboard-surface); border: 1px solid var(--dashboard-border); border-radius: 16px; box-shadow: 0 16px 40px rgba(35, 46, 50, 0.12); }
+.global-loading-content { display: flex; align-items: center; gap: 14px; padding: 16px 18px; color: var(--dashboard-text); background: var(--dashboard-surface); border: 1px solid var(--dashboard-border); border-radius: 16px; }
 .global-loading-text { font-size: 13px; font-weight: 600; }
 .lottie-dots-loader { display: flex; height: 22px; align-items: center; gap: 4px; }
 .lottie-dot { width: 7px; height: 7px; background: var(--dashboard-primary); border-radius: 50%; animation: lottieDot 0.9s infinite ease-in-out; }

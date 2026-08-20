@@ -19,7 +19,6 @@
   background-color: var(--dashboard-surface, #fff);
   border: 1px solid var(--dashboard-border, #e2e4e8);
   border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(35, 46, 50, 0.06);
 }
 
 /* Brand Section (Icon + Name) */
@@ -162,7 +161,6 @@
   background: var(--bg-card, #FFFFFF);
   border: 1px solid var(--border-color, #E2E4E8);
   border-radius: var(--radius-lg, 12px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   width: 320px;
   z-index: 1000;
   animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
