@@ -102,37 +102,7 @@
 
 /* ── Tabs ── */
 .inventory-tabs {
-  display: flex;
-  gap: 6px;
-  padding: 4px;
-  background-color: #F4F5F8;
-  border-radius: 9999px;
-  border: 1px solid var(--border-color, #E2E4E8);
   margin-bottom: 24px;
-  overflow-x: auto;
-  width: fit-content;
-}
-
-.inventory-tab {
-  padding: 8px 18px;
-  border: none;
-  background: transparent;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-secondary, #798089);
-  cursor: pointer;
-  border-radius: 9999px;
-  white-space: nowrap;
-  transition: all var(--transition-fast);
-}
-
-.inventory-tab:hover {
-  color: var(--text-primary, #232E32);
-}
-
-.inventory-tab.active {
-  background-color: var(--primary, #1B47DB);
-  color: #FFFFFF;
 }
 
 /* ── Section Cards ── */

@@ -6,6 +6,8 @@ import Table from '../../global-components/Table/Table';
 import GlobalPopup from '../../global-components/GlobalPopup/GlobalPopup';
 import PieChart from '../../global-components/Charts/PieChart';
 import BarChart from '../../global-components/Charts/BarChart';
+import Tabs from '../../global-components/Tabs/Tabs';
+import Breadcrumb from '../../global-components/Breadcrumb/Breadcrumb';
 import {
   IconBox,
   IconBuildingWarehouse,
@@ -382,12 +384,11 @@ const Inventory = () => {
   ];
 
   // ── Render ─────────────────────────────────────────
+  const activeTabLabel = TABS.find(t => t.key === activeTab)?.label || 'All Stock';
+
   return (
     <div className="inventory-page fade-in-up">
-      {/* Header */}
-      <div className="inventory-header">
-        <h1>Inventory Dashboard</h1>
-      </div>
+
 
       {/* Filters */}
       <div className="inventory-filters">
@@ -514,15 +515,11 @@ const Inventory = () => {
 
       {/* Tabs */}
       <div className="inventory-tabs">
-        {TABS.map((tab) => (
-          <button
-            key={tab.key}
-            className={`inventory-tab ${activeTab === tab.key ? 'active' : ''}`}
-            onClick={() => setActiveTab(tab.key)}
-          >
-            {tab.label}
-          </button>
-        ))}
+        <Tabs
+          tabs={TABS}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
       </div>
 
       {/* ── Tab Content ── */}

@@ -9,12 +9,17 @@ const ProductionHistory = () => {
   const [data, setData] = useState([]);
   const [months, setMonths] = useState(3);
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
   
   useEffect(() => {
     const fetchHistory = async () => {
       try {
         const res = await axiosInstance.get(API_ENDPOINTS.PRODUCTION_PLANNING.HISTORY, { params: { months, search } });
-        if (res.data?.success) setData(res.data.data);
+        if (res.data?.success) {
+          setData(res.data.data);
+          setCurrentPage(1);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -39,6 +44,10 @@ const ProductionHistory = () => {
     { header: 'Open Prod', key: 'OpenProduction', render: r => <span className="tabular-nums">{fmt(r.OpenProduction)}</span> },
   ];
 
+  const totalEntries = data.length;
+  const startIndex = (currentPage - 1) * pageSize;
+  const paginatedData = data.slice(startIndex, startIndex + pageSize);
+
   return (
     <div className="planning-section fade-in-up delay-100">
       <h3>Production vs Delivery History</h3>
@@ -61,10 +70,14 @@ const ProductionHistory = () => {
       </div>
 
       <Table
-        data={data}
+        data={paginatedData}
         columns={columns}
         showPagination={true}
-        pageSize={20}
+        currentPage={currentPage}
+        totalEntries={totalEntries}
+        pageSize={pageSize}
+        onPageChange={setCurrentPage}
+        onItemsPerPageChange={setPageSize}
         showActions={false}
       />
     </div>

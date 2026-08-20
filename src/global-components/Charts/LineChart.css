@@ -38,7 +38,6 @@
   background: var(--dashboard-surface, #ffffff) !important;
   border: 1px solid var(--dashboard-border, #e2e4e8) !important;
   border-radius: 10px !important;
-  box-shadow: 0 10px 24px rgba(35, 46, 50, 0.12) !important;
 }
 
 .line-chart-container .recharts-tooltip-label,
