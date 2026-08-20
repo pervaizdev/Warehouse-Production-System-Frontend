@@ -97,8 +97,8 @@ const DashboardCharts = ({ data }) => {
             xAxisKey="machineCode"
             showLegend
             series={[
-              { key: 'utilization', name: 'Utilization %' },
-              { key: 'efficiency', name: 'Efficiency %' },
+              { key: 'utilization', name: 'Utilization %', color: '#3b82f6' },
+              { key: 'efficiency', name: 'Efficiency %', color: '#10b981' },
             ]}
           />
         </div>
