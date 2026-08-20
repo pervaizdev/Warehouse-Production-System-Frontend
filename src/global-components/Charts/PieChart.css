@@ -10,6 +10,14 @@
   min-height: 240px;
   overflow: hidden;
   box-sizing: border-box;
+  border: none !important;
+  outline: none !important;
+}
+
+.pie-chart-wrapper:focus,
+.pie-chart-wrapper:active,
+.pie-chart-wrapper * {
+  outline: none !important;
 }
 
 .pie-chart-empty {
