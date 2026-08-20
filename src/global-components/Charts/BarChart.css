@@ -6,9 +6,16 @@
   min-height: 260px;
   padding: 16px 18px 14px;
   background: var(--bg-card, #ffffff);
-  border: 1px solid var(--border-color, #e2e4e8);
   border-radius: var(--border-radius-lg, 16px);
   position: relative;
+  border: none !important;
+  outline: none !important;
+}
+
+.bar-chart-container:focus,
+.bar-chart-container:active,
+.bar-chart-container * {
+  outline: none !important;
 }
 
 /* Header Area */

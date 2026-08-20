@@ -93,7 +93,8 @@ const BarChart = ({
   valueSuffix = '',
   formatValue = null,
   height = '100%',
-  className = ''
+  className = '',
+  yAxisWidth = 80
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -143,7 +144,7 @@ const BarChart = ({
             layout={layout}
             margin={
               layout === 'vertical'
-                ? { top: 12, right: 28, left: 80, bottom: 8 }
+                ? { top: 12, right: 28, left: 10, bottom: 8 }
                 : { top: shouldShowLabels ? 24 : 14, right: 16, left: 0, bottom: 12 }
             }
             barCategoryGap="22%"
@@ -192,7 +193,7 @@ const BarChart = ({
                   axisLine={false}
                   tickLine={false}
                   tick={{ fill: 'var(--text-secondary, #798089)', fontSize: 11 }}
-                  width={80}
+                  width={yAxisWidth}
                 />
               </>
             )}

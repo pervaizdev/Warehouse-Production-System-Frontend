@@ -3,7 +3,13 @@ import { productionTrendApi } from '../../apis/auth/production-trend';
 import ProductionTrendFilters from '../../components/ProductionTrend/ProductionTrendFilters';
 import ProductionTrendCharts from '../../components/ProductionTrend/ProductionTrendCharts';
 import ProductionTrendTable from '../../components/ProductionTrend/ProductionTrendTable';
-import { IconBox, IconClipboardList, IconCube, IconAlertTriangle, IconChartBar } from '@tabler/icons-react';
+import { 
+  IconBox, 
+  IconClipboardList,
+  IconClock,
+  IconCheck,
+  IconX
+} from '@tabler/icons-react';
 import StatCard from '../../global-components/StatCard/StatCard';
 import '../../components/ProductionTrend/ProductionTrend.css';
 
@@ -122,43 +128,40 @@ const ProductionTrend = () => {
       {/* KPI Cards */}
       <div className="stat-card-grid fade-in-up delay-100">
         <StatCard
-          title="Total Production"
-          value={formatNumber(summary.totalProduction)}
-          subtext="Total Quantity Received"
-          color="blue"
-          icon={IconBox}
-        />
-        <StatCard
           title="Production Orders"
           value={summary.totalOrders}
           subtext="Unique Work Orders"
           color="purple"
           icon={IconClipboardList}
         />
+
         <StatCard
-          title="Products Produced"
-          value={summary.totalProducts}
-          subtext="Distinct Finished Items"
-          color="emerald"
-          icon={IconCube}
-        />
-        <StatCard
-          title="Rejected Quantity"
-          value={formatNumber(summary.totalRejected)}
-          subtext="Total Scrapped Items"
-          color="rose"
-          icon={IconAlertTriangle}
-        />
-        <StatCard
-          title="Period Growth %"
-          value={
-            <span className={`growth-badge ${parseFloat(summary.growthPercent) >= 0 ? 'positive' : 'negative'}`}>
-              {parseFloat(summary.growthPercent) >= 0 ? `+${summary.growthPercent}%` : `${summary.growthPercent}%`}
-            </span>
-          }
-          subtext="vs Previous Period"
+          title="Pending Orders"
+          value={summary.pendingOrders}
+          subtext="Planned & In Progress"
           color="amber"
-          icon={IconChartBar}
+          icon={IconClock}
+        />
+        <StatCard
+          title="Complete Orders"
+          value={summary.completeOrders}
+          subtext="Finished Orders"
+          color="blue"
+          icon={IconCheck}
+        />
+        <StatCard
+          title="Cancelled Orders"
+          value={summary.cancelledOrders}
+          subtext="Cancelled Work Orders"
+          color="rose"
+          icon={IconX}
+        />
+        <StatCard
+          title="Total Production"
+          value={formatNumber(summary.totalProduction)}
+          subtext="Total Quantity Received"
+          color="indigo"
+          icon={IconBox}
         />
       </div>
 

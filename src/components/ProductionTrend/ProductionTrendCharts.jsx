@@ -26,7 +26,7 @@ const ProductionTrendCharts = ({ productShare, monthlyData, comparisonData, load
           ) : (
             <div className="full-wh">
               <GlobalPieChart 
-                data={topProducts.map(p => ({ name: p.productCode, value: p.totalQty }))} 
+                data={topProducts.map(p => ({ name: p.productName, value: p.totalQty }))} 
                 innerRadius={65} 
                 outerRadius={95} 
               />
@@ -92,9 +92,10 @@ const ProductionTrendCharts = ({ productShare, monthlyData, comparisonData, load
           ) : (
             <GlobalBarChart 
               data={topProducts} 
-              xAxisKey="productCode" 
+              xAxisKey="productName" 
               dataKey="totalQty" 
-              layout="vertical" 
+              layout="vertical"
+              yAxisWidth={200}
             />
           )}
         </div>
