@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { axiosInstance } from '../../apis/axiosinstance';
 import { API_ENDPOINTS } from '../../apis/endpoints';
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
-} from 'recharts';
+import BarChart from '../../global-components/Charts/BarChart';
 
 const ProductionTrend = () => {
   const [data, setData] = useState([]);
@@ -37,19 +35,16 @@ const ProductionTrend = () => {
       </div>
 
       <div style={{ width: '100%', height: 400, marginTop: '20px' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-            <XAxis dataKey="MonthKey" tick={{fill: '#64748b'}} axisLine={false} tickLine={false} />
-            <YAxis tick={{fill: '#64748b'}} axisLine={false} tickLine={false} />
-            <Tooltip 
-              contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
-            />
-            <Legend wrapperStyle={{ paddingTop: '20px' }} />
-            <Bar dataKey="ProducedQty" name="Produced Qty" fill="#4f46e5" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="DeliveredQty" name="Delivered Qty" fill="#10b981" radius={[4, 4, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        <BarChart 
+          data={data}
+          xAxisKey="MonthKey"
+          series={[
+            { key: 'ProducedQty', name: 'Produced Qty', color: '#4f46e5' },
+            { key: 'DeliveredQty', name: 'Delivered Qty', color: '#10b981' }
+          ]}
+          showLegend={true}
+          showValues={false}
+        />
       </div>
     </div>
   );
