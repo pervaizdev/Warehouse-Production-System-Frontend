@@ -45,5 +45,9 @@ export const API_ENDPOINTS = {
     HISTORY: '/production-planning/history',
     TREND: '/production-planning/trend',
     RECOMMENDATIONS: '/production-planning/recommendations',
+  },
+
+  DASHBOARD: {
+    OVERVIEW: '/dashboard'
   }
 };
