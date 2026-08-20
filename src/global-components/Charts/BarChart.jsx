@@ -94,7 +94,8 @@ const BarChart = ({
   formatValue = null,
   height = '100%',
   className = '',
-  secondaryYAxis = false
+  secondaryYAxis = false,
+  yAxisWidth = 80
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -239,7 +240,7 @@ const BarChart = ({
                   animationDuration={800}
                   animationEasing="ease-out"
                 >
-                  {shouldShowLabels && idx === series.length - 1 && (
+                  {shouldShowLabels && (
                     <LabelList
                       dataKey={s.key}
                       position="top"

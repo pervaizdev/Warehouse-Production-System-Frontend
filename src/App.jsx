@@ -39,9 +39,7 @@ function AppContent() {
           <Route path="production-trend" element={<ProductionTrend />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="orders" element={<SimplePlaceholder title="Orders" />} />
-          <Route path="customers" element={<SimplePlaceholder title="Customers" />} />
           <Route path="delivery" element={<SimplePlaceholder title="Delivery" />} />
-          <Route path="storage" element={<SimplePlaceholder title="Storage" />} />
           <Route path="machine-efficiency" element={<MachineEfficiency />} />
           <Route path="cost-analysis" element={<CostAnalysis />} />
           <Route path="production-planning" element={<ProductionPlanning />} />

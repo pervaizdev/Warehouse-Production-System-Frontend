@@ -40,7 +40,6 @@ const DashboardPlaceholder = () => {
       <section className="stats-row" aria-label="Key performance indicators">
         <StatCard title="Total Inventory" value="24,562" trend="+12.5%" isPositive icon={IconBox} />
         <StatCard title="Pending Orders" value="1,245" trend="-2.4%" isPositive={false} icon={IconShoppingCart} />
-        <StatCard title="Storage Capacity" value="86%" trend="+4.1%" isPositive icon={IconBuildingWarehouse} />
         <StatCard title="Delivery Success" value="98.2%" trend="+0.8%" isPositive icon={IconTruckDelivery} />
       </section>
 
