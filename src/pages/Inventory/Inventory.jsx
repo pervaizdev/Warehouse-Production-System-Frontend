@@ -50,10 +50,11 @@ const StatusBadge = ({ status }) => {
 /* ── Tab definitions ── */
 const TABS = [
   { key: 'stock', label: 'All Stock' },
+  { key: 'categories', label: 'Category-Wise' },
   { key: 'warehouses', label: 'Warehouses' },
   { key: 'batches', label: 'Batches & Expiry' },
-  { key: 'movements', label: 'Stock Movements' },
-  { key: 'pipeline', label: 'Demand & Pipeline' },
+  // { key: 'movements', label: 'Stock Movements' },
+  // { key: 'pipeline', label: 'Demand & Pipeline' },
 ];
 
 const Inventory = () => {
@@ -87,6 +88,7 @@ const Inventory = () => {
   const [batchPageSize, setBatchPageSize] = useState(20);
   const [batchTotal, setBatchTotal] = useState(0);
   const [expiryBuckets, setExpiryBuckets] = useState([]);
+  const [expiryBucket, setExpiryBucket] = useState('');
 
   // Movements tab
   const [movementData, setMovementData] = useState([]);
@@ -170,10 +172,10 @@ const Inventory = () => {
 
   const fetchBatches = useCallback(async () => {
     try {
+      const params = { page: batchPage, pageSize: batchPageSize, search };
+      if (expiryBucket) params.expiryBucket = expiryBucket;
       const [bRes, eRes] = await Promise.all([
-        axiosInstance.get(API_ENDPOINTS.INVENTORY.BATCHES, {
-          params: { page: batchPage, pageSize: batchPageSize, search },
-        }),
+        axiosInstance.get(API_ENDPOINTS.INVENTORY.BATCHES, { params }),
         axiosInstance.get(API_ENDPOINTS.INVENTORY.EXPIRY),
       ]);
       if (bRes.data?.success) {
@@ -184,7 +186,7 @@ const Inventory = () => {
     } catch (err) {
       console.error('Batch data error:', err);
     }
-  }, [batchPage, batchPageSize, search]);
+  }, [batchPage, batchPageSize, search, expiryBucket]);
 
   const fetchMovements = useCallback(async () => {
     try {
@@ -272,23 +274,32 @@ const Inventory = () => {
 
   // Reset page when filters change
   useEffect(() => { setStockPage(1); }, [warehouse, itemGroup, category, search, stockStatus]);
+  useEffect(() => { setBatchPage(1); }, [search, expiryBucket]);
 
   // ── Chart data transforms ─────────────────────────
   const warehouseChartData = warehouseData.slice(0, 8).map((w) => ({
     name: w.WhsName || w.WhsCode,
-    value: Math.round(w.InventoryValue || 0),
+    value: Math.round(w.TotalOnHand || 0),
   }));
 
   const itemGroupChartData = itemGroupData.slice(0, 8).map((g) => ({
     name: g.ItemGroup || 'Unknown',
-    value: Math.round(g.InventoryValue || 0),
+    value: Math.round(g.TotalOnHand || 0),
   }));
 
-  const expiryChartData = expiryBuckets.map((b) => ({
-    name: b.Bucket,
-    value: b.BatchCount,
-    color: b.Bucket === 'Expired' ? '#dc2626' : b.Bucket === '0-30 Days' ? '#f59e0b' : b.Bucket === '31-60 Days' ? '#eab308' : '#10b981',
-  }));
+  const bucketOrder = ['0-30 Days', '31-60 Days', '61-90 Days', '91-180 Days', '180+ Days', 'Expired'];
+  
+  const expiryChartData = expiryBuckets
+    .map((b) => ({
+      name: b.Bucket,
+      value: b.BatchCount,
+      color: b.Bucket === 'Expired' ? '#dc2626' : b.Bucket === '0-30 Days' ? '#f59e0b' : b.Bucket === '31-60 Days' ? '#eab308' : '#10b981',
+    }))
+    .sort((a, b) => {
+      const idxA = bucketOrder.indexOf(a.name);
+      const idxB = bucketOrder.indexOf(b.name);
+      return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+    });
 
   // ── Stock Table Columns ────────────────────────────
   const stockColumns = [
@@ -300,8 +311,7 @@ const Inventory = () => {
     { header: 'Committed', key: 'Committed', render: (r) => <span className="text-right tabular-nums">{fmt(r.Committed)}</span> },
     { header: 'On Order', key: 'OnOrder', render: (r) => <span className="text-right tabular-nums">{fmt(r.OnOrder)}</span> },
     { header: 'Available', key: 'Available', render: (r) => <span className="text-right tabular-nums">{fmt(r.Available)}</span> },
-    { header: 'Avg Price', key: 'AvgPrice', render: (r) => <span className="text-right tabular-nums">{fmtPrice(r.AvgPrice)}</span> },
-    { header: 'Value', key: 'InventoryValue', render: (r) => <span className="text-right tabular-nums">{fmtCurrency(r.InventoryValue)}</span> },
+    { header: 'Out of Order', key: 'OutOfOrder', render: (r) => r.OutOfOrder > 0 ? <span className="text-right tabular-nums text-rose-600 font-medium">{fmt(r.OutOfOrder)}</span> : <span className="text-right tabular-nums text-gray-400">-</span> },
     { header: 'Status', key: 'StockStatus', render: (r) => <StatusBadge status={r.StockStatus} /> },
   ];
 
@@ -309,12 +319,10 @@ const Inventory = () => {
   const warehouseColumns = [
     { header: 'Code', key: 'WhsCode' },
     { header: 'Warehouse', key: 'WhsName' },
-    { header: 'SKUs', key: 'TotalSKUs', render: (r) => <span className="tabular-nums">{fmt(r.TotalSKUs)}</span> },
     { header: 'On Hand', key: 'TotalOnHand', render: (r) => <span className="tabular-nums">{fmt(r.TotalOnHand)}</span> },
     { header: 'Committed', key: 'TotalCommitted', render: (r) => <span className="tabular-nums">{fmt(r.TotalCommitted)}</span> },
+    { header: 'On Order', key: 'TotalOnOrder', render: (r) => <span className="tabular-nums">{fmt(r.TotalOnOrder)}</span> },
     { header: 'Available', key: 'TotalAvailable', render: (r) => <span className="tabular-nums">{fmt(r.TotalAvailable)}</span> },
-    { header: 'Value', key: 'InventoryValue', render: (r) => <span className="tabular-nums">{fmtCurrency(r.InventoryValue)}</span> },
-    { header: 'Critical', key: 'CriticalItems', render: (r) => r.CriticalItems > 0 ? <span className="status-badge critical">{r.CriticalItems}</span> : <span>0</span> },
   ];
 
   // ── Batch Table Columns ────────────────────────────
@@ -345,7 +353,6 @@ const Inventory = () => {
     { header: 'Type', key: 'TransTypeName' },
     { header: 'In', key: 'InQty', render: (r) => r.InQty > 0 ? <span className="tabular-nums qty-in-text">+{fmt(r.InQty)}</span> : '—' },
     { header: 'Out', key: 'OutQty', render: (r) => r.OutQty > 0 ? <span className="tabular-nums qty-out-text">-{fmt(r.OutQty)}</span> : '—' },
-    { header: 'Value', key: 'TransValue', render: (r) => <span className="tabular-nums">{fmtCurrency(r.TransValue)}</span> },
     { header: 'Doc #', key: 'DocNumber' },
   ];
 
@@ -356,8 +363,17 @@ const Inventory = () => {
     { header: 'Item', key: 'ItemCode' },
     { header: 'Item Name', key: 'ItemName', render: (r) => <span title={r.ItemName}>{(r.ItemName || '').substring(0, 20)}</span> },
     { header: 'Open Qty', key: 'OpenQty', render: (r) => <span className="tabular-nums">{fmt(r.OpenQty)}</span> },
-    { header: 'Open Value', key: 'OpenValue', render: (r) => <span className="tabular-nums">{fmtCurrency(r.OpenValue)}</span> },
     { header: 'ETA', key: 'ExpectedDelivery', render: (r) => r.ExpectedDelivery ? new Date(r.ExpectedDelivery).toLocaleDateString() : '—' },
+  ];
+
+  // ── Category Table Columns ──────────────────────────
+  const categoryColumns = [
+    { header: 'Category', key: 'Category' },
+    { header: 'On Hand', key: 'OnHand', render: (r) => <span className="tabular-nums">{fmt(r.OnHand)}</span> },
+    { header: 'On Order', key: 'OnOrder', render: (r) => <span className="tabular-nums">{fmt(r.OnOrder)}</span> },
+    { header: 'Committed', key: 'Committed', render: (r) => <span className="tabular-nums">{fmt(r.Committed)}</span> },
+    { header: 'Available', key: 'Available', render: (r) => <span className="tabular-nums">{fmt(r.Available)}</span> },
+    { header: 'Out of Stock', key: 'OutOfStockItems', render: (r) => r.OutOfStockItems > 0 ? <span className="status-badge out-of-stock">{r.OutOfStockItems}</span> : <span>0</span> },
   ];
 
   // ── Commitment Columns ─────────────────────────────
@@ -421,10 +437,19 @@ const Inventory = () => {
           <select value={stockStatus} onChange={(e) => setStockStatus(e.target.value)}>
             <option value="">All Statuses</option>
             <option value="normal">Normal</option>
-            <option value="critical">Critical</option>
             <option value="out">Out of Stock</option>
-            <option value="negative">Negative</option>
             <option value="excess">Excess</option>
+          </select>
+        )}
+        {activeTab === 'batches' && (
+          <select value={expiryBucket} onChange={(e) => setExpiryBucket(e.target.value)}>
+            <option value="">All Expiry Buckets</option>
+            <option value="0-30 Days">0-30 Days</option>
+            <option value="31-60 Days">31-60 Days</option>
+            <option value="61-90 Days">61-90 Days</option>
+            <option value="91-180 Days">91-180 Days</option>
+            <option value="180+ Days">180+ Days</option>
+            <option value="Expired">Expired</option>
           </select>
         )}
       </div>
@@ -432,62 +457,39 @@ const Inventory = () => {
       {/* KPI Cards */}
       {summary && (
         <div className="inventory-kpi-grid fade-in-up">
-          <StatCard
-            title="Inventory Value"
-            value={fmtCurrency(summary.totalInventoryValue)}
-            icon={IconCurrencyDollar}
-            color="primary"
-            subtext={`${fmt(summary.activeSKUs)} active SKUs`}
-          />
-          <StatCard
-            title="On Hand"
-            value={fmt(summary.totalOnHand)}
-            icon={IconPackage}
-            color="blue"
-            subtext={`${fmt(summary.activeWarehouses)} warehouses`}
-          />
-          <StatCard
-            title="Committed"
-            value={fmt(summary.totalCommitted)}
-            icon={IconClipboardList}
-            color="amber"
-            subtext="Allocated to orders"
-          />
-          <StatCard
-            title="On Order"
-            value={fmt(summary.totalOnOrder)}
-            icon={IconTruckDelivery}
-            color="emerald"
-            subtext="Incoming from POs"
-          />
-          <StatCard
-            title="Out of Stock"
-            value={fmt(summary.outOfStockItems)}
-            icon={IconAlertCircle}
-            color="rose"
-            subtext={`${fmt(summary.negativeStockItems)} negative`}
-          />
-          <StatCard
-            title="Expired Batches"
-            value={fmt(summary.expiredBatches)}
-            icon={IconClock}
-            color="purple"
-            subtext={`${fmt(summary.nearExpiryBatches)} near expiry`}
-          />
+          {/* <StatCard title="Total Items" value={fmt(summary.activeSKUs)} icon={IconBox} color="indigo" subtext="active SKUs" /> */}
+          <StatCard title="Total Categories" value={fmt(summary.categoryWise?.length || 0)} icon={IconClipboardList} color="teal" subtext="unique categories" />
+          <StatCard title="On Hand" value={fmt(summary.totalOnHand)} icon={IconPackage} color="blue" subtext={`${fmt(summary.activeWarehouses)} warehouses`} />
+          <StatCard title="On Order" value={fmt(summary.totalOnOrder)} icon={IconTruckDelivery} color="emerald" subtext="Incoming from POs" />
+          <StatCard title="Out of Stock" value={fmt(summary.outOfStockItems)} icon={IconAlertCircle} color="rose" subtext={`${fmt(summary.negativeStockItems)} negative`} />
+          <StatCard title="Expired Batches" value={fmt(summary.expiredBatches)} icon={IconClock} color="purple" subtext={`${fmt(summary.nearExpiryBatches)} near expiry`} />
         </div>
       )}
+
+
+
+      {/* Tabs */}
+      <div className="inventory-tabs">
+        <Tabs
+          tabs={TABS}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
+      </div>
+
+      {/* ── Tab Content ── */}
 
       {/* Charts (warehouse + item group) */}
       {activeTab === 'warehouses' && warehouseChartData.length > 0 && (
         <div className="inventory-charts-grid fade-in-up delay-100">
           <div className="inventory-chart-card">
-            <h3>Inventory Value by Warehouse</h3>
+            <h3>Stock On Hand by Warehouse</h3>
             <div className="chart-wrapper">
               <PieChart data={warehouseChartData} />
             </div>
           </div>
           <div className="inventory-chart-card">
-            <h3>Inventory Value by Item Group</h3>
+            <h3>Stock On Hand by Item Group</h3>
             <div className="chart-wrapper">
               <BarChart data={itemGroupChartData} layout="vertical" />
             </div>
@@ -513,17 +515,6 @@ const Inventory = () => {
         </div>
       )}
 
-      {/* Tabs */}
-      <div className="inventory-tabs">
-        <Tabs
-          tabs={TABS}
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
-        />
-      </div>
-
-      {/* ── Tab Content ── */}
-
       {/* All Stock */}
       {activeTab === 'stock' && (
         <div className="inventory-section fade-in-up">
@@ -538,6 +529,20 @@ const Inventory = () => {
             onPageChange={setStockPage}
             onItemsPerPageChange={(size) => { setStockPageSize(size); setStockPage(1); }}
             onRowClick={(row) => fetchItemDetail(row.ItemCode)}
+          />
+        </div>
+      )}
+
+      {/* Categories */}
+      {activeTab === 'categories' && summary && summary.categoryWise && (
+        <div className="inventory-section fade-in-up">
+          <h3>Category-Wise Inventory</h3>
+          <Table
+            data={summary.categoryWise}
+            columns={categoryColumns}
+            totalEntries={summary.categoryWise.length}
+            showActions={false}
+            showPagination={false}
           />
         </div>
       )}
@@ -660,8 +665,6 @@ const Inventory = () => {
                   <div className="item-detail-metric"><span className="metric-label">Committed</span><span className="metric-value">{fmt(itemDetail.overview?.Committed)}</span></div>
                   <div className="item-detail-metric"><span className="metric-label">On Order</span><span className="metric-value">{fmt(itemDetail.overview?.OnOrder)}</span></div>
                   <div className="item-detail-metric"><span className="metric-label">Available</span><span className="metric-value">{fmt(itemDetail.overview?.Available)}</span></div>
-                  <div className="item-detail-metric"><span className="metric-label">Avg Price</span><span className="metric-value">{fmtPrice(itemDetail.overview?.AvgPrice)}</span></div>
-                  <div className="item-detail-metric"><span className="metric-label">Inv. Value</span><span className="metric-value">{fmtCurrency(itemDetail.overview?.InventoryValue)}</span></div>
                 </div>
 
                 {/* Warehouse Breakdown */}
@@ -675,7 +678,6 @@ const Inventory = () => {
                         { header: 'On Hand', key: 'OnHand', render: (r) => <span className="tabular-nums">{fmt(r.OnHand)}</span> },
                         { header: 'Committed', key: 'Committed', render: (r) => <span className="tabular-nums">{fmt(r.Committed)}</span> },
                         { header: 'Available', key: 'Available', render: (r) => <span className="tabular-nums">{fmt(r.Available)}</span> },
-                        { header: 'Value', key: 'Value', render: (r) => <span className="tabular-nums">{fmtCurrency(r.Value)}</span> },
                       ]}
                       totalEntries={itemDetail.warehouses.length}
                       showActions={false}

@@ -94,7 +94,8 @@ const BarChart = ({
   formatValue = null,
   height = '100%',
   className = '',
-  secondaryYAxis = false
+  secondaryYAxis = false,
+  yAxisWidth = 80
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
