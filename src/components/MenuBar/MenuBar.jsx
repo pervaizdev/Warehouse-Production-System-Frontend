@@ -17,12 +17,10 @@ const MenuBar = ({ onLogout, onNavigate, user }) => {
     { title: 'Dashboard', path: '/dashboard' },
     //{ title: 'Analytics', path: '/analytics' },
     { title: 'Cost Analysis', path: '/cost-analysis' },
-    { title: 'Customers', path: '/customers' },
     { title: 'Inventory', path: '/inventory' },
     { title: 'Machine Efficiency', path: '/machine-efficiency' },
     { title: 'Production Planning', path: '/production-planning' },
     { title: 'Production Trend', path: '/production-trend' },
-    { title: 'Storage', path: '/storage' },
   ];
 
   const firstName = user?.FirstName || "";
