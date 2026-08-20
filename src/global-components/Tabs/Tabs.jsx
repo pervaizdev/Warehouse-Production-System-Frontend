@@ -1,6 +1,6 @@
 import './Tabs.css';
 
-const DomeTabs = ({
+const Tabs = ({
   tabs = [],
   activeTab,
   onTabChange,
@@ -36,4 +36,4 @@ const DomeTabs = ({
   );
 };
 
-export default DomeTabs;
+export default Tabs;

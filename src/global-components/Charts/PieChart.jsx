@@ -222,9 +222,13 @@ const PieChart = ({
                 >
                   <div className="pie-legend-badge-wrapper">
                     <span 
-                      className={`pie-legend-badge pie-legend-color-${index % DEFAULT_COLORS.length}`}
+                      className="pie-legend-badge"
+                      style={{ backgroundColor: `${entry.color}1c` }}
                     >
-                      <span className="pie-legend-badge-dot" />
+                      <span 
+                        className="pie-legend-badge-dot" 
+                        style={{ backgroundColor: entry.color }}
+                      />
                     </span>
                   </div>
 

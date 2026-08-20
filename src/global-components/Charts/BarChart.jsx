@@ -93,7 +93,8 @@ const BarChart = ({
   valueSuffix = '',
   formatValue = null,
   height = '100%',
-  className = ''
+  className = '',
+  secondaryYAxis = false
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -166,6 +167,7 @@ const BarChart = ({
                   dy={10}
                 />
                 <YAxis
+                  yAxisId="left"
                   axisLine={false}
                   tickLine={false}
                   tick={{ fill: 'var(--text-secondary, #798089)', fontSize: 11, fontWeight: 400 }}
@@ -174,6 +176,19 @@ const BarChart = ({
                   }
                   width={38}
                 />
+                {secondaryYAxis && (
+                  <YAxis
+                    yAxisId="right"
+                    orientation="right"
+                    axisLine={false}
+                    tickLine={false}
+                    tick={{ fill: 'var(--text-secondary, #798089)', fontSize: 11, fontWeight: 400 }}
+                    tickFormatter={(v) =>
+                      typeof v === 'number' && v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v
+                    }
+                    width={38}
+                  />
+                )}
               </>
             ) : (
               <>
@@ -217,6 +232,7 @@ const BarChart = ({
                   dataKey={s.key}
                   name={s.name}
                   fill={s.color || barColor}
+                  yAxisId={s.yAxisId || (secondaryYAxis ? 'left' : undefined)}
                   radius={layout === 'vertical' ? [0, barRadius, barRadius, 0] : [barRadius, barRadius, 0, 0]}
                   barSize={barSize}
                   maxBarSize={maxBarSize}
