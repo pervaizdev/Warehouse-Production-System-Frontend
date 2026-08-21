@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from './endpoints';
 
 // Create the Axios instance
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true, // Important: This allows sending and receiving HttpOnly cookies (like the refresh token)
   headers: {
     'Content-Type': 'application/json',

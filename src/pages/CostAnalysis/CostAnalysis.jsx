@@ -57,9 +57,9 @@ const CostAnalysis = () => {
     setLoading(true);
     try {
       const [summaryRes, trendRes, ordersRes] = await Promise.all([
-        axios.get('http://localhost:3001/api/cost-analysis/summary'),
-        axios.get('http://localhost:3001/api/cost-analysis/trend'),
-        axios.get('http://localhost:3001/api/cost-analysis/orders')
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/cost-analysis/summary`),
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/cost-analysis/trend`),
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/cost-analysis/orders`)
       ]);
 
       if (summaryRes.data?.success) setSummary(summaryRes.data.data);
@@ -76,7 +76,7 @@ const CostAnalysis = () => {
     setIsModalVisible(true);
     setMaterialsLoading(true);
     try {
-      const res = await axios.get(`http://localhost:3001/api/cost-analysis/orders/${record.DocEntry}/materials`);
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/cost-analysis/orders/${record.DocEntry}/materials`);
       if (res.data?.success) {
         setMaterials(res.data.data);
       }
