@@ -49,5 +49,15 @@ export const API_ENDPOINTS = {
 
   DASHBOARD: {
     OVERVIEW: '/dashboard'
+  },
+
+  PRODUCTION_ORDERS: {
+    PRODUCTS: '/production-orders/products',
+    WAREHOUSES: '/production-orders/warehouses',
+    SALES_ORDERS: '/production-orders/sales-orders',
+    OPEN_PRODUCTION_ORDERS: '/production-orders/open',
+    CUSTOMERS: '/production-orders/customers',
+    DETAILS: (itemCode) => `/production-orders/${encodeURIComponent(itemCode)}`,
+    BOM_DETAILS: (itemCode) => `/production-orders/bom/${encodeURIComponent(itemCode)}`,
   }
 };

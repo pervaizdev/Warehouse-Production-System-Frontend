@@ -1,0 +1,99 @@
+.so-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.so-modal-content {
+  background-color: #fff;
+  border-radius: 4px;
+  width: 700px;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.so-modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 4px 4px 0 0;
+}
+
+.so-modal-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.so-modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #666;
+}
+
+.so-modal-close:hover {
+  color: #000;
+}
+
+.so-modal-body {
+  padding: 16px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.so-search-input {
+  width: 100%;
+  padding: 6px 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: 12px;
+}
+
+.so-table-container {
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
+
+.so-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.so-table th, .so-table td {
+  padding: 6px 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.so-table th {
+  background-color: #f0f0f0;
+  position: sticky;
+  top: 0;
+}
+
+.so-table-row {
+  cursor: pointer;
+}
+
+.so-table-row:hover {
+  background-color: #fff9c4;
+}

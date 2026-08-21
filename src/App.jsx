@@ -10,6 +10,7 @@ import ProductionTrend from './pages/ProductionTrend/ProductionTrend.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
 import Inventory from './pages/Inventory/Inventory.jsx';
 import ProductionPlanning from './pages/ProductionPlanning/ProductionPlanning.jsx';
+import ProductionOrders from './pages/ProductionOrders/ProductionOrders.jsx';
 import './App.css'
 
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
@@ -39,6 +40,7 @@ function AppContent() {
           <Route path="production-trend" element={<ProductionTrend />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="orders" element={<SimplePlaceholder title="Orders" />} />
+          <Route path="production-orders" element={<ProductionOrders />} />
           <Route path="delivery" element={<SimplePlaceholder title="Delivery" />} />
           <Route path="machine-efficiency" element={<MachineEfficiency />} />
           <Route path="cost-analysis" element={<CostAnalysis />} />

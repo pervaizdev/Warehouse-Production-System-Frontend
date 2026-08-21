@@ -54,7 +54,7 @@ export default function Dashboard() {
 
   // Filtered Orders State
   const [filteredOrders, setFilteredOrders] = useState([]);
-  const [orderVolume, setOrderVolume] = useState({ ReleasedCount: 0, CompletedCount: 0, CancelledCount: 0, PlannedCount: 0, DelayedCount: 0 });
+  const [orderVolume, setOrderVolume] = useState({ ReleasedCount: 0, ClosedCount: 0, CancelledCount: 0, PlannedCount: 0, DelayedCount: 0 });
   const [filteredOrdersLoading, setFilteredOrdersLoading] = useState(false);
   const [orderStatusFilter, setOrderStatusFilter] = useState('All');
   const [tableDateFilter, setTableDateFilter] = useState('today');
@@ -147,7 +147,7 @@ export default function Dashboard() {
       const res = await axiosInstance.get(API_ENDPOINTS.DASHBOARD.OVERVIEW + '/filtered-orders', { params });
       if (res.data?.success) {
         setFilteredOrders(res.data.data.orders || []);
-        setOrderVolume(res.data.data.volume || { ReleasedCount: 0, CompletedCount: 0, CancelledCount: 0, PlannedCount: 0, DelayedCount: 0 });
+        setOrderVolume(res.data.data.volume || { ReleasedCount: 0, ClosedCount: 0, CancelledCount: 0, PlannedCount: 0, DelayedCount: 0 });
       }
     } catch (err) {
       console.error("Error fetching filtered orders:", err);
@@ -263,7 +263,7 @@ export default function Dashboard() {
         />
         <StatCard
           title="Completed Orders"
-          value={executiveKPIs.CompletedOrders || 0}
+          value={executiveKPIs.closedOrders || 0}
           color="purple"
           icon={IconCheck}
           subtext="Completed/Completed orders"
@@ -443,9 +443,22 @@ export default function Dashboard() {
                             </td>
                             <td>
                               <span
-                                className={`status-badge ${order.Status === "R" ? "warning" : "default"}`}
+                                className={`status-badge ${order.Status === "L"
+                                  ? "success"
+                                  : order.Status === "R"
+                                    ? "warning"
+                                    : order.Status === "C"
+                                      ? "critical"
+                                      : "default"
+                                }`}
                               >
-                                {order.Status === "R" ? "Work In Progress" : "Planned"}
+                                {order.Status === "L"
+                                  ? "Completed"
+                                  : order.Status === "R"
+                                    ? "Work In Progress"
+                                    : order.Status === "C"
+                                      ? "Cancelled"
+                                      : "Planned"}
                               </span>
                             </td>
                             <td className="text-right">
@@ -607,7 +620,7 @@ export default function Dashboard() {
               <PieChart
                 data={[
                   { name: 'Work In Progress', value: orderVolume.ReleasedCount || 0, color: '#10b981' },
-                  { name: 'Completed', value: orderVolume.CompletedCount || 0, color: '#3b82f6' },
+                  { name: 'Completed', value: orderVolume.ClosedCount || 0, color: '#3b82f6' },
                   { name: 'Cancelled', value: orderVolume.CancelledCount || 0, color: '#ef4444' },
                   { name: 'Planned', value: orderVolume.PlannedCount || 0, color: '#f59e0b' }
                 ]}
