@@ -47,7 +47,7 @@ const Login = () => {
 
   return (
     <main className="login-container">
-      <section className="login-card-layout" aria-label="WPS sign in">
+      <section className="login-card-layout" aria-label="PMS sign in">
         <div className="login-form-panel">
           <div className="login-form-brand">
             <BrandLogo size="sm" />
@@ -113,7 +113,7 @@ const Login = () => {
           </form>
 
           <div className="login-footer">
-            <p>© 2026 WPS (Warehouse Production System).</p>
+            <p>© 2026 PMS (Production Management System).</p>
           </div>
         </div>
 

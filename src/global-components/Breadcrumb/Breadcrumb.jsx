@@ -1,7 +1,7 @@
 import { IconChevronRight, IconHome } from '@tabler/icons-react';
 import './Breadcrumb.css';
 
-const Breadcrumb = ({ items = [], homeLabel = 'Workspace', homeHref = '/dashboard' }) => {
+const Breadcrumb = ({ items = [], homeLabel = 'Production Management System', homeHref = '/dashboard' }) => {
   const renderLabel = (item) => {
     const label = <span className="breadcrumb-label">{item.label}</span>;
 
