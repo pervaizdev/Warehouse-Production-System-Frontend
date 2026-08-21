@@ -15,7 +15,6 @@ import './App.css'
 
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import { LoadingProvider } from './context/LoadingContext.jsx';
-
 // Simple placeholder for other routes
 const SimplePlaceholder = () => (
   <></>
