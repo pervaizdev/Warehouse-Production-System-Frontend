@@ -19,7 +19,6 @@ import { LoadingProvider } from './context/LoadingContext.jsx';
 const SimplePlaceholder = () => (
   <></>
 );
-
 function AppContent() {
   const { user } = useAuth();
 
